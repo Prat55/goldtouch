@@ -32,10 +32,10 @@
                             <div class="col-xl-12">
                                 <div class="auth-form">
                                     <div class="text-center mb-3">
-                                        <a href="index.html"><img class="logo-light"
+                                        <a href="/"><img class="logo-light"
                                                 src="{{ asset('user-assets/xhtml/images/logo-full.png') }}"
                                                 alt=""></a>
-                                        <a href="index.html"><img class="logo-dark"
+                                        <a href="/"><img class="logo-dark"
                                                 src="{{ asset('user-assets/xhtml/images/logo-white-full.png') }}"
                                                 alt=""></a>
                                     </div>

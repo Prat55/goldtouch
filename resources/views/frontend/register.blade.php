@@ -33,9 +33,9 @@
                             <div class="col-xl-12">
                                 <div class="auth-form">
                                     <div class="text-center mb-3">
-                                        <a href="index.html"><img class="logo-light" src="images/logo-full.png"
+                                        <a href="/"><img class="logo-light" src="images/logo-full.png"
                                                 alt=""></a>
-                                        <a href="index.html"><img class="logo-dark" src="images/logo-white-full.png"
+                                        <a href="/"><img class="logo-dark" src="images/logo-white-full.png"
                                                 alt=""></a>
                                     </div>
                                     <h4 class="text-center mb-4">Sign up your account</h4>

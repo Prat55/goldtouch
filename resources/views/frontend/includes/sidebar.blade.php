@@ -10,7 +10,7 @@
                     <span class="nav-text">Dashboard</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="index.html">Dashboard Light</a></li>
+                    <li><a href="/">Dashboard Light</a></li>
                     <li><a href="index-2.html">Dashboard Dark</a></li>
                     <li><a href="order-list.html">Order List</a></li>
                     <li><a href="property-details.html">Property Details</a></li>
@@ -26,7 +26,7 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="app-profile.html">Profile</a></li>
-                    <li><a href="post-details.html">Post Details</a></li>
+                    <li><a href="#">Post Details</a></li>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">Email</a>
                         <ul aria-expanded="false">

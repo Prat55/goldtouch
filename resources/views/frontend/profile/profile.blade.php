@@ -2,8 +2,8 @@
 
 @section('content')
     <!--**********************************
-                                Content body start
-                            ***********************************-->
+                                    Content body start
+                                ***********************************-->
     <div class="content-body">
         <div class="container-fluid">
 
@@ -154,7 +154,7 @@
                                     <div class="profile-blog">
                                         <h5 class="text-primary d-inline">Today Highlights</h5>
                                         <img src="images/profile/1.jpg" alt="" class="img-fluid mt-4 mb-4 w-100">
-                                        <h4><a href="post-details.html" class="text-black">Darwin Creative Agency
+                                        <h4><a href="#" class="text-black">Darwin Creative Agency
                                                 Theme</a></h4>
                                         <p class="mb-0">A small river named Duden flows by their place and supplies it
                                             with the necessary regelialia. It is a paradisematic country, in which roasted
@@ -213,8 +213,8 @@
                                             <img src="images/profile/5.jpg" alt="image" class="me-3 rounded"
                                                 width="75">
                                             <div class="media-body">
-                                                <h5 class="m-b-5"><a href="post-details.html"
-                                                        class="text-black">Collection of textile samples</a></h5>
+                                                <h5 class="m-b-5"><a href="#" class="text-black">Collection of
+                                                        textile samples</a></h5>
                                                 <p class="mb-0">I shared this on my fb wall a few months back, and I
                                                     thought.</p>
                                             </div>
@@ -223,8 +223,8 @@
                                             <img src="images/profile/6.jpg" alt="image" class="me-3 rounded"
                                                 width="75">
                                             <div class="media-body">
-                                                <h5 class="m-b-5"><a href="post-details.html"
-                                                        class="text-black">Collection of textile samples</a></h5>
+                                                <h5 class="m-b-5"><a href="#" class="text-black">Collection of
+                                                        textile samples</a></h5>
                                                 <p class="mb-0">I shared this on my fb wall a few months back, and I
                                                     thought.</p>
                                             </div>
@@ -233,8 +233,8 @@
                                             <img src="images/profile/7.jpg" alt="image" class="me-3 rounded"
                                                 width="75">
                                             <div class="media-body">
-                                                <h5 class="m-b-5"><a href="post-details.html"
-                                                        class="text-black">Collection of textile samples</a></h5>
+                                                <h5 class="m-b-5"><a href="#" class="text-black">Collection of
+                                                        textile samples</a></h5>
                                                 <p class="mb-0">I shared this on my fb wall a few months back, and I
                                                     thought.</p>
                                             </div>
@@ -356,7 +356,7 @@
                                                 <div class="profile-uoloaded-post border-bottom-1 pb-5">
                                                     <img src="images/profile/8.jpg" alt=""
                                                         class="img-fluid w-100 rounded">
-                                                    <a class="post-title" href="post-details.html">
+                                                    <a class="post-title" href="#">
                                                         <h3 class="text-black">Collection of textile samples lay spread
                                                         </h3>
                                                     </a>
@@ -373,7 +373,7 @@
                                                 <div class="profile-uoloaded-post border-bottom-1 pb-5">
                                                     <img src="images/profile/9.jpg" alt=""
                                                         class="img-fluid w-100 rounded">
-                                                    <a class="post-title" href="post-details.html">
+                                                    <a class="post-title" href="#">
                                                         <h3 class="text-black">Collection of textile samples lay spread
                                                         </h3>
                                                     </a>
@@ -390,7 +390,7 @@
                                                 <div class="profile-uoloaded-post pb-3">
                                                     <img src="images/profile/8.jpg" alt=""
                                                         class="img-fluid w-100 rounded">
-                                                    <a class="post-title" href="post-details.html">
+                                                    <a class="post-title" href="#">
                                                         <h3 class="text-black">Collection of textile samples lay spread
                                                         </h3>
                                                     </a>
@@ -592,6 +592,6 @@
         </div>
     </div>
     <!--**********************************
-                                Content body end
-                            ***********************************-->
+                                    Content body end
+                                ***********************************-->
 @endsection
