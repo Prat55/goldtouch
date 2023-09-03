@@ -2,15 +2,15 @@
 
 @section('content')
     <!--**********************************
-                                    Content body start
-                                ***********************************-->
+                                                    Content body start
+                                                ***********************************-->
     <div class="content-body">
         <div class="container-fluid">
 
 
             <div class="row page-titles">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">App</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
                     <li class="breadcrumb-item  active"><a href="javascript:void(0)">Profile</a></li>
                 </ol>
             </div>
@@ -29,11 +29,11 @@
                                 </div>
                                 <div class="profile-details">
                                     <div class="profile-name px-3 pt-2">
-                                        <h4 class="text-primary mb-0">Mitchell C. Shay</h4>
-                                        <p>UX / UI Designer</p>
+                                        <h4 class="text-primary mb-0">{{ Auth::guard('web')->user()->name }}</h4>
+                                        <p></p>
                                     </div>
                                     <div class="profile-email px-2 pt-2">
-                                        <h4 class="text-muted mb-0">info@example.com</h4>
+                                        <h4 class="text-muted mb-0">{{ Auth::guard('web')->user()->email }}</h4>
                                         <p>Email</p>
                                     </div>
                                     <div class="dropdown ms-auto">
@@ -592,6 +592,6 @@
         </div>
     </div>
     <!--**********************************
-                                    Content body end
-                                ***********************************-->
+                                                    Content body end
+                                                ***********************************-->
 @endsection

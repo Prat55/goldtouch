@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\admin\AdminDashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserDashboardController;
 use Illuminate\Support\Facades\Route;
+
+use function Ramsey\Uuid\v1;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,11 +30,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/order', [AdminDashboardController::class, 'order'])->name('order');
+    Route::get('/order', function () {
+        return view('frontend.order');
+    })->name('order');
 });
 
 Route::middleware('admin')->group(function () {
-    
 });
 
 require __DIR__ . '/auth.php';
