@@ -29,6 +29,13 @@
                     <span class="nav-text">My orders</span>
                 </a>
             </li>
+            <li>
+                <a class="" href="{{ route('userinfo') }}" aria-expanded="false">
+                    {{-- <i class="fa fa-cl"></i> --}}
+                    <i class="fa fa-clock" aria-hidden="true"></i>
+                    <span class="nav-text">User Info</span>
+                </a>
+            </li>
         </ul>
 
         <div class="copyright">

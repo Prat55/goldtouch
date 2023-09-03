@@ -33,8 +33,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/order', [UserOrderController::class, 'order'])->name('order');
     Route::put('/make-order', [UserOrderController::class, 'makeOrder'])->name('makeOrder');
-    Route::get('/orders', [UserOrderController::class, 'orders'])->name('orders');;
+    Route::get('/orders', [UserOrderController::class, 'orders'])->name('orders');
+
+    Route::get('/user', [UserDashboardController::class, 'userinfo'])->name('userinfo');
 });
+
 
 
 
