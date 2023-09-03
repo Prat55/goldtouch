@@ -17,7 +17,7 @@
                 </a>
             </li>
             <li>
-                <a class="" href="" aria-expanded="false">
+                <a class="" href="{{ route('order') }}" aria-expanded="false">
                     <i class="flaticon-067-plus"></i>
                     <span class="nav-text">Order</span>
                 </a>
