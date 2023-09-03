@@ -413,6 +413,8 @@
     <script src="{{ asset('user-assets/xhtml/js/deznav-init.js') }}"></script>
     <script src="{{ asset('user-assets/xhtml/js/demo.js') }}"></script>
     <script src="{{ asset('user-assets/xhtml/js/styleSwitcher.js') }}"></script>
+
+    @yield('customJs')
 </body>
 
 </html>

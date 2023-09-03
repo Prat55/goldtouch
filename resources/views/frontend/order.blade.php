@@ -63,6 +63,9 @@
                                             <label class="form-label">Email</label>
                                             <input type="email" class="form-control" placeholder="Email" name="email1"
                                                 required>
+
+                                            <input type="email" class="mt-2 form-control" placeholder="Email"
+                                                name="email2">
                                         </div>
 
                                         <div class="mb-3 col-md-6">
@@ -105,13 +108,19 @@
 
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">Email</label>
-                                            <input type="email" class="form-control" placeholder="Email" name="email5">
+                                            <input type="email" class="form-control" placeholder="Email"
+                                                name="email5">
                                         </div>
 
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">PHONE</label>
                                             <input type="text" class="form-control" placeholder="Phone Number"
                                                 name="phone5">
+                                        </div>
+
+                                        <div class="input_fields_wrap">
+                                            <button class="add_field_button">Add More Fields</button>
+                                            <div><input type="text" name="mytext[]"></div>
                                         </div>
 
                                         <div class="mb-3 col-md-6">
@@ -150,4 +159,50 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('customJs')
+
+    <script>
+        $(document).ready(function() {
+            var max_fields = 10; //maximum input boxes allowed
+            var wrapper = $(".col-md-6"); //Fields wrapper
+            var add_button = $(".add_field_button"); //Add button ID
+
+            var x = 1; //initlal text box count
+            $(add_button).click(function(e) { //on add input button click
+                e.preventDefault();
+                if (x < max_fields) { //max input box allowed
+                    x++; //text box increment
+                    $("#rm").remove();
+
+                    $(wrapper).append(
+                        '<div id="divs"><input class="form-control" type="text" name="mytext[]"/>'
+                    ); //add input box
+                    $(wrapper).append(
+                        '<div id="divs"><input type="text" name="mytext[]"/>'); //add input box
+                    $(wrapper).append(
+                        '<div id="divs"><input type="text" name="mytext[]"/></div>'); //add input box
+                    $(wrapper).append(
+                        '<div id="divs"><input type="text" name="mytext[]"/><a href="#" id="rm" class="remove_field">Remove</a></div>'
+                    ); //add input box
+                    $(wrapper).append('<br>')
+                }
+            });
+
+            $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text
+                e.preventDefault();
+                $("#divs").remove();
+                x--;
+                $("#divs").remove();
+                x--;
+                $("#divs").remove();
+                x--;
+                $("#divs").remove();
+                x--;
+
+            })
+        });
+    </script>
+
 @endsection
