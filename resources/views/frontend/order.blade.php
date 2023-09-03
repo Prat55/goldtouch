@@ -1,4 +1,5 @@
 @extends('frontend.includes.app')
+@section('title', 'Make Order')
 
 @section('content')
     <div class="content-body">
@@ -18,77 +19,79 @@
                         </div>
                         <div class="card-body">
                             <div class="basic-form">
-                                <form>
-
+                                <form action="{{ route('makeOrder') }}" method="POST">
+                                    @csrf
+                                    @method('put')
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">CUSTOMER NAME</label>
-                                            <input type="text" class="form-control" placeholder="1234 Main St" name="cname">
+                                            <input type="text" class="form-control" name="cname" required>
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">CUSTOMER ADD</label>
-                                            <input type="text" class="form-control" placeholder="1234 Main St" name="cadd">
+                                            <input type="text" class="form-control" name="cadd" required>
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">CUSTOMER GSTIN</label>
-                                            <input type="text" class="form-control" placeholder="1234 Main St" name="cgstin">
+                                            <input type="text" class="form-control" name="cgstin" required>
                                         </div>
-                                        <div class="mb-3 col-md-6">
+
+                                        {{-- <div class="mb-3 col-md-6">
                                             <label class="form-label">PO NUMBER</label>
-                                            <input type="text" class="form-control" placeholder="1234 Main St" name="pnumber">
-                                        </div>
+                                            <input type="text" class="form-control" name="pnumber">
+                                        </div> --}}
+
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">STYLE REF</label>
-                                            <input type="text" class="form-control" placeholder="1234 Main St" name="styleref">
+                                            <input type="text" class="form-control" name="styleref" required>
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">MEASURMENT TAKER 1</label>
-                                            <input type="text" class="form-control" placeholder="1234 Main St" name="mtaker1">
+                                            <input type="text" class="form-control" name="mtaker1">
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">MEASURMENT TAKER 2</label>
-                                            <input type="text" class="form-control" placeholder="1234 Main St" name="mtaker2">
-                                        </div>
-                                        <div class="mb-3 col-md-6">
-                                            <label class="form-label">PO COPY UPLOAD</label>
-                                            <input type="text" class="form-control" placeholder="1234 Main St" name="pocopyupload">
+                                            <input type="text" class="form-control" name="mtaker2">
                                         </div>
 
+                                        {{-- <div class="mb-3 col-md-6">
+                                            <label class="form-label">PO COPY UPLOAD</label>
+                                            <input type="text" class="form-control" name="pocopyupload">
+                                        </div> --}}
 
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">Email</label>
-                                            <input type="email" class="form-control" placeholder="Email" name="email1">
+                                            <input type="email" class="form-control" placeholder="Email" name="email1"
+                                                required>
                                         </div>
 
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">PHONE</label>
-                                            <input type="password" class="form-control" placeholder="Password" name="phone1">
+                                            <input type="text" class="form-control" placeholder="Phone Number"
+                                                name="phone1" required>
                                         </div>
+
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">Email</label>
                                             <input type="email" class="form-control" placeholder="Email" name="email2">
                                         </div>
+
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">PHONE</label>
-                                            <input type="password" class="form-control" placeholder="Password" name="phone2">
+                                            <input type="text" class="form-control" placeholder="Phone Number"
+                                                name="phone2">
                                         </div>
-
-
-
-
-
 
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">Email</label>
-                                            <input type="email" class="form-control" placeholder="Email"  name="email3">
+                                            <input type="email" class="form-control" placeholder="Email" name="email3">
                                         </div>
 
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">PHONE</label>
-                                            <input type="password" class="form-control" placeholder="Password" name="phone3">
+                                            <input type="text" class="form-control" placeholder="Phone Number"
+                                                name="phone3">
                                         </div>
-
-
 
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">Email</label>
@@ -96,33 +99,24 @@
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">PHONE</label>
-                                            <input type="password" class="form-control" placeholder="Password" name="phone4">
+                                            <input type="text" class="form-control" placeholder="Phone Number"
+                                                name="phone4">
                                         </div>
-
-
-
-
-
 
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">Email</label>
                                             <input type="email" class="form-control" placeholder="Email" name="email5">
                                         </div>
 
-
-
-                                        {{-- <div class="mb-3 col-md-6">
-                                            <label class="form-label">PHONE</label>
-                                            <input type="password" class="form-control" placeholder="Password" name="phone4">
-                                        </div> --}}
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">PHONE</label>
-                                            <input type="password" class="form-control" placeholder="Password" name="phone5">
+                                            <input type="text" class="form-control" placeholder="Phone Number"
+                                                name="phone5">
                                         </div>
-                                        {{-- <div class="mb-3 col-md-6">
-                                            <label>City</label>
-                                            <input type="text" class="form-control">
-                                        </div> --}}
+
+                                        <div class="mb-3 col-md-6">
+                                            <button type="submit" class="btn btn-sm btn-primary">Order</button>
+                                        </div>
                                     </div>
                                     {{-- <div class="row">
                                         <div class="mb-3 col-md-4">

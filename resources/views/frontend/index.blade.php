@@ -1,9 +1,10 @@
 @extends('frontend.includes.app')
+@section('title', 'Dashboard')
 
 @section('content')
     <!--**********************************
-                Content body start
-            ***********************************-->
+                                        Content body start
+                                    ***********************************-->
     <div class="content-body">
         <!-- row -->
         <div class="container-fluid">
@@ -12,10 +13,10 @@
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="javascript:void(0)">Dashboard</a>
+                            <a href="{{ route('dashboard') }}">Dashboard</a>
                         </li>
                         <li class="breadcrumb-item active">
-                            <a href="javascript:void(0)">Dashboard</a>
+                            <a href="{{ route('dashboard') }}">Dashboard</a>
                         </li>
                     </ol>
                 </div>
@@ -588,6 +589,6 @@
         </div>
     </div>
     <!--**********************************
-                Content body end
-            ***********************************-->
+                                        Content body end
+                                    ***********************************-->
 @endsection

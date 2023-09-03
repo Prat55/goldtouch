@@ -5,7 +5,7 @@
     <div class="deznav-scroll">
         <ul class="metismenu" id="menu">
             <li>
-                <a class="" href="javascript:void()" aria-expanded="false">
+                <a class="" href="{{ route('dashboard') }}" aria-expanded="false">
                     <i class="flaticon-025-dashboard"></i>
                     <span class="nav-text">Dashboard</span>
                 </a>
@@ -23,7 +23,7 @@
                 </a>
             </li>
             <li>
-                <a class="" href="javascript:void()" aria-expanded="false">
+                <a class="" href="{{ route('orders') }}" aria-expanded="false">
                     {{-- <i class="fa fa-cl"></i> --}}
                     <i class="fa fa-clock" aria-hidden="true"></i>
                     <span class="nav-text">My orders</span>

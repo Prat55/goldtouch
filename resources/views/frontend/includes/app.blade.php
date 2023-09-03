@@ -3,7 +3,7 @@
 
 <head>
     <!-- Title -->
-    <title>Griya - Real Estate Admin & Dashboard Bootstrap 5 Template</title>
+    <title>Manashvi Garments - @yield('title')</title>
 
     <!-- Meta -->
     <meta charset="utf-8" />
