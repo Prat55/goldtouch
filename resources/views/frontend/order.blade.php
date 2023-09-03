@@ -23,35 +23,35 @@
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">CUSTOMER NAME</label>
-                                            <input type="text" class="form-control" placeholder="1234 Main St">
+                                            <input type="text" class="form-control" placeholder="1234 Main St" name="cname">
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">CUSTOMER ADD</label>
-                                            <input type="text" class="form-control" placeholder="1234 Main St">
+                                            <input type="text" class="form-control" placeholder="1234 Main St" name="cadd">
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">CUSTOMER GSTIN</label>
-                                            <input type="text" class="form-control" placeholder="1234 Main St">
+                                            <input type="text" class="form-control" placeholder="1234 Main St" name="cgstin">
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">PO NUMBER</label>
-                                            <input type="text" class="form-control" placeholder="1234 Main St">
+                                            <input type="text" class="form-control" placeholder="1234 Main St" name="pnumber">
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">STYLE REF</label>
-                                            <input type="text" class="form-control" placeholder="1234 Main St">
+                                            <input type="text" class="form-control" placeholder="1234 Main St" name="styleref">
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">MEASURMENT TAKER 1</label>
-                                            <input type="text" class="form-control" placeholder="1234 Main St">
+                                            <input type="text" class="form-control" placeholder="1234 Main St" name="mtaker1">
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">MEASURMENT TAKER 2</label>
-                                            <input type="text" class="form-control" placeholder="1234 Main St">
+                                            <input type="text" class="form-control" placeholder="1234 Main St" name="mtaker2">
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">PO COPY UPLOAD</label>
-                                            <input type="text" class="form-control" placeholder="1234 Main St">
+                                            <input type="text" class="form-control" placeholder="1234 Main St" name="pocopyupload">
                                         </div>
 
 
