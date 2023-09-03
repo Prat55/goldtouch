@@ -37,7 +37,7 @@
                 Reserved
             </p>
             <p class="fs-12">
-                Made by <a href="https://maestlopermedia.com/">Maestloper Media</a>
+                Made by <a href="https://maestlopermedia.com/" target="_blank">Maestloper Media</a>
             </p>
         </div>
     </div>
