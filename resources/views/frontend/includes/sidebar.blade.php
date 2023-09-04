@@ -10,32 +10,46 @@
                     <span class="nav-text">Dashboard</span>
                 </a>
             </li>
+
             <li>
                 <a class="" href="{{ route('profile.edit') }}" aria-expanded="false">
                     <i class="fa fa-user-circle"></i>
                     <span class="nav-text">Profile</span>
                 </a>
             </li>
-            <li>
-                <a class="" href="{{ route('order') }}" aria-expanded="false">
-                    <i class="flaticon-067-plus"></i>
-                    <span class="nav-text">Order</span>
-                </a>
-            </li>
-            <li>
-                <a class="" href="{{ route('orders') }}" aria-expanded="false">
-                    {{-- <i class="fa fa-cl"></i> --}}
-                    <i class="fa fa-clock" aria-hidden="true"></i>
-                    <span class="nav-text">My orders</span>
-                </a>
-            </li>
-            <li>
-                <a class="" href="{{ route('userinfo') }}" aria-expanded="false">
-                    {{-- <i class="fa fa-cl"></i> --}}
-                    <i class="fa fa-clock" aria-hidden="true"></i>
-                    <span class="nav-text">User Info</span>
-                </a>
-            </li>
+            @if (Auth::user()->role == 2)
+                <li>
+                    <a class="" href="{{ route('orders') }}" aria-expanded="false">
+                        {{-- <i class="fa fa-cl"></i> --}}
+                        <i class="fa fa-clock" aria-hidden="true"></i>
+                        <span class="nav-text">Orders</span>
+                    </a>
+                </li>
+            @else
+                <li>
+                    <a class="" href="{{ route('orders') }}" aria-expanded="false">
+                        {{-- <i class="fa fa-cl"></i> --}}
+                        <i class="fa fa-clock" aria-hidden="true"></i>
+                        <span class="nav-text">My orders</span>
+                    </a>
+                </li>
+            @endif
+            @if (Auth::user()->role == 2)
+                <li>
+                    <a class="" href="{{ route('userinfo') }}" aria-expanded="false">
+                        {{-- <i class="fa fa-cl"></i> --}}
+                        <i class="fa fa-clock" aria-hidden="true"></i>
+                        <span class="nav-text">User Info</span>
+                    </a>
+                </li>
+            @else
+                <li>
+                    <a class="" href="{{ route('order') }}" aria-expanded="false">
+                        <i class="flaticon-067-plus"></i>
+                        <span class="nav-text">Order</span>
+                    </a>
+                </li>
+            @endif
         </ul>
 
         <div class="copyright">

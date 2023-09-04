@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\AdminDashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\UserOrderController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 use function Ramsey\Uuid\v1;
@@ -34,14 +35,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/order', [UserOrderController::class, 'order'])->name('order');
     Route::put('/make-order', [UserOrderController::class, 'makeOrder'])->name('makeOrder');
     Route::get('/orders', [UserOrderController::class, 'orders'])->name('orders');
-
-    Route::get('/user', [UserDashboardController::class, 'userinfo'])->name('userinfo');
 });
 
-
-
-
-Route::middleware('admin')->group(function () {
+Route::middleware('admin.auth')->group(function () {
+    Route::get('/user-info', [UserDashboardController::class, 'userinfo'])->name('userinfo');
 });
 
 require __DIR__ . '/auth.php';

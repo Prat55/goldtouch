@@ -11,6 +11,7 @@ class Order extends Model
     protected $fillable = [
         'id',
         'order_id',
+        'u_id',
         'cname',
         'cadd',
         'cgstin',
@@ -27,4 +28,9 @@ class Order extends Model
         'phone5',
         'created_at',
     ];
+
+    protected function uid()
+    {
+        return $this->belongsTo(User::class, 'u_id', 'id');
+    }
 }

@@ -49,7 +49,7 @@
             Nav header start
         ***********************************-->
         <div class="nav-header">
-            <a href="/" class="brand-logo">
+            <a href="{{ route('dashboard') }}" class="brand-logo">
                 <svg class="logo-abbr" width="64" height="64" viewbox="0 0 64 64" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <rect class="rect-primary-rect" width="64" height="64" rx="18" fill="#216FED"></rect>
@@ -306,10 +306,11 @@
                                 <a class="nav-link" href="javascript:void(0);" role="button"
                                     data-bs-toggle="dropdown">
                                     <div class="header-info me-3">
-                                        <span class="fs-18 font-w500 text-end">Roberto</span>
-                                        <small class="text-end fs-14 font-w400">robert@mail.com</small>
+                                        <span class="fs-18 font-w500 text-end">{{ Auth::user()->name }}</span>
+                                        <small class="text-end fs-14 font-w400">{{ Auth::user()->email }}</small>
                                     </div>
-                                    <img src="images/profile/pic1.jpg" width="20" alt="" />
+                                    <img src="{{ asset('user-assets/xhtml/images/profile/pic1.jpg') }}" width="20"
+                                        alt="" />
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
                                     <a href="{{ route('profile.edit') }}" class="dropdown-item ai-icon">

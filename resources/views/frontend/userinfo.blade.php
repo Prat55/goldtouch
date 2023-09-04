@@ -1,16 +1,16 @@
 @extends('frontend.includes.app')
-@section('title', 'Orders')
+@section('title', 'Users Information')
 
 @section('content')
     <div class="content-body">
         <!-- row -->
         <div class="container-fluid">
             <div class="mb-sm-4 d-flex flex-wrap align-items-center text-head ">
-                <h2 class="mb-3 me-auto">Order List</h2>
+                <h2 class="mb-3 me-auto">Users Information</h2>
                 <div>
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Order List</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Order List</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Users Information</a></li>
                     </ol>
                 </div>
             </div>
@@ -30,41 +30,7 @@
                         </div>
                     </div>
                 </div>
-                {{-- <div class="col-xl-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="order-user">
-                                    <i class="far fa-building bg-warning text-white"></i>
-                                </div>
-                                <div class="ms-4 customer">
-                                    <h2 class="mb-0  font-w600">5,623</h2>
-                                    <p class="mb-0  font-w500">Total Properties</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
-                {{-- <div class="col-xl-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row order-card text-center">
-                                <div class="col-4 customer">
-                                    <h2 class="mb-0  font-w600">421</h2>
-                                    <p class="mb-0 font-w500">Agent</p>
-                                </div>
-                                <div class="col-4 customer">
-                                    <h2 class="mb-0 font-w600">8,313</h2>
-                                    <p class="mb-0  font-w500">Transactions</p>
-                                </div>
-                                <div class="col-4 border-0 customer">
-                                    <h2 class="mb-0 font-w600">4.6</h2>
-                                    <p class="mb-0 font-w500">Rating</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
+
                 <div class="col-xl-12">
                     <div class="d-flex flex-wrap">
                         {{-- <a href="javascript:void(0);" class="btn btn-primary me-3 mb-3" data-bs-toggle="modal"
@@ -124,7 +90,7 @@
                                         </td>
                                         <td>{{ $od->name }}</td>
                                         <td>{{ $od->email }}</td>
-                                        <td>{{ $od->role == 2? 'Admin': 'User'}}</td>
+                                        <td>{{ $od->role == 2 ? 'Admin' : 'User' }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

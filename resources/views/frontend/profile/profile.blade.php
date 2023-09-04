@@ -1,9 +1,10 @@
 @extends('frontend.includes.app')
+@section('title', 'Profile')
 
 @section('content')
     <!--**********************************
-                                                    Content body start
-                                                ***********************************-->
+                                                                                                                                                                                                                                                            Content body start
+                                                                                                                                                                                                                                                        ***********************************-->
     <div class="content-body">
         <div class="container-fluid">
 
@@ -36,7 +37,7 @@
                                         <h4 class="text-muted mb-0">{{ Auth::guard('web')->user()->email }}</h4>
                                         <p>Email</p>
                                     </div>
-                                    <div class="dropdown ms-auto">
+                                    {{-- <div class="dropdown ms-auto">
                                         <a href="#" class="btn btn-primary light sharp" data-bs-toggle="dropdown"
                                             aria-expanded="true"><svg xmlns="http://www.w3.org/2000/svg"
                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px"
@@ -61,7 +62,7 @@
                                                 group</li>
                                             <li class="dropdown-item"><i class="fa fa-ban text-primary me-2"></i> Block</li>
                                         </ul>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -117,8 +118,7 @@
                                                                 </div>
                                                                 <div class="col-lg-6">
                                                                     <div class="mb-3">
-                                                                        <label
-                                                                            class="text-black font-w600 form-label">Email
+                                                                        <label class="text-black font-w600 form-label">Email
                                                                             <span class="required">*</span></label>
                                                                         <input type="text" class="form-control"
                                                                             value="Email" placeholder="Email"
@@ -251,311 +251,133 @@
                             <div class="profile-tab">
                                 <div class="custom-tab-1">
                                     <ul class="nav nav-tabs">
-                                        <li class="nav-item"><a href="#my-posts" data-bs-toggle="tab"
-                                                class="nav-link active show">Posts</a>
+                                        <li class="nav-item"><a href="#delete-account" data-bs-toggle="tab"
+                                                class="nav-link ">Delete Account</a>
                                         </li>
                                         <li class="nav-item"><a href="#about-me" data-bs-toggle="tab"
-                                                class="nav-link">About Me</a>
+                                                class="nav-link active show">Profile Information</a>
                                         </li>
-                                        <li class="nav-item"><a href="#profile-settings" data-bs-toggle="tab"
-                                                class="nav-link">Setting</a>
+                                        <li class="nav-item"><a href="#reset-password" data-bs-toggle="tab"
+                                                class="nav-link">Reset Password</a>
                                         </li>
                                     </ul>
                                     <div class="tab-content">
-                                        <div id="my-posts" class="tab-pane fade active show">
+                                        <div id="delete-account" class="tab-pane fade">
                                             <div class="my-post-content pt-3">
-                                                <div class="post-input">
-                                                    <textarea name="textarea" id="textarea" cols="30" rows="5" class="form-control bg-transparent"
-                                                        placeholder="Please type what you want...."></textarea>
-                                                    <a href="javascript:void(0);" class="btn btn-primary light me-1 px-3"
-                                                        data-bs-toggle="modal" data-bs-target="#linkModal"><i
-                                                            class="fa fa-link m-0"></i> </a>
-                                                    <!-- Modal -->
-                                                    <div class="modal fade" id="linkModal">
-                                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title">Social Links</h5>
-                                                                    <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal">
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <a class="btn-social facebook"
-                                                                        href="javascript:void(0)"><i
-                                                                            class="fab fa-facebook-f"></i></a>
-                                                                    <a class="btn-social google-plus"
-                                                                        href="javascript:void(0)"><i
-                                                                            class="fab fa-google-plus-g"></i></a>
-                                                                    <a class="btn-social linkedin"
-                                                                        href="javascript:void(0)"><i
-                                                                            class="fab fa-linkedin-in"></i></a>
-                                                                    <a class="btn-social instagram"
-                                                                        href="javascript:void(0)"><i
-                                                                            class="fab fa-instagram"></i></a>
-                                                                    <a class="btn-social twitter"
-                                                                        href="javascript:void(0)"><i
-                                                                            class="fab fa-twitter"></i></a>
-                                                                    <a class="btn-social youtube"
-                                                                        href="javascript:void(0)"><i
-                                                                            class="fab fa-youtube"></i></a>
-                                                                    <a class="btn-social whatsapp"
-                                                                        href="javascript:void(0)"><i
-                                                                            class="fab fa-whatsapp"></i></a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <a href="javascript:void(0);" class="btn btn-primary light me-1 px-3"
-                                                        data-bs-toggle="modal" data-bs-target="#cameraModal"><i
-                                                            class="fa fa-camera m-0"></i> </a>
-                                                    <!-- Modal -->
-                                                    <div class="modal fade" id="cameraModal">
-                                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title">Upload images</h5>
-                                                                    <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal">
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <div class="input-group mb-3">
-                                                                        <span class="input-group-text">Upload</span>
-                                                                        <div class="form-file">
-                                                                            <input type="file"
-                                                                                class="form-file-input form-control">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <a href="javascript:void(0);" class="btn btn-primary"
-                                                        data-bs-toggle="modal" data-bs-target="#postModal">Post</a>
-                                                    <!-- Modal -->
-                                                    <div class="modal fade" id="postModal">
-                                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title">Post</h5>
-                                                                    <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal">
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <textarea name="textarea" id="textarea2" cols="30" rows="5" class="form-control bg-transparent"
-                                                                        placeholder="Please type what you want...."></textarea>
-                                                                    <a class="btn btn-primary"
-                                                                        href="javascript:void(0)">Post</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="profile-uoloaded-post border-bottom-1 pb-5">
-                                                    <img src="images/profile/8.jpg" alt=""
-                                                        class="img-fluid w-100 rounded">
-                                                    <a class="post-title" href="#">
-                                                        <h3 class="text-black">Collection of textile samples lay spread
-                                                        </h3>
-                                                    </a>
-                                                    <p>A wonderful serenity has take possession of my entire soul like these
-                                                        sweet morning of spare which enjoy whole heart.A wonderful serenity
-                                                        has take possession of my entire soul like these sweet morning
-                                                        of spare which enjoy whole heart.</p>
-                                                    <button class="btn btn-primary me-2"><span class="me-2"><i
-                                                                class="fa fa-heart"></i></span>Like</button>
-                                                    <button class="btn btn-secondary" data-bs-toggle="modal"
-                                                        data-bs-target="#replyModal"><span class="me-2"><i
-                                                                class="fa fa-reply"></i></span>Reply</button>
-                                                </div>
-                                                <div class="profile-uoloaded-post border-bottom-1 pb-5">
-                                                    <img src="images/profile/9.jpg" alt=""
-                                                        class="img-fluid w-100 rounded">
-                                                    <a class="post-title" href="#">
-                                                        <h3 class="text-black">Collection of textile samples lay spread
-                                                        </h3>
-                                                    </a>
-                                                    <p>A wonderful serenity has take possession of my entire soul like these
-                                                        sweet morning of spare which enjoy whole heart.A wonderful serenity
-                                                        has take possession of my entire soul like these sweet morning
-                                                        of spare which enjoy whole heart.</p>
-                                                    <button class="btn btn-primary me-2"><span class="me-2"><i
-                                                                class="fa fa-heart"></i></span>Like</button>
-                                                    <button class="btn btn-secondary" data-bs-toggle="modal"
-                                                        data-bs-target="#replyModal"><span class="me-2"><i
-                                                                class="fa fa-reply"></i></span>Reply</button>
-                                                </div>
-                                                <div class="profile-uoloaded-post pb-3">
-                                                    <img src="images/profile/8.jpg" alt=""
-                                                        class="img-fluid w-100 rounded">
-                                                    <a class="post-title" href="#">
-                                                        <h3 class="text-black">Collection of textile samples lay spread
-                                                        </h3>
-                                                    </a>
-                                                    <p>A wonderful serenity has take possession of my entire soul like these
-                                                        sweet morning of spare which enjoy whole heart.A wonderful serenity
-                                                        has take possession of my entire soul like these sweet morning
-                                                        of spare which enjoy whole heart.</p>
-                                                    <button class="btn btn-primary me-2"><span class="me-2"><i
-                                                                class="fa fa-heart"></i></span>Like</button>
-                                                    <button class="btn btn-secondary" data-bs-toggle="modal"
-                                                        data-bs-target="#replyModal"><span class="me-2"><i
-                                                                class="fa fa-reply"></i></span>Reply</button>
-                                                </div>
+                                                @include('frontend.profile.partials.delete-user-form')
                                             </div>
                                         </div>
-                                        <div id="about-me" class="tab-pane fade">
-                                            <div class="profile-about-me">
-                                                <div class="pt-4 border-bottom-1 pb-3">
-                                                    <h4 class="text-primary">About Me</h4>
-                                                    <p class="mb-2">A wonderful serenity has taken possession of my
-                                                        entire soul, like these sweet mornings of spring which I enjoy with
-                                                        my whole heart. I am alone, and feel the charm of existence was
-                                                        created for the bliss of souls like mine.I am so happy, my dear
-                                                        friend, so absorbed in the exquisite sense of mere tranquil
-                                                        existence, that I neglect my talents.</p>
-                                                    <p>A collection of textile samples lay spread out on the table - Samsa
-                                                        was a travelling salesman - and above it there hung a picture that
-                                                        he had recently cut out of an illustrated magazine and housed in a
-                                                        nice, gilded frame.</p>
-                                                </div>
-                                            </div>
-                                            <div class="profile-skills mb-5">
-                                                <h4 class="text-primary mb-2">Skills</h4>
-                                                <a href="javascript:void(0);"
-                                                    class="btn btn-primary light btn-xs mb-1">Admin</a>
-                                                <a href="javascript:void(0);"
-                                                    class="btn btn-primary light btn-xs mb-1">Dashboard</a>
-                                                <a href="javascript:void(0);"
-                                                    class="btn btn-primary light btn-xs mb-1">Photoshop</a>
-                                                <a href="javascript:void(0);"
-                                                    class="btn btn-primary light btn-xs mb-1">Bootstrap</a>
-                                                <a href="javascript:void(0);"
-                                                    class="btn btn-primary light btn-xs mb-1">Responsive</a>
-                                                <a href="javascript:void(0);"
-                                                    class="btn btn-primary light btn-xs mb-1">Crypto</a>
-                                            </div>
-                                            <div class="profile-lang  mb-5">
-                                                <h4 class="text-primary mb-2">Language</h4>
-                                                <a href="javascript:void(0);" class="text-muted pe-3 f-s-16"><i
-                                                        class="flag-icon flag-icon-us"></i> English</a>
-                                                <a href="javascript:void(0);" class="text-muted pe-3 f-s-16"><i
-                                                        class="flag-icon flag-icon-fr"></i> French</a>
-                                                <a href="javascript:void(0);" class="text-muted pe-3 f-s-16"><i
-                                                        class="flag-icon flag-icon-bd"></i> Bangla</a>
-                                            </div>
+                                        <div id="about-me" class="tab-pane fade active show">
                                             <div class="profile-personal-info">
-                                                <h4 class="text-primary mb-4">Personal Information</h4>
-                                                <div class="row mb-2">
-                                                    <div class="col-sm-3 col-5">
-                                                        <h5 class="f-w-500">Name <span class="pull-end">:</span>
-                                                        </h5>
+                                                <h4 class="text-primary mb-4"></h4>
+                                                <form id="send-verification" method="post"
+                                                    action="{{ route('verification.send') }}">
+                                                    @csrf
+                                                </form>
+
+                                                <form method="post" action="{{ route('profile.update') }}"
+                                                    class="mt-6 space-y-6">
+                                                    @csrf
+                                                    @method('patch')
+
+                                                    <div>
+                                                        <x-input-label for="name" :value="__('Name')" />
+                                                        <x-text-input id="name" name="name" type="text"
+                                                            class="mt-1 block w-full form-control" :value="old('name', $user->name)"
+                                                            required autofocus autocomplete="name" />
+                                                        <x-input-error class="mt-2 form-control" :messages="$errors->get('name')" />
                                                     </div>
-                                                    <div class="col-sm-9 col-7"><span>Mitchell C.Shay</span>
+
+                                                    <div class="mt-3">
+                                                        <x-input-label for="email" :value="__('Email')" />
+                                                        <x-text-input id="email" name="email" type="email"
+                                                            class="form-control mt-1 block w-full" :value="old('email', $user->email)"
+                                                            required autocomplete="username" />
+                                                        <x-input-error class="mt-2" :messages="$errors->get('email')" />
+
+                                                        @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !$user->hasVerifiedEmail())
+                                                            <div>
+                                                                <p class="text-sm mt-2 text-gray-800 dark:text-gray-200">
+                                                                    {{ __('Your email address is unverified.') }}
+
+                                                                    <button form="send-verification"
+                                                                        class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
+                                                                        {{ __('Click here to re-send the verification email.') }}
+                                                                    </button>
+                                                                </p>
+
+                                                                @if (session('status') === 'verification-link-sent')
+                                                                    <p
+                                                                        class="mt-2 font-medium text-sm text-green-600 dark:text-green-400">
+                                                                        {{ __('A new verification link has been sent to your email address.') }}
+                                                                    </p>
+                                                                @endif
+                                                            </div>
+                                                        @endif
                                                     </div>
-                                                </div>
-                                                <div class="row mb-2">
-                                                    <div class="col-sm-3 col-5">
-                                                        <h5 class="f-w-500">Email <span class="pull-end">:</span>
-                                                        </h5>
+
+                                                    <div class="flex items-center gap-4">
+                                                        <x-primary-button
+                                                            class="mt-5 btn btn-secondary">{{ __('Save') }}</x-primary-button>
+
+                                                        @if (session('status') === 'profile-updated')
+                                                            <p x-data="{ show: true }" x-show="show" x-transition
+                                                                x-init="setTimeout(() => show = false, 2000)"
+                                                                class="text-sm text-gray-600 dark:text-gray-400">
+                                                                {{ __('Saved.') }}</p>
+                                                        @endif
                                                     </div>
-                                                    <div class="col-sm-9 col-7"><span>example@examplel.com</span>
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-2">
-                                                    <div class="col-sm-3 col-5">
-                                                        <h5 class="f-w-500">Availability <span class="pull-end">:</span>
-                                                        </h5>
-                                                    </div>
-                                                    <div class="col-sm-9 col-7"><span>Full Time (Free Lancer)</span>
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-2">
-                                                    <div class="col-sm-3 col-5">
-                                                        <h5 class="f-w-500">Age <span class="pull-end">:</span>
-                                                        </h5>
-                                                    </div>
-                                                    <div class="col-sm-9 col-7"><span>27</span>
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-2">
-                                                    <div class="col-sm-3 col-5">
-                                                        <h5 class="f-w-500">Location <span class="pull-end">:</span></h5>
-                                                    </div>
-                                                    <div class="col-sm-9 col-7"><span>Rosemont Avenue Melbourne,
-                                                            Florida</span>
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-2">
-                                                    <div class="col-sm-3 col-5">
-                                                        <h5 class="f-w-500">Year Experience <span
-                                                                class="pull-end">:</span></h5>
-                                                    </div>
-                                                    <div class="col-sm-9 col-7"><span>07 Year Experiences</span>
-                                                    </div>
-                                                </div>
+                                                </form>
                                             </div>
                                         </div>
-                                        <div id="profile-settings" class="tab-pane fade">
+                                        <div id="reset-password" class="tab-pane fade">
                                             <div class="pt-3">
                                                 <div class="settings-form">
-                                                    <h4 class="text-primary">Account Setting</h4>
-                                                    <form>
-                                                        <div class="row">
-                                                            <div class="mb-3 col-md-6">
-                                                                <label class="form-label">Email</label>
-                                                                <input type="email" placeholder="Email"
-                                                                    class="form-control">
-                                                            </div>
-                                                            <div class="mb-3 col-md-6">
-                                                                <label class="form-label">Password</label>
-                                                                <input type="password" placeholder="Password"
-                                                                    class="form-control">
-                                                            </div>
+                                                    <h4 class="text-primary"></h4>
+                                                    <form method="post" action="{{ route('password.update') }}"
+                                                        class="mt-6 space-y-6">
+                                                        @csrf
+                                                        @method('put')
+
+                                                        <div>
+                                                            <x-input-label for="current_password" :value="__('Current Password')" />
+                                                            <x-text-input id="current_password" name="current_password"
+                                                                type="password" class="form-control mt-1 block w-full"
+                                                                autocomplete="current-password" />
+                                                            <x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
                                                         </div>
-                                                        <div class="mb-3">
-                                                            <label class="form-label">Address</label>
-                                                            <input type="text" placeholder="1234 Main St"
-                                                                class="form-control">
+
+                                                        <div class="mt-3">
+                                                            <x-input-label for="password" :value="__('New Password')" />
+                                                            <x-text-input id="password" name="password" type="password"
+                                                                class="form-control mt-1 block w-full"
+                                                                autocomplete="new-password" />
+                                                            <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2" />
                                                         </div>
-                                                        <div class="mb-3">
-                                                            <label class="form-label">Address 2</label>
-                                                            <input type="text"
-                                                                placeholder="Apartment, studio, or floor"
-                                                                class="form-control">
+
+                                                        <div class="mt-3">
+                                                            <x-input-label for="password_confirmation"
+                                                                :value="__('Confirm Password')" />
+                                                            <x-text-input id="password_confirmation"
+                                                                name="password_confirmation" type="password"
+                                                                class="form-control mt-1 block w-full"
+                                                                autocomplete="new-password" />
+                                                            <x-input-error :messages="$errors->updatePassword->get(
+                                                                'password_confirmation',
+                                                            )" class="mt-2" />
                                                         </div>
-                                                        <div class="row">
-                                                            <div class="mb-3 col-md-6">
-                                                                <label class="form-label">City</label>
-                                                                <input type="text" class="form-control">
-                                                            </div>
-                                                            <div class="mb-3 col-md-4">
-                                                                <label class="form-label">State</label>
-                                                                <select class="form-control default-select wide"
-                                                                    id="inputState">
-                                                                    <option selected="">Choose...</option>
-                                                                    <option>Option 1</option>
-                                                                    <option>Option 2</option>
-                                                                    <option>Option 3</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="mb-3 col-md-2">
-                                                                <label class="form-label">Zip</label>
-                                                                <input type="text" class="form-control">
-                                                            </div>
+
+                                                        <div class="flex items-center gap-4 mt-5">
+                                                            <x-primary-button
+                                                                class="btn btn-primary">{{ __('Save') }}</x-primary-button>
+
+                                                            @if (session('status') === 'password-updated')
+                                                                <p x-data="{ show: true }" x-show="show" x-transition
+                                                                    x-init="setTimeout(() => show = false, 2000)"
+                                                                    class="text-sm text-gray-600 dark:text-gray-400">
+                                                                    {{ __('Saved.') }}</p>
+                                                            @endif
                                                         </div>
-                                                        <div class="mb-3">
-                                                            <div class="form-check custom-checkbox">
-                                                                <input type="checkbox" class="form-check-input"
-                                                                    id="gridCheck">
-                                                                <label class="form-check-label form-label"
-                                                                    for="gridCheck"> Check me out</label>
-                                                            </div>
-                                                        </div>
-                                                        <button class="btn btn-primary" type="submit">Sign
-                                                            in</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -591,7 +413,4 @@
             </div>
         </div>
     </div>
-    <!--**********************************
-                                                    Content body end
-                                                ***********************************-->
 @endsection
