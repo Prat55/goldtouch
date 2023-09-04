@@ -47,9 +47,14 @@ class UserOrderController extends Controller
         return redirect('/order');
     }
 
-    protected function orders()
+    protected function orders(Request $request)
     {
-        $orders = Order::latest()->get();
+        $orders = Order::latest();
+        if (!empty($request->get('keyword'))) {
+            $orders = $orders->where('cname', 'like', '%' . $request->get('keyword') . '%');
+        }
+
+        $orders =  $orders->paginate(10);
         return view('frontend.orders', compact('orders'));
     }
 }
