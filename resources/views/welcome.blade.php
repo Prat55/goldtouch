@@ -3,7 +3,7 @@
 
 <head>
     <!-- Title -->
-    <title>Manashvi Garments | Login</title>
+    <title>Gold Touch | Login</title>
 
     <!-- Meta -->
     <meta charset="utf-8">

@@ -51,14 +51,15 @@
                         <div class="table-search mb-3 pe-3">
                             <form action="" method="get">
                                 <div class="input-group search-area">
-                                    <input type="text" name="keyword" class="form-control mt-1"
-                                        placeholder="Search customer name here" value="{{ Request::get('keyword') }}">
-                                    <span class="input-group-text">
-                                        <button type="submit" class="btn"><i class="flaticon-381-search-2"></i></button>
-                                    </span>
+                                    <input type="text" name="keyword" class="form-control"
+                                        placeholder="Search customer name here" value="{{ Request::get('keyword') }}"
+                                        required>
+                                    <button type="submit" class="btn btn-sm input-group-text"><i
+                                            class="flaticon-381-search-2"></i></button>
                                 </div>
                             </form>
                         </div>
+
                         <a href="{{ route('orders') }}" class="btn btn-warning mb-3"><i class="fas fa-redo-alt"></i></a>
                     </div>
                 </div>
@@ -67,7 +68,7 @@
                         <table class="table display mb-4 dataTablesCard order-table shadow-hover  card-table"
                             id="example5">
                             <thead>
-                                <tr>
+                                <tr class="text-center">
                                     <th>
                                         <div class="form-check ms-2">
                                             <input class="form-check-input" type="checkbox" value="" id="checkAll">
@@ -77,10 +78,12 @@
                                     </th>
                                     <th>Order ID</th>
                                     <th>Date</th>
-                                    <th>Customer</th>
+                                    @if (Auth::user()->role == 2)
+                                        <th>Customer<br> Name</th>
+                                    @endif
                                     <th>Address</th>
                                     <th>GSTIN No.</th>
-                                    <th>Style Reference</th>
+                                    <th>Style<br> Reference</th>
                                     <th>Emails</th>
                                     <th>Phone</th>
                                     <th>Status</th>
@@ -105,7 +108,6 @@
                                                     </td>
                                                     <td>#{{ $od->order_id }}</td>
                                                     <td class="wspace-no">{{ $od->created_at }}</td>
-                                                    <td>{{ $od->cname }}</td>
                                                     <td class="text-ov">{{ $od->cadd }}</td>
                                                     <td class="text-ov">{{ $od->cgstin }}</td>
                                                     <td>{{ $od->cstyle_ref }}</td>

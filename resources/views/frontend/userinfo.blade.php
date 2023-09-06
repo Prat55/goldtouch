@@ -23,8 +23,27 @@
                                     <i class="fas fa-user text-white bg-primary"></i>
                                 </div>
                                 <div class="ms-4 customer">
-                                    <h2 class="mb-0  font-w600">{{ $users->count() }}</h2>
+                                    <h2 class="mb-0  font-w600">
+                                        {{ $users1 }}
+                                    </h2>
                                     <p class="mb-0 font-w500">Total Users</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="order-user">
+                                    <i class="fas fa-user text-white bg-secondary"></i>
+                                </div>
+                                <div class="ms-4 customer">
+                                    <h2 class="mb-0  font-w600">
+                                        {{ $users2 }}
+                                    </h2>
+                                    <p class="mb-0 font-w500">Total Admins</p>
                                 </div>
                             </div>
                         </div>
@@ -37,11 +56,14 @@
                             data-bs-target="#exampleModal">+ New Tranasactions</a> --}}
 
                         <div class="table-search mb-3 pe-3">
-                            <div class="input-group search-area">
-                                <input type="text" class="form-control" placeholder="Search customer name here">
-                                <span class="input-group-text"><a href="javascript:void(0)"><i
-                                            class="flaticon-381-search-2"></i></a></span>
-                            </div>
+                            <form action="" method="get">
+                                <div class="input-group search-area">
+                                    <input type="text" name="name" class="form-control"
+                                        placeholder="Search user name here" value="{{ Request::get('name') }}" required>
+                                    <button type="submit" class="btn btn-sm input-group-text"><i
+                                            class="flaticon-381-search-2"></i></button>
+                                </div>
+                            </form>
                         </div>
                         {{-- <div class="newest mb-3 me-3">
                             <select class="form-control default-select ms-0 border">
@@ -52,7 +74,7 @@
                         </div> --}}
                         {{-- <a href="javascript:void(0);" class="btn btn-primary me-3 mb-3"><i
                                 class="fas fa-calendar me-3"></i>Filter</a> --}}
-                        <a href="javascript:void(0);" class="btn btn-warning mb-3"><i class="fas fa-redo-alt"></i></a>
+                        <a href="{{ route('userinfo') }}" class="btn btn-warning mb-3"><i class="fas fa-redo-alt"></i></a>
                     </div>
                 </div>
                 <div class="col-xl-12">
@@ -61,38 +83,32 @@
                             id="example5">
                             <thead>
                                 <tr>
-                                    <th>
-                                        <div class="form-check ms-2">
-                                            <input class="form-check-input" type="checkbox" value="" id="checkAll">
-                                            <label class="form-check-label" for="checkAll">
-                                            </label>
-                                        </div>
-                                    </th>
                                     <th>Name</th>
                                     <th>Emails</th>
                                     <th>Role</th>
-                                    @if (Auth::guard('web')->user()->role == 2)
-                                        <th class="">Edit</th>
-                                        <th class="">Delete</th>
-                                    @endif
+                                    <th>Ban</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($users as $od)
+                                @if ($users->isNotEmpty())
+                                    @foreach ($users as $od)
+                                        <tr>
+                                            <td>{{ $od->name }}</td>
+                                            <td>{{ $od->email }}</td>
+                                            <td>{{ $od->role == 2 ? 'Admin' : 'User' }}</td>
+                                            <td>
+                                                <form action="/ban/{{ $od->id }}" method="post">
+                                                    <button type="submit"
+                                                        class="btn btn-sm btn-outline-danger">Ban</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
                                     <tr>
-                                        <td>
-                                            <div class="form-check ms-2">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="customCheckBox1">
-                                                <label class="form-check-label" for="customCheckBox1">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>{{ $od->name }}</td>
-                                        <td>{{ $od->email }}</td>
-                                        <td>{{ $od->role == 2 ? 'Admin' : 'User' }}</td>
+                                        <td colspan="4" class="text-center">No users found</td>
                                     </tr>
-                                @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>

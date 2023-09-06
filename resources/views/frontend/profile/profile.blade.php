@@ -2,18 +2,20 @@
 @section('title', 'Profile')
 
 @section('content')
-    <!--**********************************
-                                                                                                                                                                                                                                                            Content body start
-                                                                                                                                                                                                                                                        ***********************************-->
     <div class="content-body">
         <div class="container-fluid">
-
-
-            <div class="row page-titles">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
-                    <li class="breadcrumb-item  active"><a href="javascript:void(0)">Profile</a></li>
-                </ol>
+            <div class="mb-sm-4 d-flex flex-wrap align-items-center text-head">
+                <h2 class="mb-3 me-auto">Profile</h2>
+                <div>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('dashboard') }}">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            <a href="{{ route('dashboard') }}">Profile</a>
+                        </li>
+                    </ol>
+                </div>
             </div>
             <!-- row -->
             <div class="row">
@@ -251,20 +253,72 @@
                             <div class="profile-tab">
                                 <div class="custom-tab-1">
                                     <ul class="nav nav-tabs">
-                                        <li class="nav-item"><a href="#delete-account" data-bs-toggle="tab"
-                                                class="nav-link ">Delete Account</a>
-                                        </li>
                                         <li class="nav-item"><a href="#about-me" data-bs-toggle="tab"
                                                 class="nav-link active show">Profile Information</a>
                                         </li>
                                         <li class="nav-item"><a href="#reset-password" data-bs-toggle="tab"
                                                 class="nav-link">Reset Password</a>
                                         </li>
+                                        <li class="nav-item"><a href="#delete-account" data-bs-toggle="tab"
+                                                class="nav-link ">Delete Account</a>
+                                        </li>
                                     </ul>
                                     <div class="tab-content">
                                         <div id="delete-account" class="tab-pane fade">
                                             <div class="my-post-content pt-3">
-                                                @include('frontend.profile.partials.delete-user-form')
+                                                <section class="space-y-6">
+                                                    <header>
+                                                        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                                                            {{ __('Delete Account') }}
+                                                        </h2>
+
+                                                        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                                                            {{ __('Once your account is deleted, all of its resources and data will be permanently deleted.') }}
+                                                        </p>
+                                                    </header>
+
+                                                    <x-danger-button class="btn btn-danger" x-data=""
+                                                        x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')">{{ __('Delete Account') }}</x-danger-button>
+
+                                                    <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
+                                                        <form method="post" action="{{ route('profile.destroy') }}"
+                                                            class="p-6">
+                                                            @csrf
+                                                            @method('delete')
+
+                                                            <h2
+                                                                class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                                                                {{ __('Are you sure you want to delete your account?') }}
+                                                            </h2>
+
+                                                            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                                                                {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.') }}
+                                                            </p>
+
+                                                            <div class="mt-6">
+                                                                <x-input-label for="password"
+                                                                    value="{{ __('Password') }}" class="sr-only" />
+
+                                                                <x-text-input id="password" name="password"
+                                                                    type="password" class="mt-1 block w-3/4"
+                                                                    placeholder="{{ __('Password') }}" />
+
+                                                                <x-input-error :messages="$errors->userDeletion->get('password')" class="mt-2" />
+                                                            </div>
+
+                                                            <div class="mt-6 flex justify-end">
+                                                                <x-secondary-button x-on:click="$dispatch('close')">
+                                                                    {{ __('Cancel') }}
+                                                                </x-secondary-button>
+
+                                                                <x-danger-button class="ml-3">
+                                                                    {{ __('Delete Account') }}
+                                                                </x-danger-button>
+                                                            </div>
+                                                        </form>
+                                                    </x-modal>
+                                                </section>
+
                                             </div>
                                         </div>
                                         <div id="about-me" class="tab-pane fade active show">

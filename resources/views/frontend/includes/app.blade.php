@@ -3,7 +3,7 @@
 
 <head>
     <!-- Title -->
-    <title>Manashvi Garments - @yield('title')</title>
+    <title>Gold Touch - @yield('title')</title>
 
     <!-- Meta -->
     <meta charset="utf-8" />

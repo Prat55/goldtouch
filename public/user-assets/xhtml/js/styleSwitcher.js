@@ -6,20 +6,20 @@ function addSwitcher() {
     var demoPanel =
         '<div class="dz-demo-panel"><div class="bg-close"></div> <a class="dz-demo-trigger" data-toggle="tooltip" data-placement="right" data-original-title="Check out more demos" href="javascript:void(0)"><span><i class="las la-tint"></i></span></a><div class="dz-demo-inner"> <a href="javascript:void(0);" class="btn btn-primary btn-sm px-2 py-1 mb-3" onclick="deleteAllCookie()">Delete All Cookie</a><div class="dz-demo-header"><h4>Select A Demo</h4> <a class="dz-demo-close" href="javascript:void(0)"><span><i class="las la-times"></i></span></a></div><div class="dz-demo-content"><div class="dz-wrapper"><div class="overlay-bx dz-demo-bx demo-active"><div class="overlay-wrapper"><img src="images/demo/pic1.jpg" alt="" class="w-100"></div><div class="overlay-layer"><a href="javascript:void(0);" data-theme="1" class="btn dz_theme_demo btn-secondary btn-sm mr-2">Demo 1</a></div></div><h5 class="text-black mb-5">Demo 1</h5><hr><div class="overlay-bx dz-demo-bx"><div class="overlay-wrapper"><img src="images/demo/pic2.jpg" alt="" class="w-100"></div><div class="overlay-layer"><a href="javascript:void(0);" data-theme="2" class="btn dz_theme_demo btn-secondary btn-sm mr-2">Demo 2</a></div></div><h5 class="text-black mb-5">Demo 2</h5><hr><div class="overlay-bx dz-demo-bx"><div class="overlay-wrapper "><img src="images/demo/pic3.jpg" alt="" class="w-100"></div><div class="overlay-layer"><a href="javascript:void(0);" data-theme="3" class="btn dz_theme_demo btn-secondary btn-sm mr-2">Demo 3</a></div></div><h5 class="text-black mb-5">Demo 3</h5><hr><div class="overlay-bx dz-demo-bx"><div class="overlay-wrapper"><img src="images/demo/pic4.jpg" alt="" class="w-100"></div><div class="overlay-layer"><a href="javascript:void(0);" data-theme="4" class="btn dz_theme_demo btn-secondary btn-sm mr-2">Demo 4</a></div></div><h5 class="text-black mb-5">Demo 4</h5><hr><div class="overlay-bx dz-demo-bx"><div class="overlay-wrapper"><img src="images/demo/pic5.jpg" alt="" class="w-100"></div><div class="overlay-layer"><a href="javascript:void(0);" data-theme="5" class="btn dz_theme_demo btn-secondary btn-sm mr-2">Demo 5</a></div></div><h5 class="text-black mb-5">Demo 5</h5><div class="overlay-bx dz-demo-bx"><div class="overlay-wrapper"><img src="images/demo/pic6.jpg" alt="" class="w-100"></div><div class="overlay-layer"><a href="javascript:void(0);" data-theme="6" class="btn dz_theme_demo btn-secondary btn-sm mr-2">Demo 6</a></div></div><h5 class="text-black mb-5">Demo 6</h5></div></div><div class="note-text"><span class="text-danger">*Note :</span> This theme switcher is not part of product. It is only for demo. you will get all guideline in documentation. please check <a href="https://griya.dexignzone.com/doc/" target="_blank" class="text-primary">documentation.</a></div></div></div>';
 
-    // if ($("#dzSwitcher").length == 0) {
-    //     jQuery("body").append(dzSwitcher + demoPanel);
+    if ($("#dzSwitcher").length == 0) {
+        jQuery("body").append(dzSwitcher + demoPanel);
 
-    //     //const ps = new PerfectScrollbar('.sidebar-right-inner');
-    //     //console.log(ps.reach.x);
-    //     //ps.isRtl = false;
+        const ps = new PerfectScrollbar(".sidebar-right-inner");
+        console.log(ps.reach.x);
+        ps.isRtl = false;
 
-    //     $(".sidebar-right-trigger").on("click", function () {
-    //         $(".sidebar-right").toggleClass("show");
-    //     });
-    //     $(".sidebar-close-trigger,.bg-overlay").on("click", function () {
-    //         $(".sidebar-right").removeClass("show");
-    //     });
-    // }
+        $(".sidebar-right-trigger").on("click", function () {
+            $(".sidebar-right").toggleClass("show");
+        });
+        $(".sidebar-close-trigger,.bg-overlay").on("click", function () {
+            $(".sidebar-right").removeClass("show");
+        });
+    }
 }
 
 (function ($) {

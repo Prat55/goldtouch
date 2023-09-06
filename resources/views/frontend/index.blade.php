@@ -2,9 +2,9 @@
 @section('title', 'Dashboard')
 
 @section('content')
-    <!--**********************************
-                                        Content body start
-                                    ***********************************-->
+    {{-- <!--**********************************
+        Content body start
+    ***********************************--> --}}
     <div class="content-body">
         <!-- row -->
         <div class="container-fluid">
@@ -589,6 +589,6 @@
         </div>
     </div>
     <!--**********************************
-                                        Content body end
-                                    ***********************************-->
+                                                                Content body end
+                                                            ***********************************-->
 @endsection

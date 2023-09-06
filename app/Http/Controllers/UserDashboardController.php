@@ -7,9 +7,17 @@ use Illuminate\Http\Request;
 
 class UserDashboardController extends Controller
 {
-    protected function userinfo(){
-        $users = User::all();
+    protected function userinfo(Request $request)
+    {
+        $users = User::latest();
 
-        return view('frontend.userinfo', compact('users'));
+        if (!empty($request->get('name'))) {
+            $orders = $users->where('name', 'like', '%' . $request->get('name') . '%');
+        }
+
+        $users1 = User::where('role', '1')->count();
+        $users2 = User::where('role', '2')->count();
+        $users =  $users->paginate(10);
+        return view('frontend.userinfo', compact('users', 'users1', 'users2'));
     }
 }
