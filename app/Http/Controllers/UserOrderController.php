@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrdersMail;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class UserOrderController extends Controller
 {
@@ -24,10 +27,10 @@ class UserOrderController extends Controller
 
     protected function makeOrder(Request $request)
     {
-
         $order = new Order([
             'order_id' => $this->random(),
             'cname' => $request->cname,
+            'u_id' => Auth::user()->id,
             'cadd' => $request->cadd,
             'cgstin' => $request->cgstin,
             'cstyle_ref' => $request->styleref,
@@ -44,14 +47,25 @@ class UserOrderController extends Controller
         ]);
         $order->save();
 
+        $mailData = [
+            'title' => 'Order Placed',
+            'name' => "$request->cname",
+            'add' => "$request->cadd",
+            'gstin' => "$request->cgstin",
+            'styleref' => "$request->styleref",
+            'email' => "$request->email1" . ',' . "$request->email2" . ',' . "$request->email3" . ',' . "$request->email4" . ',' . "$request->email5",
+            'phone' =>  "$request->phone1" . ',' . "$request->phone2" . ',' . "$request->phone3" . ',' . "$request->phone4" . ',' . "$request->phone5",
+        ];
+
+        Mail::to('pratikdesai9900@gmail.com')->cc("$request->email1", "$request->email2", "$request->email3", "$request->email4", "$request->email5")->send(new OrdersMail($mailData));
         return redirect('/order');
     }
 
     protected function orders(Request $request)
     {
         $orders = Order::latest();
-        if (!empty($request->get('keyword'))) {
-            $orders = $orders->where('cname', 'like', '%' . $request->get('keyword') . '%');
+        if (!empty($request->get('c'))) {
+            $orders = $orders->where('cname', 'like', '%' . $request->get('c') . '%');
         }
 
         $orders =  $orders->paginate(10);

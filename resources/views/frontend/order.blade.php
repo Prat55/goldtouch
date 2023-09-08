@@ -61,96 +61,46 @@
 
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">Email</label>
-                                            <input type="email" class="form-control" placeholder="Email" name="email1"
-                                                required>
+                                            <div class="d-flex align-items-center">
+                                                <div class="col-md-9">
+                                                    <input type="email" class="form-control mt-1"
+                                                        placeholder="Enter Email Id 1" name="email1" required>
+                                                </div>
+                                                <div class="col-md-2 ms-5">
+                                                    <button id="addInput" class="btn btn-sm btn-primary">Add</button>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <div id="inputContainer" class="col-md-12">
+                                                    <!-- Input boxes will be appended here -->
+                                                </div>
 
-                                            <input type="email" class="mt-2 form-control" placeholder="Email"
-                                                name="email2">
+                                            </div>
+
                                         </div>
 
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label">PHONE</label>
-                                            <input type="text" class="form-control" placeholder="Phone Number"
-                                                name="phone1" required>
-                                        </div>
-
-                                        <div class="mb-3 col-md-6">
-                                            <label class="form-label">Email</label>
-                                            <input type="email" class="form-control" placeholder="Email" name="email2">
-                                        </div>
-
-                                        <div class="mb-3 col-md-6">
-                                            <label class="form-label">PHONE</label>
-                                            <input type="text" class="form-control" placeholder="Phone Number"
-                                                name="phone2">
-                                        </div>
-
-                                        <div class="mb-3 col-md-6">
-                                            <label class="form-label">Email</label>
-                                            <input type="email" class="form-control" placeholder="Email" name="email3">
-                                        </div>
-
-                                        <div class="mb-3 col-md-6">
-                                            <label class="form-label">PHONE</label>
-                                            <input type="text" class="form-control" placeholder="Phone Number"
-                                                name="phone3">
-                                        </div>
-
-                                        <div class="mb-3 col-md-6">
-                                            <label class="form-label">Email</label>
-                                            <input type="email" class="form-control" placeholder="Email" name="email4">
-                                        </div>
-                                        <div class="mb-3 col-md-6">
-                                            <label class="form-label">PHONE</label>
-                                            <input type="text" class="form-control" placeholder="Phone Number"
-                                                name="phone4">
-                                        </div>
-
-                                        <div class="mb-3 col-md-6">
-                                            <label class="form-label">Email</label>
-                                            <input type="email" class="form-control" placeholder="Email"
-                                                name="email5">
-                                        </div>
-
-                                        <div class="mb-3 col-md-6">
-                                            <label class="form-label">PHONE</label>
-                                            <input type="text" class="form-control" placeholder="Phone Number"
-                                                name="phone5">
-                                        </div>
-
-                                        <div class="input_fields_wrap">
-                                            <button class="add_field_button">Add More Fields</button>
-                                            <div><input type="text" name="mytext[]"></div>
+                                            <label class="form-label">Phone</label>
+                                            <div class="d-flex align-items-center">
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control"
+                                                        placeholder="Enter Phone Number 1" name="phone1" required>
+                                                </div>
+                                                <div class="col-md-2 ms-5">
+                                                    <button id="addInput1" class="btn btn-sm btn-primary">Add</button>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <div id="inputContainer1" class="col-md-12">
+                                                    <!-- Input boxes will be appended here -->
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div class="mb-3 col-md-6">
                                             <button type="submit" class="btn btn-sm btn-primary">Order</button>
                                         </div>
                                     </div>
-                                    {{-- <div class="row">
-                                        <div class="mb-3 col-md-4">
-                                            <label class="form-label">State</label>
-                                            <select id="inputState" class="default-select form-control wide">
-                                                <option selected>Choose...</option>
-                                                <option>Option 1</option>
-                                                <option>Option 2</option>
-                                                <option>Option 3</option>
-                                            </select>
-                                        </div>
-                                        <div class="mb-3 col-md-2">
-                                            <label class="form-label">Zip</label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                    </div> --}}
-                                    {{-- <div class="mb-3">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox">
-                                            <label class="form-check-label">
-                                                Check me out
-                                            </label>
-                                        </div>
-                                    </div> --}}
-                                    {{-- <button type="submit" class="btn btn-primary">Sign in</button> --}}
                                 </form>
                             </div>
                         </div>
@@ -165,43 +115,99 @@
 
     <script>
         $(document).ready(function() {
-            var max_fields = 10; //maximum input boxes allowed
-            var wrapper = $(".col-md-6"); //Fields wrapper
-            var add_button = $(".add_field_button"); //Add button ID
+            var maxInputBoxes = 6; // Maximum number of input boxes allowed
+            var inputCount = 2; // Current input box count
 
-            var x = 1; //initlal text box count
-            $(add_button).click(function(e) { //on add input button click
-                e.preventDefault();
-                if (x < max_fields) { //max input box allowed
-                    x++; //text box increment
-                    $("#rm").remove();
+            function addInputBox() {
+                if (inputCount < maxInputBoxes) {
+                    // Create a new input element
+                    var inputElement = $("<div>")
+                        .addClass("input-container")
+                        .append(
+                            $("<input>").attr({
+                                type: "email",
+                                name: "email" + inputCount, // Incrementing name
+                                class: "input-box form-control mt-2",
+                                placeholder: "Enter Email Id " + inputCount + " (optional)",
+                            })
+                        )
+                        .append(
 
-                    $(wrapper).append(
-                        '<div id="divs"><input class="form-control" type="text" name="mytext[]"/>'
-                    ); //add input box
-                    $(wrapper).append(
-                        '<div id="divs"><input type="text" name="mytext[]"/>'); //add input box
-                    $(wrapper).append(
-                        '<div id="divs"><input type="text" name="mytext[]"/></div>'); //add input box
-                    $(wrapper).append(
-                        '<div id="divs"><input type="text" name="mytext[]"/><a href="#" id="rm" class="remove_field">Remove</a></div>'
-                    ); //add input box
-                    $(wrapper).append('<br>')
+                            $("<button>").text("Remove").attr({
+                                class: "btn btn-sm btn-danger remove-button mt-2",
+                            })
+                        )
+
+                    // Append the input element to the container
+                    $("#inputContainer").append(inputElement);
+
+                    // Increment the input count
+                    inputCount++;
+
+                    // Attach a click event handler to the Remove button
+                    $(".remove-button").click(function() {
+                        $(this).closest(".input-container").remove();
+                        inputCount--;
+                    });
+                } else {
+                    alert("You can add only 5 email ids at once");
                 }
+            }
+
+            // Initial call to addInputBox function
+            addInputBox();
+
+            $("#addInput").click(function() {
+                addInputBox();
             });
+        });
 
-            $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text
-                e.preventDefault();
-                $("#divs").remove();
-                x--;
-                $("#divs").remove();
-                x--;
-                $("#divs").remove();
-                x--;
-                $("#divs").remove();
-                x--;
+        $(document).ready(function() {
+            var maxInputBoxes = 6; // Maximum number of input boxes allowed
+            var inputCount = 2; // Current input box count
 
-            })
+            function addInputBox() {
+                if (inputCount < maxInputBoxes) {
+                    // Create a new input element
+                    var inputElement = $("<div>")
+                        .addClass("input-container1")
+                        .append(
+                            $("<input>").attr({
+                                type: "number",
+                                name: "phone" + inputCount, // Incrementing name
+                                class: "input-box form-control mt-2",
+                                placeholder: "Enter Phone Number " + inputCount + " (optional)",
+                            })
+                        )
+                        .append(
+
+                            $("<button>").text("Remove").attr({
+                                class: "btn btn-sm btn-danger remove-button1 mt-2",
+                            })
+                        )
+
+                    // Append the input element to the container
+                    $("#inputContainer1").append(inputElement);
+
+                    // Increment the input count
+                    inputCount++;
+
+                    // Attach a click event handler to the Remove button
+                    $(".remove-button1").click(function() {
+                        $(this).closest(".input-container1").remove();
+                        inputCount--;
+                    });
+                } else {
+                    alert("You can add only 5 phone numbers at once");
+                }
+            }
+
+            // Initial call to addInputBox function
+            addInputBox();
+
+            $("#addInput1").click(function() {
+                addInputBox();
+            });
         });
     </script>
 

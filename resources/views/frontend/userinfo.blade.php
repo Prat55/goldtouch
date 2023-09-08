@@ -98,6 +98,8 @@
                                             <td>{{ $od->role == 2 ? 'Admin' : 'User' }}</td>
                                             <td>
                                                 <form action="/ban/{{ $od->id }}" method="post">
+                                                    @csrf
+                                                    @method('ban')
                                                     <button type="submit"
                                                         class="btn btn-sm btn-outline-danger">Ban</button>
                                                 </form>
