@@ -34,16 +34,8 @@ class UserOrderController extends Controller
             'cadd' => $request->cadd,
             'cgstin' => $request->cgstin,
             'cstyle_ref' => $request->styleref,
-            'email1' => $request->email1,
-            'email2' => $request->email2,
-            'email3' => $request->email3,
-            'email4' => $request->email4,
-            'email5' => $request->email5,
-            'phone1' => $request->phone1,
-            'phone2' => $request->phone2,
-            'phone3' => $request->phone3,
-            'phone4' => $request->phone4,
-            'phone5' => $request->phone5,
+            'email' => $request->email1 . ' ' . $request->email2 . ' ' . $request->email2 . ' ' . $request->email3 . ' ' . $request->email4 . ' ' . $request->email5,
+            'phone' => $request->phone1 . ' ' . $request->phone2 . ' ' . $request->phone3 . ' ' . $request->phone4 . ' ' . $request->phone5,
         ]);
         $order->save();
 

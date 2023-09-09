@@ -51,11 +51,35 @@
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">MEASURMENT TAKER 1</label>
-                                            <input type="text" class="form-control" name="mtaker1">
+                                            <div class="col-md-12 d-flex justify-content-between">
+                                                <div class="col-8">
+                                                    <!-- Text input with 70% width -->
+                                                    <input type="text" name="mtaker1" class="form-control"
+                                                        style="width: 100%" placeholder="Enter measurement taker name"
+                                                        required />
+                                                </div>
+                                                <div class="col-3">
+                                                    <!-- Date-time input with 30% width -->
+                                                    <input type="datetime-local" name="mdatetime" class="form-control"
+                                                        style="width: 100%" required />
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">MEASURMENT TAKER 2</label>
-                                            <input type="text" class="form-control" name="mtaker2">
+                                            <div class="col-md-12 d-flex justify-content-between">
+                                                <div class="col-8">
+                                                    <!-- Text input with 70% width -->
+                                                    <input type="text" name="mtaker2" class="form-control"
+                                                        style="width: 100%"
+                                                        placeholder="Enter measurement taker (optional)" />
+                                                </div>
+                                                <div class="col-3">
+                                                    <!-- Date-time input with 30% width -->
+                                                    <input type="datetime-local" name="mdatetime" class="form-control"
+                                                        style="width: 100%" />
+                                                </div>
+                                            </div>
                                         </div>
 
                                         {{-- <div class="mb-3 col-md-6">
