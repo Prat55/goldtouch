@@ -22,10 +22,17 @@
                                 <div class="order-user">
                                     <i class="fas fa-user text-white bg-primary"></i>
                                 </div>
-                                <div class="ms-4 customer">
-                                    <h2 class="mb-0  font-w600">245</h2>
-                                    <p class="mb-0 font-w500">Total Customers</p>
-                                </div>
+                                @if (Auth::user()->role == 2)
+                                    <div class="ms-4 customer">
+                                        <h2 class="mb-0  font-w600">{{ $aordersCount }}</h2>
+                                        <p class="mb-0 font-w500">Total Orders</p>
+                                    </div>
+                                @else
+                                    <div class="ms-4 customer">
+                                        <h2 class="mb-0  font-w600">{{ $uordersCount }}</h2>
+                                        <p class="mb-0 font-w500">Total Orders</p>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
