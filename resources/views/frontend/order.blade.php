@@ -4,19 +4,23 @@
 @section('content')
     <div class="content-body">
         <div class="container-fluid">
-            <div class="row page-titles">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Order</a></li>
-                </ol>
+            <div class="mb-sm-4 d-flex flex-wrap align-items-center text-head">
+                <h2 class="mb-3 me-auto">Order</h2>
+                <div>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('dashboard') }}">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            <a href="javascript: void();">Order</a>
+                        </li>
+                    </ol>
+                </div>
             </div>
             <!-- row -->
             <div class="row">
                 <div class="col-xl-12 col-lg-12">
                     <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Horizontal Form</h4>
-                        </div>
                         <div class="card-body">
                             <div class="basic-form">
                                 <form action="{{ route('makeOrder') }}" method="POST">
@@ -115,8 +119,9 @@
 
     <script>
         $(document).ready(function() {
-            var maxInputBoxes = 6; // Maximum number of input boxes allowed
-            var inputCount = 2; // Current input box count
+            var maxInputBoxes = 4; // Maximum number of input boxes allowed
+            var inputCount = 0; // Current input box count
+            var num = 2;
 
             function addInputBox() {
                 if (inputCount < maxInputBoxes) {
@@ -126,9 +131,9 @@
                         .append(
                             $("<input>").attr({
                                 type: "email",
-                                name: "email" + inputCount, // Incrementing name
+                                name: "email" + num, // Incrementing name
                                 class: "input-box form-control mt-2",
-                                placeholder: "Enter Email Id " + inputCount + " (optional)",
+                                placeholder: "Enter Email Id " + num + " (optional)",
                             })
                         )
                         .append(
@@ -143,7 +148,7 @@
 
                     // Increment the input count
                     inputCount++;
-
+                    num++;
                     // Attach a click event handler to the Remove button
                     $(".remove-button").click(function() {
                         $(this).closest(".input-container").remove();
@@ -163,8 +168,9 @@
         });
 
         $(document).ready(function() {
-            var maxInputBoxes = 6; // Maximum number of input boxes allowed
-            var inputCount = 2; // Current input box count
+            var maxInputBoxes = 4; // Maximum number of input boxes allowed
+            var inputCount = 0; // Current input box count
+            var num = 2;
 
             function addInputBox() {
                 if (inputCount < maxInputBoxes) {
@@ -174,9 +180,9 @@
                         .append(
                             $("<input>").attr({
                                 type: "number",
-                                name: "phone" + inputCount, // Incrementing name
+                                name: "phone" + num, // Incrementing name
                                 class: "input-box form-control mt-2",
-                                placeholder: "Enter Phone Number " + inputCount + " (optional)",
+                                placeholder: "Enter Phone Number " + num + " (optional)",
                             })
                         )
                         .append(
@@ -191,6 +197,7 @@
 
                     // Increment the input count
                     inputCount++;
+                    num++;
 
                     // Attach a click event handler to the Remove button
                     $(".remove-button1").click(function() {

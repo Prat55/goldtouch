@@ -44,7 +44,7 @@
     <!--**********************************
         Main wrapper start
     ***********************************-->
-    <div id="main-wrapper">
+    <div id="main-wrapper" class="show menu-toggle">
         <!--**********************************
             Nav header start
         ***********************************-->
@@ -84,7 +84,7 @@
                 </svg>
             </a>
             <div class="nav-control">
-                <div class="hamburger">
+                <div class="hamburger is-active">
                     <span class="line"></span><span class="line"></span><span class="line"></span>
                 </div>
             </div>

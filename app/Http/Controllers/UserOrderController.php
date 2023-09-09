@@ -65,13 +65,13 @@ class UserOrderController extends Controller
     {
         $uordersCount = Order::where('u_id', Auth::user()->id)->count();
         $aordersCount = Order::count();
-        
+
         $orders = Order::latest();
         if (!empty($request->get('c'))) {
             $orders = $orders->where('cname', 'like', '%' . $request->get('c') . '%');
         }
 
         $orders =  $orders->paginate(10);
-        return view('frontend.orders', compact('orders', 'uordersCount'));
+        return view('frontend.orders', compact('orders', 'uordersCount', 'aordersCount'));
     }
 }

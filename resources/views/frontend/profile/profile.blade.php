@@ -12,7 +12,7 @@
                             <a href="{{ route('dashboard') }}">Dashboard</a>
                         </li>
                         <li class="breadcrumb-item active">
-                            <a href="{{ route('dashboard') }}">Profile</a>
+                            <a href="#">Profile</a>
                         </li>
                     </ol>
                 </div>

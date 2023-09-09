@@ -37,7 +37,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-md-6">
+                {{-- <div class="col-xl-3 col-md-6">
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
@@ -51,7 +51,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 @if (Auth::user()->role == 2)
                     <div class="col-xl-12">
                         <div class="d-flex flex-wrap">
@@ -83,13 +83,13 @@
                             id="example5">
                             <thead>
                                 <tr class="text-center">
-                                    <th>
+                                    {{-- <th>
                                         <div class="form-check ms-2">
                                             <input class="form-check-input" type="checkbox" value="" id="checkAll">
                                             <label class="form-check-label" for="checkAll">
                                             </label>
                                         </div>
-                                    </th>
+                                    </th> --}}
                                     <th>Order ID</th>
                                     <th>Date</th>
                                     @if (Auth::user()->role == 2)
@@ -112,14 +112,14 @@
                                         @if (Auth::user()->role == 1)
                                             @if ($od->u_id == Auth::user()->id)
                                                 <tr>
-                                                    <td>
+                                                    {{-- <td>
                                                         <div class="form-check ms-2">
                                                             <input class="form-check-input" type="checkbox" value=""
                                                                 id="customCheckBox1">
                                                             <label class="form-check-label" for="customCheckBox1">
                                                             </label>
                                                         </div>
-                                                    </td>
+                                                    </td> --}}
                                                     <td>#{{ $od->order_id }}</td>
                                                     <td class="wspace-no">{{ $od->created_at }}</td>
                                                     <td class="text-ov">{{ $od->cadd }}</td>
@@ -250,8 +250,8 @@
                                                                 </path>
                                                                 <path
                                                                     d="M4.00049 12C4.00049 12.5523 4.4482 13 5.00049 13C5.55277 13 6.00049 12.5523 6.00049 12C6.00049 11.4477 5.55277 11 5.00049 11C4.4482 11 4.00049 11.4477 4.00049 12Z"
-                                                                    stroke="#3E4954" stroke-width="2"
-                                                                    stroke-linecap="round" stroke-linejoin="round">
+                                                                    stroke="#3E4954" stroke-width="2" stroke-linecap="round"
+                                                                    stroke-linejoin="round">
                                                                 </path>
                                                             </svg>
                                                         </div>

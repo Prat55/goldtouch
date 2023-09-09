@@ -771,6 +771,7 @@ button,
 [type="reset"],
 [type="submit"] {
     -webkit-appearance: button;
+    appearance: button;
 }
 
 button:not(:disabled),
@@ -832,6 +833,7 @@ legend+* {
 [type="search"] {
     outline-offset: -2px;
     -webkit-appearance: textfield;
+    appearance: textfield;
 }
 
 /* rtl:raw:
@@ -853,6 +855,7 @@ legend+* {
 ::file-selector-button {
     font: inherit;
     -webkit-appearance: button;
+    appearance: button;
 }
 
 output {
@@ -19183,9 +19186,11 @@ svg.pulse-svg .third-circle {
     left: 0;
 }
 
+/*
 [direction="rtl"] {
-    /* ===== Light gallery ===== */
+     ===== Light gallery =====
 }
+*/
 
 [direction="rtl"] .select2-container--default .select2-selection--single .select2-selection__arrow {
     left: 15px;
@@ -19825,6 +19830,7 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
 .bell img {
     -webkit-animation: ring 8s .7s ease-in-out infinite;
     -webkit-transform-origin: 50% 0.25rem;
+    transform-origin: 50% 0.25rem;
     -moz-animation: ring 8s .7s ease-in-out infinite;
     -moz-transform-origin: 50% 0.25rem;
     animation: ring 8s .7s ease-in-out infinite;
@@ -30655,7 +30661,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 }
 
 .mail-list a {
-    vertical-align: middle;
+    /* vertical-align: middle; */
     padding: 0.625rem 0.9375rem;
     display: block;
     background: transparent;
@@ -33369,7 +33375,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 .weather-one h2,
 .weather-one .h2 {
     display: inline-block;
-    float: right;
+    /* float: right; */
     font-size: 4.8rem;
 }
 
@@ -36107,7 +36113,7 @@ button:focus {
     display: inline-block;
     margin: -0.5rem 0.75rem -0.5rem -1.188rem;
     padding: 0.5rem 0.80rem 0.5rem;
-    float: left;
+    /* float: left; */
 }
 
 @media only screen and (max-width: 87.5rem) {
@@ -39391,7 +39397,7 @@ code {
 
 .table {
     color: strong;
-    color-color: #6e6e6e;
+    color: #6e6e6e;
 }
 
 .table th,
@@ -39562,9 +39568,10 @@ code {
     border-color: #E6E6E6;
 }
 
+/*
 [data-theme-version="dark"] .table tbody tr td {
-    /*   border-color: $d-border; */
-}
+       border-color: $d-border;
+} */
 
 .table:not(.table-bordered) thead th {
     border-top: none;
