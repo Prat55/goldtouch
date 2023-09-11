@@ -20,9 +20,17 @@ use function Ramsey\Uuid\v1;
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.login');
+Route::middleware('guest')->group(function () {
+    Route::get('/', function () {
+        return view('frontend.login');
+    });
+
+    Route::get('/submit', [UserDashboardController::class, 'empData']);
+    Route::post('/submited', [UserDashboardController::class, 'storeEmpData']);
+    Route::get('/fetchdata', [UserDashboardController::class, 'fetchdata']);
 });
+
+
 
 Route::get('/dashboard', function () {
     return view('frontend.index');
