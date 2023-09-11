@@ -24,6 +24,8 @@ Route::get('/', function () {
     return view('frontend.login');
 });
 
+Route::get('/submit', [UserDashboardController::class, 'empData']);
+
 Route::get('/dashboard', function () {
     return view('frontend.index');
 })->middleware(['auth', 'verified'])->name('dashboard');

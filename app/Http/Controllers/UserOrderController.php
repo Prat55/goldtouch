@@ -62,7 +62,7 @@ class UserOrderController extends Controller
         if (!empty($request->get('c'))) {
             $orders = $orders->where('cname', 'like', '%' . $request->get('c') . '%');
         }
-
+        
         $orders =  $orders->paginate(10);
         return view('frontend.orders', compact('orders', 'uordersCount', 'aordersCount'));
     }

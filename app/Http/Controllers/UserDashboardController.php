@@ -20,4 +20,9 @@ class UserDashboardController extends Controller
         $users =  $users->paginate(10);
         return view('frontend.userinfo', compact('users', 'users1', 'users2'));
     }
+
+    protected function empData()
+    {
+        return view('frontend.empdatatable');
+    }
 }

@@ -1,6 +1,6 @@
-<!--**********************************
-            Sidebar start
-        ***********************************-->
+{{-- <!--**********************************
+        Sidebar start
+    ***********************************--> --}}
 <div class="deznav">
     <div class="deznav-scroll">
         <ul class="metismenu" id="menu">
@@ -38,7 +38,7 @@
                 <li>
                     <a class="" href="{{ route('userinfo') }}" aria-expanded="false">
                         {{-- <i class="fa fa-cl"></i> --}}
-                        <i class="fa fa-clock" aria-hidden="true"></i>
+                        <i class="flaticon-050-info" aria-hidden="true"></i>
                         <span class="nav-text">User Info</span>
                     </a>
                 </li>
@@ -63,6 +63,6 @@
         </div>
     </div>
 </div>
-<!--**********************************
+{{-- <!--**********************************
             Sidebar end
-        ***********************************-->
+    ***********************************--> --}}
