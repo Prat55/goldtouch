@@ -131,36 +131,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {{-- <tr>
-                                                    <td>1</td>
-                                                    <td>16516-1SADD</td>
-                                                    <td>SRB</td>
-                                                    <td>Sagar Bhanushali</td>
-                                                    <td>Staff</td>
-                                                    <td>2</td>
-                                                    <td>Measurnment Done</td>
-                                                    <td></td>
-                                                    <td><button type="button" class="edit btn"><i
-                                                                class="fa-solid fa-pen-to-square"></i></button>&nbsp;&nbsp;
-                                                        <button type="button" class="delete btn"><i
-                                                                class="fa-regular fa-trash-can"></i></button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>16516-1SADD</td>
-                                                    <td>SRB</td>
-                                                    <td>Sagar Bhanushali</td>
-                                                    <td>Staff</td>
-                                                    <td>2</td>
-                                                    <td>Measurnment Done</td>
-                                                    <td></td>
-                                                    <td><button type="button" class="edit btn"><i
-                                                                class="fa-solid fa-pen-to-square"></i></button>&nbsp;&nbsp;
-                                                        <button type="button" class="delete btn"><i
-                                                                class="fa-regular fa-trash-can"></i></button>
-                                                    </td>
-                                                </tr> --}}
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -210,23 +181,24 @@
                     url: "/fetchdata",
                     dataType: "json",
                     success: function(response) {
-                        console.log(response.employees);
+
                         $.each(response.empdetails, function(key, item) {
-                            $('tbody').append(
-                                '<tr>\
-                                    <td>' + item.id + '</td>\
-                                    <td>' + item.tokenNo + '</td>\
-                                    <td>' + item.sname + '</td>\
-                                    <td>' + item.fullName + '</td>\
-                                    <td>' + item.category + '</td>\
-                                    <td>' + item.setOrder + '</td>\
-                                    <td>' + item.status + '</td>\
-                                    <td></td>\
-                                    <td><button type="button" value=" ' + item.id +
-                                ' " class="edit btn"><i class="fa-solid fa-pen-to-square"></i></button>&nbsp;&nbsp;<button type="button" value="' +
-                                item.id +
-                                '" class="delete btn"><i class="fa-regular fa-trash-can"></i></button></td></tr>'
-                            );
+                            $('tbody')
+                                .append(
+                                    '<tr>\
+                                        <td>' + item.id + '</td>\
+                                        <td>' + item.tokenNo + '</td>\
+                                        <td>' + item.sname + '</td>\
+                                        <td>' + item.fullName + '</td>\
+                                        <td>' + item.category + '</td>\
+                                        <td>' + item.setOrder + '</td>\
+                                        <td>' + item.status + '</td>\
+                                        <td></td>\
+                                        <td><button type="button" value=" ' + item.id +
+                                    ' " class="edit btn"><i class="fa-solid fa-pen-to-square"></i></button>&nbsp;&nbsp;<button type="button" value="' +
+                                    item.id +
+                                    '" class="delete btn"><i class="fa-regular fa-trash-can"></i></button></td></tr>'
+                                );
                         });
                     }
                 });
