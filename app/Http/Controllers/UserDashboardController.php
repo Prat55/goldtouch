@@ -70,4 +70,8 @@ class UserDashboardController extends Controller
             'empdetails' => $empdetails,
         ]);
     }
+
+    protected function deleteempdetails(){
+        
+    }
 }

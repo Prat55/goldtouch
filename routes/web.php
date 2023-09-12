@@ -28,6 +28,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/submit', [UserDashboardController::class, 'empData']);
     Route::post('/submited', [UserDashboardController::class, 'storeEmpData']);
     Route::get('/fetchdata', [UserDashboardController::class, 'fetchdata']);
+    Route::get('/delete-empdetails', [UserDashboardController::class, 'deleteempdetails']);
 });
 
 
