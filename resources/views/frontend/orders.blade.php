@@ -52,6 +52,7 @@
                         </div>
                     </div>
                 </div> --}}
+
                 @if (Auth::user()->role == 2)
                     <div class="col-xl-12">
                         <div class="d-flex flex-wrap">

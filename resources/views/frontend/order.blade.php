@@ -177,6 +177,7 @@
                     $(".remove-button").click(function() {
                         $(this).closest(".input-container").remove();
                         inputCount--;
+                        num--;
                     });
                 } else {
                     alert("You can add only 5 email ids at once");
@@ -227,6 +228,7 @@
                     $(".remove-button1").click(function() {
                         $(this).closest(".input-container1").remove();
                         inputCount--;
+                        num--;
                     });
                 } else {
                     alert("You can add only 5 phone numbers at once");
