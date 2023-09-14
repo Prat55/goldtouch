@@ -5,24 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class Customer extends Model
 {
     use HasFactory;
     protected $fillable = [
         'id',
-        'order_id',
-        'u_id',
         'cname',
         'cadd',
         'cgstin',
-        'cstyle_ref',
+        'styleref',
         'email',
         'phone',
         'created_at',
     ];
-
-    protected function uid()
-    {
-        return $this->belongsTo(User::class, 'u_id', 'id');
-    }
 }
