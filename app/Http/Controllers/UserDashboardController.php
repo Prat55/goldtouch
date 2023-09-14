@@ -25,7 +25,8 @@ class UserDashboardController extends Controller
 
     protected function empData()
     {
-        return view('frontend.empdatatable');
+        $empDetails = Empdetail::all();
+        return view('frontend.empdatatable', compact('empDetails'));
     }
 
     protected function storeEmpData(Request $request)
@@ -60,19 +61,5 @@ class UserDashboardController extends Controller
                 'message' => 'Employee Added Successfully',
             ]);
         }
-    }
-
-    protected function fetchdata()
-    {
-        $empdetails = Empdetail::all();
-
-        return response()->json([
-            'empdetails' => $empdetails,
-        ]);
-    }
-
-    protected function deleteempdetails()
-    {
-        
     }
 }

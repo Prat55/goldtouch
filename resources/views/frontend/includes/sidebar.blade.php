@@ -42,6 +42,13 @@
                         <span class="nav-text">User Info</span>
                     </a>
                 </li>
+                <li>
+                    <a class="" href="{{ route('userinfo') }}" aria-expanded="false">
+                        {{-- <i class="fa fa-cl"></i> --}}
+                        <i class="flaticon-050-info" aria-hidden="true"></i>
+                        <span class="nav-text">User Info</span>
+                    </a>
+                </li>
             @else
                 <li>
                     <a class="" href="{{ route('order') }}" aria-expanded="false">

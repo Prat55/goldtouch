@@ -16,7 +16,9 @@ return new class extends Migration
             $table->string('cname', 255);
             $table->string('cadd', 255);
             $table->string('cgstin', 255);
-            $table->string('cname', 255);
+            $table->string('styleref', 255);
+            $table->string('email', 255);
+            $table->string('phone', 255);
             $table->timestamps();
         });
     }

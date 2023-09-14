@@ -45,11 +45,14 @@
                                 </center>
                                 <div class="container">
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-sm btn-primary mb-2" data-toggle="modal"
+                                    <button type="button" class="btn btn-sm btn-primary mb-2 ms-4" data-toggle="modal"
                                         data-target="#eModal">
                                         Add
                                     </button>
-                                    <a href="" class="btn btn-sm btn-secondary mb-2">Refresh</a>
+                                    <button type="button" class="btn btn-sm btn-primary mb-2 reload">
+                                        Refresh
+                                    </button>
+                                    {{-- <a href="" class="btn btn-sm btn-secondary mb-2">Refresh</a> --}}
 
                                     <!-- Modal -->
                                     <div class="modal fade" id="eModal" tabindex="-1" role="dialog"
@@ -105,35 +108,156 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-sm btn-secondary"
                                                         data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-sm btn-primary saveData">Save
-                                                        changes</button>
+                                                    <button type="button"
+                                                        class="btn btn-sm btn-primary saveData">Save</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="container">
-                                    <div id="sStatus" class="mt-2 mb-2">
 
+                                    {{-- Edit Modal --}}
+                                    <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
+                                        aria-labelledby="eModalCenterTitle" aria-hidden="true" aria-modal="hide">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">Employees
+                                                        Details
+                                                        Update Form
+                                                    </h5>
+
+                                                    {{-- <button type="button" class="close btn btn-sm btn-danger"
+                                                        data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button> --}}
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    <input type="hidden" name="" id="e_id">
+                                                    <label for="" class="mt-1">Token Number</label>
+                                                    <input type="text" name="tokenNo" id="etokenNo"
+                                                        class="form-control">
+                                                    <label for="" class="mt-1">Serial Name</label>
+                                                    <input type="text" name="sname" id="esname"
+                                                        class="form-control">
+                                                    <label for="" class="mt-1">Full Name</label>
+
+                                                    <input type="text" name="fullName" id="efullName"
+                                                        class="form-control">
+                                                    <label for="" class="mt-1">Category</label>
+                                                    <input type="text" name="category" id="ecategory"
+                                                        class="form-control">
+                                                    <label for="" class="mt-1">Set Order</label>
+                                                    <input type="number" name="setOrder" id="esetOrder"
+                                                        class="form-control">
+
+                                                    <select name="status" id="status" class="form-control mt-2">
+                                                        <option value="MEASURMENT DONE">MEASURMENT DONE</option>
+                                                        <option value="MEASURMENT PENDING">MEASURMENT PENDING
+                                                        </option>
+                                                        <option value="PROCESSING DONE">PROCESSING DONE</option>
+                                                        <option value="DIPSATCHING PENDING">DIPSATCHING PENDING
+                                                        </option>
+                                                        <option value="READY FOR DISPATCH PAYMENT PENDING">READY
+                                                            FOR DISPATCH PAYMENT PENDING
+                                                        </option>
+                                                        <option value="REDY FOR DISPATCH">REDY FOR DISPATCH
+                                                        </option>
+                                                        <option value="DISPATCHED">DISPATCHED</option>
+                                                    </select>
+                                                    <ul id="updaterrstatus"></ul>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-sm btn-secondary"
+                                                        data-dismiss="modal">Close</button>
+
+                                                    <button type="button"
+                                                        class="btn btn-sm btn-primary updateData">Update</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="table-responsive">
-                                        <table class="table table-striped table-bordered text-center">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Sr No.</th>
-                                                    <th scope="col">Token Number</th>
-                                                    <th scope="col">SName</th>
-                                                    <th scope="col">Full Name</th>
-                                                    <th scope="col">Category</th>
-                                                    <th scope="col">Sets Order</th>
-                                                    <th scope="col">Status</th>
-                                                    <th scope="col">Remarks</th>
-                                                    <th scope="col"></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                                    <div class="container">
+                                        <div id="sStatus" class="mt-2 mb-2">
 
-                                            </tbody>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered text-center">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Sr No.</th>
+                                                        <th scope="col">Token Number</th>
+                                                        <th scope="col">SName</th>
+                                                        <th scope="col">Full Name</th>
+                                                        <th scope="col">Category</th>
+                                                        <th scope="col">Set Order</th>
+                                                        <th scope="col">Status</th>
+                                                        <th scope="col">Remarks</th>
+                                                        <th scope="col"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    @foreach ($empDetails as $key => $emp)
+                                                        <tr>
+                                                            <td>{{ $key + 1 }}</td>
+                                                            <td>{{ $emp->tokenNo }}</td>
+                                                            <td>{{ $emp->sname }}</td>
+                                                            <td>{{ $emp->fullName }}</td>
+                                                            <td> {{ $emp->category }} </td>
+                                                            <td> {{ $emp->setOrder }} </td>
+                                                            <td> {{ $emp->status }} </td>
+                                                            <td></td>
+                                                            <td>
+                                                                <button class="edit btn mb-2"
+                                                                    value="{{ $emp->id }}">
+                                                                    <i class="fa-solid fa-pen-to-square"
+                                                                        style="color: rgb(64, 111, 212)"></i>
+                                                                </button>
+                                                                &nbsp;&nbsp;
+                                                                <!-- Modal -->
+                                                                <div class="modal fade" id="dModal" tabindex="-1"
+                                                                    role="dialog" aria-labelledby="eModalCenterTitle"
+                                                                    aria-hidden="true" aria-modal="hide">
+                                                                    <div class="modal-dialog modal-dialog-centered"
+                                                                        role="document">
+                                                                        <div class="modal-content">
+
+                                                                            <div class="modal-body">
+                                                                                <h4>Are you sure want to delete this
+                                                                                    employee details
+                                                                                </h4>
+
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button"
+                                                                                    class="btn btn-sm btn-secondary"
+                                                                                    data-dismiss="modal">
+                                                                                    Cancel
+                                                                                </button>
+
+                                                                                <form
+                                                                                    action="/delete-empdetails/{{ $emp->id }}"
+                                                                                    method="POST">
+                                                                                    @csrf
+                                                                                    @method('delete')
+                                                                                    <button type="submit"
+                                                                                        class="btn btn-sm btn-danger">Confirm</button>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                        </div>
+                                        <button type="button" class="btn mb-2" data-toggle="modal"
+                                            data-target="#dModal">
+                                            <i class="fa-regular fa-trash-can" style="color: rgb(216, 52, 52)"></i>
+                                        </button>
+                                        </td>
+                                        </tr>
+                                        @endforeach
+
+                                        </tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -174,36 +298,24 @@
 
     <script>
         $(document).ready(function() {
-            fetchEmpData()
 
-            function fetchEmpData() {
+            $(document).on('click', '.edit', function(e) {
+                e.preventDefault();
+
+                var id = $(this).val();
+                // alert(id);
+
+                $('#editModal').modal('show');
+
                 $.ajax({
                     type: "GET",
-                    url: "/fetchdata",
-                    dataType: "json",
+                    url: "/edit-emp/" + id,
                     success: function(response) {
-
-                        $.each(response.empdetails, function(key, item) {
-                            $('tbody')
-                                .append(
-                                    '<tr>\
-                                        <td>' + item.id + '</td>\
-                                        <td>' + item.tokenNo + '</td>\
-                                        <td>' + item.sname + '</td>\
-                                        <td>' + item.fullName + '</td>\
-                                        <td>' + item.category + '</td>\
-                                        <td>' + item.setOrder + '</td>\
-                                        <td>' + item.status + '</td>\
-                                        <td></td>\
-                                        <td><button type="button" value=" ' + item.id +
-                                    ' " class="edit btn"><i class="fa-solid fa-pen-to-square"></i></button>&nbsp;&nbsp;<button type="button" value="' +
-                                    item.id +
-                                    '" class="delete btn"><i class="fa-regular fa-trash-can"></i></button></td></tr>'
-                                );
-                        });
+                        console.log(response);
                     }
                 });
-            }
+
+            });
 
             $(document).on('click', '.saveData', function(e) {
                 e.preventDefault();
@@ -242,7 +354,10 @@
                     }
                 });
             });
+        });
 
+        $(document).on('click', '.reload', function(e) {
+            location.reload();
         });
     </script>
 </body>
