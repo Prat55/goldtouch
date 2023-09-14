@@ -71,7 +71,8 @@ class UserDashboardController extends Controller
         ]);
     }
 
-    protected function deleteempdetails(){
+    protected function deleteempdetails()
+    {
         
     }
 }

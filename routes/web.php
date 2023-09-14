@@ -5,7 +5,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\UserOrderController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 
 use function Ramsey\Uuid\v1;
 
@@ -24,14 +26,12 @@ Route::middleware('guest')->group(function () {
     Route::get('/', function () {
         return view('frontend.login');
     });
-
-    Route::get('/submit', [UserDashboardController::class, 'empData']);
-    Route::post('/submited', [UserDashboardController::class, 'storeEmpData']);
-    Route::get('/fetchdata', [UserDashboardController::class, 'fetchdata']);
-    Route::get('/delete-empdetails', [UserDashboardController::class, 'deleteempdetails']);
 });
 
-
+Route::get('/submit/{cid}', [UserDashboardController::class, 'empData'])->name('share-entry')->middleware('signed');
+Route::post('/submited', [UserDashboardController::class, 'storeEmpData'])->middleware('signed');
+Route::get('/fetchdata', [UserDashboardController::class, 'fetchdata'])->middleware('signed');
+Route::get('/delete-empdetails', [UserDashboardController::class, 'deleteempdetails'])->middleware('signed');
 
 Route::get('/dashboard', function () {
     return view('frontend.index');
@@ -48,6 +48,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('admin.auth')->group(function () {
     Route::get('/user-info', [UserDashboardController::class, 'userinfo'])->name('userinfo');
+    Route::get('/customers', [UserDashboardController::class, 'userinfo'])->name('userinfo');
 });
 
 require __DIR__ . '/auth.php';

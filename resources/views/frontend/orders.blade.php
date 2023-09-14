@@ -74,7 +74,6 @@
                             <a href="{{ route('orders') }}" class="btn btn-warning mb-3">
                                 <i class="fas fa-redo-alt"></i>
                             </a>
-
                         </div>
                     </div>
                 @endif

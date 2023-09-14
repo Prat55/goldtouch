@@ -49,6 +49,7 @@
                                         data-target="#eModal">
                                         Add
                                     </button>
+                                    <a href="" class="btn btn-sm btn-secondary mb-2">Refresh</a>
 
                                     <!-- Modal -->
                                     <div class="modal fade" id="eModal" tabindex="-1" role="dialog"
