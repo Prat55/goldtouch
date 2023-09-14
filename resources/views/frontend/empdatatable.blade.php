@@ -133,7 +133,7 @@
                                                 </div>
 
                                                 <div class="modal-body">
-                                                    <input type="hidden" name="" id="e_id">
+                                                    <input type="hidden" name="e_id" id="e_id">
                                                     <label for="" class="mt-1">Token Number</label>
                                                     <input type="text" name="tokenNo" id="etokenNo"
                                                         class="form-control">
@@ -151,7 +151,7 @@
                                                     <input type="number" name="setOrder" id="esetOrder"
                                                         class="form-control">
 
-                                                    <select name="status" id="status" class="form-control mt-2">
+                                                    <select name="status" id="estatus" class="form-control mt-2">
                                                         <option value="MEASURMENT DONE">MEASURMENT DONE</option>
                                                         <option value="MEASURMENT PENDING">MEASURMENT PENDING
                                                         </option>
@@ -168,7 +168,7 @@
                                                     <ul id="updaterrstatus"></ul>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-sm btn-secondary"
+                                                    <button type="button" class="close btn btn-sm btn-secondary"
                                                         data-dismiss="modal">Close</button>
 
                                                     <button type="button"
@@ -311,10 +311,69 @@
                     type: "GET",
                     url: "/edit-emp/" + id,
                     success: function(response) {
-                        console.log(response);
+                        // console.log(response);
+                        if (response.status == 404) {
+                            $('#sStatus').html("");
+                            $('#sStatus').addClass('alert alert-danger');
+                            $('#sStatus').text(response.message);
+                        } else {
+                            $('#etokenNo').val(response.employee.tokenNo);
+                            $('#esname').val(response.employee.sname);
+                            $('#efullName').val(response.employee.fullName);
+                            $('#ecategory').val(response.employee.category);
+                            $('#esetOrder').val(response.employee.setOrder);
+                            $('#estatus').val(response.employee.status);
+                        }
                     }
                 });
 
+            });
+
+            $(document).on('click', '.updateData', function(e) {
+                e.preventDefault();
+                var id = $('#e_id').val();
+
+                var data = {
+                    'tokenNo': $('#etokenNo').val(),
+                    'sname': $('#esname').val(),
+                    'fullName': $('#efullName').val(),
+                    'category': $('#ecategory').val(),
+                    'setOrder': $('#esetOrder').val(),
+                    'status': $('#estatus').val(),
+                };
+
+                $.ajax({
+                    type: "PUT",
+                    url: "update-emp/" + id,
+                    data: data,
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.status == 400) {
+                            $('#updaterrstatus').html("");
+                            $('#updaterrstatus').addClass('alert alert-danger');
+                            $.each(response.errors, function(key, err_values) {
+                                $('#updaterrstatus').append('<li>' + err_values +
+                                    '</li>');
+                            });
+                        } else if (response.status == 404) {
+                            $('#errstatus').html("");
+                            $('#sStatus').addClass('alert alert-danger');
+                            $('#sStatus').text(response.message);
+                        } else {
+                            $('#errstatus').html("");
+                            $('#sStatus').html("");
+                            $('#sStatus').addClass('alert alert-success');
+                            $('#sStatus').text(response.message);
+                            $('#editModal').modal('hide');
+                        }
+                    }
+                });
+
+            });
+
+            $(document).on('click', '.close', function(e) {
+                e.preventDefault();
+                $('#editModal').modal('hide');
             });
 
             $(document).on('click', '.saveData', function(e) {
@@ -347,7 +406,7 @@
                         } else {
                             $('#errstatus').html("");
                             $('#sStatus').addClass('alert alert-success');
-                            $('#sStatus').text(response.message)
+                            $('#sStatus').text(response.message);
                             $('#eModal').modal('hide');
                             $('#eModal .modal-body').find('input').val("");
                         }

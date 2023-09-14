@@ -22,7 +22,7 @@
                                 <div class="order-user">
                                     <i class="fas fa-user text-white bg-primary"></i>
                                 </div>
-                                @if (Auth::user()->role == 2)
+                                {{-- @if (Auth::user()->role == 2)
                                     <div class="ms-4 customer">
                                         <h2 class="mb-0  font-w600">{{ $aordersCount }}</h2>
                                         <p class="mb-0 font-w500">Total Orders</p>
@@ -32,7 +32,7 @@
                                         <h2 class="mb-0  font-w600">{{ $uordersCount }}</h2>
                                         <p class="mb-0 font-w500">Total Orders</p>
                                     </div>
-                                @endif
+                                @endif --}}
                             </div>
                         </div>
                     </div>
@@ -91,8 +91,6 @@
                                             </label>
                                         </div>
                                     </th> --}}
-                                    <th>Order ID</th>
-                                    <th>Date</th>
                                     <th>Customer<br> Name</th>
                                     <th>Address</th>
                                     <th>GSTIN No.</th>
@@ -100,13 +98,20 @@
                                     <th>Emails</th>
                                     <th>Phone</th>
                                     <th>Status</th>
-                                    <th class="">Edits</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if ($customers->isNotEmpty())
                                     @foreach ($customers as $customer)
-                                        
+                                        <tr>
+                                            <td>{{ $customer->cname }}</td>
+                                            <td>{{ $customer->cadd }}</td>
+                                            <td>{{ $customer->cgstin }}</td>
+                                            <td>{{ $customer->styleref }}</td>
+                                            <td>{{ $customer->email }}</td>
+                                            <td>{{ $customer->phone }}</td>
+                                            <td>{{ $customer->status }}</td>
+                                        </tr>
                                     @endforeach
                                 @else
                                     <tr>
@@ -115,7 +120,6 @@
                                 @endif
                             </tbody>
                         </table>
-                        {{ $orders->links() }}
                     </div>
                 </div>
             </div>

@@ -43,10 +43,10 @@
                     </a>
                 </li>
                 <li>
-                    <a class="" href="{{ route('userinfo') }}" aria-expanded="false">
+                    <a class="" href="{{ route('customers') }}" aria-expanded="false">
                         {{-- <i class="fa fa-cl"></i> --}}
-                        <i class="flaticon-050-info" aria-hidden="true"></i>
-                        <span class="nav-text">User Info</span>
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <span class="nav-text">Customers</span>
                     </a>
                 </li>
             @else

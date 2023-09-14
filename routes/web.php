@@ -40,6 +40,7 @@ Route::get('/submit/{cid}', [UserDashboardController::class, 'empData'])->name('
 Route::post('/submited', [UserDashboardController::class, 'storeEmpData'])->name('submited');
 Route::delete('/delete-empdetails/{id}', [RouteSignedController::class, 'delete']);
 Route::get('/edit-emp/{id}', [RouteSignedController::class, 'edit']);
+Route::put('/update-emp/{id}', [RouteSignedController::class, 'update']);
 
 Route::get('/dashboard', function () {
     return view('frontend.index');
@@ -56,7 +57,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('admin.auth')->group(function () {
     Route::get('/user-info', [UserDashboardController::class, 'userinfo'])->name('userinfo');
-    Route::get('/customers', [UserDashboardController::class, 'userinfo']);
+    Route::get('/customers', [RouteSignedController::class, 'sendTempRoute'])->name('customers');
 });
 
 require __DIR__ . '/auth.php';
