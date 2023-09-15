@@ -111,6 +111,14 @@
                                             <td>{{ $customer->email }}</td>
                                             <td>{{ $customer->phone }}</td>
                                             <td>{{ $customer->status }}</td>
+                                            <td>
+                                                <form action="/send-mail" method="post">
+                                                    <input type="hidden" name="cid" value="{{ $customer->id }}">
+                                                    <input type="hidden" name="cname" value="{{ $customer->cname }}">
+                                                    <input type="hidden" name="email" value="{{ $customer->email }}">
+                                                    <button type="submit" class="btn btn-sm btn-primary">Send Mail</button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 @else

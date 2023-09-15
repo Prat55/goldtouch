@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendRoute;
+use App\Models\Customer;
 use App\Models\Empdetail;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 
@@ -12,12 +15,8 @@ class RouteSignedController extends Controller
 {
     protected function sendTempRoute()
     {
-        $url = URL::temporarySignedRoute('share-entry', now()->addMinutes(20), [
-            'cid' => 5
-        ]);
-
-        $customers = User::all();
-        return view('frontend.sendTempRoute', compact('customers', 'url'));
+        $customers = Customer::all();
+        return view('frontend.sendTempRoute', compact('customers'));
     }
 
     protected function sendMailRoute(Request $request)
@@ -25,6 +24,15 @@ class RouteSignedController extends Controller
         $url = URL::temporarySignedRoute('share-entry', now()->addMinutes(20), [
             'cid' => $request->cid
         ]);
+
+        $mailData = [
+            'cname' => $request->cname,
+            'title' => 'Employee Details Fillup Form',
+            'body' => "Make sure this link is only valid for 30 minutes",
+            'link' => $url,
+        ];
+
+        Mail::to($request->email)->send(new SendRoute($mailData));
     }
 
     protected function edit($id)
@@ -79,7 +87,7 @@ class RouteSignedController extends Controller
                     'message' => 'Employee Updated Successfully',
                 ]);
             } else {
-                
+
                 return response()->json([
                     'status' => 404,
                     'message' => "Employee doesn't exist",

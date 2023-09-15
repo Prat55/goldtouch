@@ -58,6 +58,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('admin.auth')->group(function () {
     Route::get('/user-info', [UserDashboardController::class, 'userinfo'])->name('userinfo');
     Route::get('/customers', [RouteSignedController::class, 'sendTempRoute'])->name('customers');
+    Route::get('/send-mail', [RouteSignedController::class, 'sendMailRoute'])->name('customers');
 });
 
 require __DIR__ . '/auth.php';
