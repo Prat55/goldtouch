@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Mail\SendRoute;
 use App\Models\Customer;
 use App\Models\Empdetail;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
