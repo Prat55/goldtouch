@@ -21,10 +21,8 @@ class AdminAuthenticate
 
         if ($user->role == 2) {
             return $next($request);
-        }
-
-        if ($user->role == 1) {
-            return redirect('/dashboard');
+        } else if ($user->role == 1) {
+            abort(404);
         }
     }
 }

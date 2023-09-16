@@ -71,7 +71,8 @@
                                                 </div>
 
                                                 <div class="modal-body">
-
+                                                    <input type="hidden" name="" id="cusid"
+                                                        value="{{ $segment }}">
                                                     <label for="" class="mt-1">Token Number</label>
                                                     <input type="text" name="tokenNo" id="tokenNo"
                                                         class="form-control">
@@ -199,55 +200,57 @@
                                                 <tbody>
 
                                                     @foreach ($empDetails as $key => $emp)
-                                                        <tr>
-                                                            <td>{{ $key + 1 }}</td>
-                                                            <td>{{ $emp->tokenNo }}</td>
-                                                            <td>{{ $emp->sname }}</td>
-                                                            <td>{{ $emp->fullName }}</td>
-                                                            <td> {{ $emp->category }} </td>
-                                                            <td> {{ $emp->setOrder }} </td>
-                                                            <td> {{ $emp->status }} </td>
-                                                            <td></td>
-                                                            <td>
-                                                                <button class="edit btn mb-2"
-                                                                    value="{{ $emp->id }}">
-                                                                    <i class="fa-solid fa-pen-to-square"
-                                                                        style="color: rgb(64, 111, 212)"></i>
-                                                                </button>
-                                                                &nbsp;&nbsp;
-                                                                <!-- Modal -->
-                                                                <div class="modal fade" id="dModal" tabindex="-1"
-                                                                    role="dialog" aria-labelledby="eModalCenterTitle"
-                                                                    aria-hidden="true" aria-modal="hide">
-                                                                    <div class="modal-dialog modal-dialog-centered"
-                                                                        role="document">
-                                                                        <div class="modal-content">
+                                                        @if ($emp->customer_id == $segment)
+                                                            <tr>
+                                                                <td>{{ $key + 1 }}</td>
+                                                                <td>{{ $emp->tokenNo }}</td>
+                                                                <td>{{ $emp->sname }}</td>
+                                                                <td>{{ $emp->fullName }}</td>
+                                                                <td> {{ $emp->category }} </td>
+                                                                <td> {{ $emp->setOrder }} </td>
+                                                                <td> {{ $emp->status }} </td>
+                                                                <td></td>
+                                                                <td>
+                                                                    <button class="edit btn mb-2"
+                                                                        value="{{ $emp->id }}">
+                                                                        <i class="fa-solid fa-pen-to-square"
+                                                                            style="color: rgb(64, 111, 212)"></i>
+                                                                    </button>
+                                                                    &nbsp;&nbsp;
+                                                                    <!-- Modal -->
+                                                                    <div class="modal fade" id="dModal"
+                                                                        tabindex="-1" role="dialog"
+                                                                        aria-labelledby="eModalCenterTitle"
+                                                                        aria-hidden="true" aria-modal="hide">
+                                                                        <div class="modal-dialog modal-dialog-centered"
+                                                                            role="document">
+                                                                            <div class="modal-content">
 
-                                                                            <div class="modal-body">
-                                                                                <h4>Are you sure want to delete this
-                                                                                    employee details
-                                                                                </h4>
+                                                                                <div class="modal-body">
+                                                                                    <h4>Are you sure want to delete this
+                                                                                        employee details
+                                                                                    </h4>
 
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button"
-                                                                                    class="btn btn-sm btn-secondary"
-                                                                                    data-dismiss="modal">
-                                                                                    Cancel
-                                                                                </button>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button"
+                                                                                        class="btn btn-sm btn-secondary"
+                                                                                        data-dismiss="modal">
+                                                                                        Cancel
+                                                                                    </button>
 
-                                                                                <form
-                                                                                    action="/delete-empdetails/{{ $emp->id }}"
-                                                                                    method="POST">
-                                                                                    @csrf
-                                                                                    @method('delete')
-                                                                                    <button type="submit"
-                                                                                        class="btn btn-sm btn-danger">Confirm</button>
-                                                                                </form>
+                                                                                    <form
+                                                                                        action="/delete-empdetails/{{ $emp->id }}"
+                                                                                        method="POST">
+                                                                                        @csrf
+                                                                                        @method('delete')
+                                                                                        <button type="submit"
+                                                                                            class="btn btn-sm btn-danger">Confirm</button>
+                                                                                    </form>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
                                         </div>
                                         <button type="button" class="btn mb-2" data-toggle="modal"
                                             data-target="#dModal">
@@ -255,6 +258,7 @@
                                         </button>
                                         </td>
                                         </tr>
+                                        @endif
                                         @endforeach
 
                                         </tbody>
@@ -386,6 +390,8 @@
                     'category': $('#category').val(),
                     'setOrder': $('#setOrder').val(),
                     'status': $('#status').val(),
+                    'cusid': $('#cusid').val(),
+
                 };
 
                 // console.log(data);

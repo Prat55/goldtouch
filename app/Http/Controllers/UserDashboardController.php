@@ -23,10 +23,12 @@ class UserDashboardController extends Controller
         return view('frontend.userinfo', compact('users', 'users1', 'users2'));
     }
 
-    protected function empData()
+    protected function empData(Request $request)
     {
+        $segment = $request->segment(2);
+
         $empDetails = Empdetail::all();
-        return view('frontend.empdatatable', compact('empDetails'));
+        return view('frontend.empdatatable', compact('empDetails', 'segment'));
     }
 
     protected function storeEmpData(Request $request)
@@ -38,6 +40,7 @@ class UserDashboardController extends Controller
             'category' => 'required|max:100',
             'setOrder' => 'required|max:100',
             'status' => 'required|max:100',
+            'cusid' => 'required|max:100',
         ]);
 
         if ($validator->fails()) {
@@ -54,6 +57,7 @@ class UserDashboardController extends Controller
             $emp->category = $request->input('category');
             $emp->setOrder = $request->input('setOrder');
             $emp->status = $request->input('status');
+            $emp->customer_id = $request->input('cusid');
 
             $emp->save();
             return response()->json([
