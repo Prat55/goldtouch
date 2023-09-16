@@ -19,6 +19,11 @@ class Order extends Model
         'email',
         'phone',
         'created_at',
+        'mtaker1',
+        'mtaker2',
+        'ponumber',
+        'poimg',
+        'fabrics_status',
     ];
 
     protected function uid()

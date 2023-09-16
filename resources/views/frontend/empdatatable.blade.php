@@ -31,14 +31,6 @@
                     <div class="row no-gutters">
                         <div class="col-xl-12">
                             <div class="auth-form">
-                                <div class="text-center mb-3">
-                                    {{-- <a href="/"><img class="logo-light"
-                                            src="{{ asset('user-assets/xhtml/images/logo-full.png') }}"
-                                            alt=""></a>
-                                    <a href="/"><img class="logo-dark"
-                                            src="{{ asset('user-assets/xhtml/images/logo-white-full.png') }}"
-                                            alt=""></a> --}}
-                                </div>
                                 <center>
                                     <h3>Gold Touch</h3>
                                     <h4 class="text-danger">Enter Employees List</h4>
@@ -84,13 +76,20 @@
                                                     <input type="text" name="fullName" id="fullName"
                                                         class="form-control">
                                                     <label for="" class="mt-1">Category</label>
-                                                    <input type="text" name="category" id="category"
-                                                        class="form-control">
+                                                    {{-- <input type="text" name="category" id="category"
+                                                        class="form-control"> --}}
+
+                                                    <select name="category" id="category" class="form-control">
+                                                        <option value="">Select category</option>
+                                                        <option value="STAFF">STAFF</option>
+                                                        <option value="WORKER">WORKER</option>
+                                                    </select>
                                                     <label for="" class="mt-1">Set Order</label>
                                                     <input type="number" name="setOrder" id="setOrder"
-                                                        class="form-control">
-
-                                                    <select name="status" id="status" class="form-control mt-2">
+                                                        class="form-control ">
+                                                    <input type="text" value="MEASURMENT PENDING" id="status"
+                                                        name="status" class="form-control mt-2">
+                                                    {{-- <select name="status" id="status" class="form-control mt-2">
                                                         <option value="MEASURMENT DONE">MEASURMENT DONE</option>
                                                         <option value="MEASURMENT PENDING">MEASURMENT PENDING
                                                         </option>
@@ -103,7 +102,7 @@
                                                         <option value="REDY FOR DISPATCH">REDY FOR DISPATCH
                                                         </option>
                                                         <option value="DISPATCHED">DISPATCHED</option>
-                                                    </select>
+                                                    </select> --}}
                                                     <ul id="errstatus"></ul>
                                                 </div>
                                                 <div class="modal-footer">
@@ -115,6 +114,8 @@
                                             </div>
                                         </div>
                                     </div>
+
+
 
                                     {{-- Edit Modal --}}
                                     <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
@@ -146,13 +147,18 @@
                                                     <input type="text" name="fullName" id="efullName"
                                                         class="form-control">
                                                     <label for="" class="mt-1">Category</label>
-                                                    <input type="text" name="category" id="ecategory"
-                                                        class="form-control">
+                                                    {{-- <input type="text" name="category" id="ecategory"
+                                                        class="form-control"> --}}
+                                                    <select name="ecategory" id="ecategory" class="form-control">
+                                                        <option value="STAFF">STAFF</option>
+                                                        <option value="WORKER">WORKER</option>
+                                                    </select>
                                                     <label for="" class="mt-1">Set Order</label>
                                                     <input type="number" name="setOrder" id="esetOrder"
                                                         class="form-control">
-
-                                                    <select name="status" id="estatus" class="form-control mt-2">
+                                                    <input type="text" value="MEASURMENT PENDING" id="estatus"
+                                                        name="status" class="form-control mt-2" readonly>
+                                                    {{-- <select name="status" id="estatus" class="form-control mt-2">
                                                         <option value="MEASURMENT DONE">MEASURMENT DONE</option>
                                                         <option value="MEASURMENT PENDING">MEASURMENT PENDING
                                                         </option>
@@ -165,7 +171,7 @@
                                                         <option value="REDY FOR DISPATCH">REDY FOR DISPATCH
                                                         </option>
                                                         <option value="DISPATCHED">DISPATCHED</option>
-                                                    </select>
+                                                    </select> --}}
                                                     <ul id="updaterrstatus"></ul>
                                                 </div>
                                                 <div class="modal-footer">
@@ -210,221 +216,219 @@
                                                                 <td> {{ $emp->setOrder }} </td>
                                                                 <td> {{ $emp->status }} </td>
                                                                 <td></td>
-                                                                <td>
+                                                                <td class="d-flex align-items-center">
                                                                     <button class="edit btn mb-2"
                                                                         value="{{ $emp->id }}">
                                                                         <i class="fa-solid fa-pen-to-square"
                                                                             style="color: rgb(64, 111, 212)"></i>
                                                                     </button>
-                                                                    &nbsp;&nbsp;
-                                                                    <!-- Modal -->
-                                                                    <div class="modal fade" id="dModal"
-                                                                        tabindex="-1" role="dialog"
-                                                                        aria-labelledby="eModalCenterTitle"
-                                                                        aria-hidden="true" aria-modal="hide">
-                                                                        <div class="modal-dialog modal-dialog-centered"
-                                                                            role="document">
-                                                                            <div class="modal-content">
+                                                                    <button type="button" class="btn mb-2"
+                                                                        data-toggle="modal" data-target="#dModal">
+                                                                        <i class="fa-regular fa-trash-can"
+                                                                            style="color: rgb(216, 52, 52)"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
 
-                                                                                <div class="modal-body">
-                                                                                    <h4>Are you sure want to delete this
-                                                                                        employee details
-                                                                                    </h4>
+                                                            <!-- Modal -->
+                                                            <div class="modal fade" id="dModal" tabindex="-1"
+                                                                role="dialog" aria-labelledby="eModalCenterTitle"
+                                                                aria-hidden="true" aria-modal="hide">
+                                                                <div class="modal-dialog modal-dialog-centered"
+                                                                    role="document">
+                                                                    <div class="modal-content">
 
-                                                                                </div>
-                                                                                <div class="modal-footer">
-                                                                                    <button type="button"
-                                                                                        class="btn btn-sm btn-secondary"
-                                                                                        data-dismiss="modal">
-                                                                                        Cancel
-                                                                                    </button>
+                                                                        <div class="modal-body">
+                                                                            <h4>Are you sure want to delete this
+                                                                                employee details
+                                                                            </h4>
 
-                                                                                    <form
-                                                                                        action="/delete-empdetails/{{ $emp->id }}"
-                                                                                        method="POST">
-                                                                                        @csrf
-                                                                                        @method('delete')
-                                                                                        <button type="submit"
-                                                                                            class="btn btn-sm btn-danger">Confirm</button>
-                                                                                    </form>
-                                                                                </div>
-                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button"
+                                                                                class="btn btn-sm btn-secondary"
+                                                                                data-dismiss="modal">
+                                                                                Cancel
+                                                                            </button>
+
+                                                                            <form
+                                                                                action="/delete-empdetails/{{ $emp->id }}"
+                                                                                method="POST">
+                                                                                @csrf
+                                                                                @method('delete')
+                                                                                <button type="submit"
+                                                                                    class="btn btn-sm btn-danger">Confirm</button>
+                                                                            </form>
                                                                         </div>
                                                                     </div>
+                                                                </div>
+                                                            </div>
+                                                        @endif
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
                                         </div>
-                                        <button type="button" class="btn mb-2" data-toggle="modal"
-                                            data-target="#dModal">
-                                            <i class="fa-regular fa-trash-can" style="color: rgb(216, 52, 52)"></i>
-                                        </button>
-                                        </td>
-                                        </tr>
-                                        @endif
-                                        @endforeach
-
-                                        </tbody>
-                                        </table>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
-    <!--**********************************
+        <!--**********************************
         Scripts
     ***********************************-->
-    <!-- Required vendors -->
-    <script src="{{ asset('user-assets/xhtml/vendor/global/global.min.js') }}"></script>
-    <script src="{{ asset('user-assets/xhtml/js/custom.min.js') }}"></script>
-    <script src="{{ asset('user-assets/xhtml/vendor/jquery-nice-select/js/jquery.nice-select.min.js') }}"></script>
-    <script src="{{ asset('user-assets/xhtml/js/deznav-init.js') }}"></script>
-    <script src="{{ asset('user-assets/xhtml/js/demo.js') }}"></script>
-    <script src="{{ asset('user-assets/xhtml/js/styleSwitcher.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-    </script>
+        <!-- Required vendors -->
+        <script src="{{ asset('user-assets/xhtml/vendor/global/global.min.js') }}"></script>
+        <script src="{{ asset('user-assets/xhtml/js/custom.min.js') }}"></script>
+        <script src="{{ asset('user-assets/xhtml/vendor/jquery-nice-select/js/jquery.nice-select.min.js') }}"></script>
+        <script src="{{ asset('user-assets/xhtml/js/deznav-init.js') }}"></script>
+        <script src="{{ asset('user-assets/xhtml/js/demo.js') }}"></script>
+        <script src="{{ asset('user-assets/xhtml/js/styleSwitcher.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+        </script>
 
-    <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    </script>
+        <script>
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        </script>
 
-    <script>
-        $(document).ready(function() {
+        <script>
+            $(document).ready(function() {
 
-            $(document).on('click', '.edit', function(e) {
-                e.preventDefault();
+                $(document).on('click', '.edit', function(e) {
+                    e.preventDefault();
 
-                var id = $(this).val();
-                // alert(id);
+                    var id = $(this).val();
+                    // alert(id);
 
-                $('#editModal').modal('show');
+                    $('#editModal').modal('show');
 
-                $.ajax({
-                    type: "GET",
-                    url: "/edit-emp/" + id,
-                    success: function(response) {
-                        // console.log(response);
-                        if (response.status == 404) {
-                            $('#sStatus').html("");
-                            $('#sStatus').addClass('alert alert-danger');
-                            $('#sStatus').text(response.message);
-                        } else {
-                            $('#etokenNo').val(response.employee.tokenNo);
-                            $('#esname').val(response.employee.sname);
-                            $('#efullName').val(response.employee.fullName);
-                            $('#ecategory').val(response.employee.category);
-                            $('#esetOrder').val(response.employee.setOrder);
-                            $('#estatus').val(response.employee.status);
+                    $.ajax({
+                        type: "GET",
+                        url: "/edit-emp/" + id,
+                        success: function(response) {
+                            // console.log(response);
+                            if (response.status == 404) {
+                                $('#sStatus').html("");
+                                $('#sStatus').addClass('alert alert-danger');
+                                $('#sStatus').text(response.message);
+                            } else {
+                                $('#etokenNo').val(response.employee.tokenNo);
+                                $('#esname').val(response.employee.sname);
+                                $('#efullName').val(response.employee.fullName);
+                                $('#ecategory').val(response.employee.category);
+                                $('#esetOrder').val(response.employee.setOrder);
+                                $('#estatus').val(response.employee.status);
+                            }
                         }
-                    }
+                    });
+
                 });
 
-            });
+                $(document).on('click', '.updateData', function(e) {
+                    e.preventDefault();
+                    var id = $('#e_id').val();
 
-            $(document).on('click', '.updateData', function(e) {
-                e.preventDefault();
-                var id = $('#e_id').val();
+                    var data = {
+                        'tokenNo': $('#etokenNo').val(),
+                        'sname': $('#esname').val(),
+                        'fullName': $('#efullName').val(),
+                        'category': $('#ecategory').val(),
+                        'setOrder': $('#esetOrder').val(),
+                        'status': $('#estatus').val(),
+                    };
 
-                var data = {
-                    'tokenNo': $('#etokenNo').val(),
-                    'sname': $('#esname').val(),
-                    'fullName': $('#efullName').val(),
-                    'category': $('#ecategory').val(),
-                    'setOrder': $('#esetOrder').val(),
-                    'status': $('#estatus').val(),
-                };
-
-                $.ajax({
-                    type: "PUT",
-                    url: "update-emp/" + id,
-                    data: data,
-                    dataType: "json",
-                    success: function(response) {
-                        if (response.status == 400) {
-                            $('#updaterrstatus').html("");
-                            $('#updaterrstatus').addClass('alert alert-danger');
-                            $.each(response.errors, function(key, err_values) {
-                                $('#updaterrstatus').append('<li>' + err_values +
-                                    '</li>');
-                            });
-                        } else if (response.status == 404) {
-                            $('#errstatus').html("");
-                            $('#sStatus').addClass('alert alert-danger');
-                            $('#sStatus').text(response.message);
-                        } else {
-                            $('#errstatus').html("");
-                            $('#sStatus').html("");
-                            $('#sStatus').addClass('alert alert-success');
-                            $('#sStatus').text(response.message);
-                            $('#editModal').modal('hide');
+                    $.ajax({
+                        type: "PUT",
+                        url: "update-emp/" + id,
+                        data: data,
+                        dataType: "json",
+                        success: function(response) {
+                            if (response.status == 400) {
+                                $('#updaterrstatus').html("");
+                                $('#updaterrstatus').addClass('alert alert-danger');
+                                $.each(response.errors, function(key, err_values) {
+                                    $('#updaterrstatus').append('<li>' + err_values +
+                                        '</li>');
+                                });
+                            } else if (response.status == 404) {
+                                $('#errstatus').html("");
+                                $('#sStatus').addClass('alert alert-danger');
+                                $('#sStatus').text(response.message);
+                            } else {
+                                $('#errstatus').html("");
+                                $('#sStatus').html("");
+                                $('#sStatus').addClass('alert alert-success');
+                                $('#sStatus').text(response.message);
+                                $('#editModal').modal('hide');
+                            }
                         }
-                    }
+                    });
+
                 });
 
-            });
+                $(document).on('click', '.close', function(e) {
+                    e.preventDefault();
+                    $('#editModal').modal('hide');
+                });
 
-            $(document).on('click', '.close', function(e) {
-                e.preventDefault();
-                $('#editModal').modal('hide');
-            });
+                $(document).on('click', '.saveData', function(e) {
+                    e.preventDefault();
 
-            $(document).on('click', '.saveData', function(e) {
-                e.preventDefault();
+                    var data = {
+                        'tokenNo': $('#tokenNo').val(),
+                        'sname': $('#sname').val(),
+                        'fullName': $('#fullName').val(),
+                        'category': $('#category').val(),
+                        'setOrder': $('#setOrder').val(),
+                        'status': $('#status').val(),
+                        'cusid': $('#cusid').val(),
 
-                var data = {
-                    'tokenNo': $('#tokenNo').val(),
-                    'sname': $('#sname').val(),
-                    'fullName': $('#fullName').val(),
-                    'category': $('#category').val(),
-                    'setOrder': $('#setOrder').val(),
-                    'status': $('#status').val(),
-                    'cusid': $('#cusid').val(),
+                    };
 
-                };
+                    // console.log(data);
 
-                // console.log(data);
+                    $.ajax({
+                        type: "POST",
+                        url: "/submited",
+                        data: data,
+                        dataType: "json",
+                        success: function(response) {
+                            if (response.status == 400) {
 
-                $.ajax({
-                    type: "POST",
-                    url: "/submited",
-                    data: data,
-                    dataType: "json",
-                    success: function(response) {
-                        if (response.status == 400) {
-
-                            $('#errstatus').html("");
-                            $('#errstatus').addClass('alert alert-danger');
-                            $.each(response.errors, function(key, err_values) {
-                                $('#errstatus').append('<li>' + err_values + '</li>');
-                            });
-                        } else {
-                            $('#errstatus').html("");
-                            $('#sStatus').addClass('alert alert-success');
-                            $('#sStatus').text(response.message);
-                            $('#eModal').modal('hide');
-                            $('#eModal .modal-body').find('input').val("");
+                                $('#errstatus').html("");
+                                $('#errstatus').addClass('alert alert-danger');
+                                $.each(response.errors, function(key, err_values) {
+                                    $('#errstatus').append('<li>' + err_values + '</li>');
+                                });
+                            } else {
+                                $('#errstatus').html("");
+                                $('#sStatus').addClass('alert alert-success');
+                                $('#sStatus').text(response.message);
+                                $('#eModal').modal('hide');
+                                $('#eModal .modal-body').find('input').val("");
+                            }
                         }
-                    }
+                    });
                 });
             });
-        });
 
-        $(document).on('click', '.reload', function(e) {
-            location.reload();
-        });
-    </script>
+            $(document).on('click', '.reload', function(e) {
+                location.reload();
+            });
+        </script>
 </body>
 
 </html>

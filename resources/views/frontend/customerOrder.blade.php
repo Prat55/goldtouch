@@ -31,20 +31,144 @@
                     <div class="row no-gutters">
                         <div class="col-xl-12">
                             <div class="auth-form">
-                                <div class="text-center mb-3">
-                                    {{-- <a href="/"><img class="logo-light"
-                                            src="{{ asset('user-assets/xhtml/images/logo-full.png') }}"
-                                            alt=""></a>
-                                    <a href="/"><img class="logo-dark"
-                                            src="{{ asset('user-assets/xhtml/images/logo-white-full.png') }}"
-                                            alt=""></a> --}}
-                                </div>
                                 <center>
                                     <h3>Gold Touch</h3>
                                     <h4 class="text-danger">Enter Order Details</h4>
                                 </center>
                                 <div class="container">
+                                    <div class="row">
+                                        <div class="col-xl-12 col-lg-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="basic-form">
+                                                        <form action="{{ route('makeOrder') }}" method="POST"
+                                                            enctype="multipart/form-data">
+                                                            @csrf
+                                                            @method('put')
+                                                            <div class="row">
+                                                                <div class="mb-3 col-md-6">
+                                                                    <label class="form-label">CUSTOMER NAME</label>
+                                                                    <input type="text" class="form-control"
+                                                                        name="cname" required>
+                                                                </div>
+                                                                <div class="mb-3 col-md-6">
+                                                                    <label class="form-label">CUSTOMER ADD</label>
+                                                                    <input type="text" class="form-control"
+                                                                        name="cadd" required>
+                                                                </div>
+                                                                <div class="mb-3 col-md-6">
+                                                                    <label class="form-label">CUSTOMER GSTIN</label>
+                                                                    <input type="text" class="form-control"
+                                                                        name="cgstin" required>
+                                                                </div>
 
+                                                                <div class="mb-3 col-md-6">
+                                                                    <label class="form-label">STYLE REF</label>
+                                                                    <input type="text" class="form-control"
+                                                                        name="styleref" required>
+                                                                </div>
+                                                                <div class="mb-3 col-md-6">
+                                                                    <label class="form-label">PO NUMBER</label>
+                                                                    <input type="text" class="form-control"
+                                                                        name="pono" required>
+                                                                </div>
+                                                                <div class="mb-3 col-md-6">
+                                                                    <label class="form-label">PO COPY UPLOAD</label>
+                                                                    <input type="file" class="form-control"
+                                                                        name="poimg" required>
+                                                                </div>
+                                                                <div class="mb-3 col-md-6">
+                                                                    <label class="form-label">MEASURMENT TAKER 1</label>
+                                                                    <div
+                                                                        class="col-md-12 d-flex justify-content-between">
+                                                                        <div class="col-8">
+                                                                            <!-- Text input with 70% width -->
+                                                                            <input type="text" name="mtaker1"
+                                                                                class="form-control" style="width: 100%"
+                                                                                placeholder="Enter measurement taker name"
+                                                                                required />
+                                                                        </div>
+                                                                        <div class="col-3">
+                                                                            <!-- Date-time input with 30% width -->
+                                                                            <input type="datetime-local"
+                                                                                name="mdatetime1" class="form-control"
+                                                                                style="width: 100%" required />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="mb-3 col-md-6">
+                                                                    <label class="form-label">MEASURMENT TAKER 2</label>
+                                                                    <div
+                                                                        class="col-md-12 d-flex justify-content-between">
+                                                                        <div class="col-8">
+                                                                            <!-- Text input with 70% width -->
+                                                                            <input type="text" name="mtaker2"
+                                                                                class="form-control" style="width: 100%"
+                                                                                placeholder="Enter measurement taker name (optional)" />
+                                                                        </div>
+                                                                        <div class="col-3">
+                                                                            <!-- Date-time input with 30% width -->
+                                                                            <input type="datetime-local"
+                                                                                name="mdatetime2" class="form-control"
+                                                                                style="width: 100%" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="mb-3 col-md-6">
+                                                                    <label class="form-label">Email</label>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="col-md-9">
+                                                                            <input type="email"
+                                                                                class="form-control mt-1"
+                                                                                placeholder="Enter Email Id 1"
+                                                                                name="email1" required>
+                                                                        </div>
+                                                                        <div class="col-md-2 ms-5">
+                                                                            <button id="addInput"
+                                                                                class="btn btn-sm btn-primary">Add</button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div id="inputContainer" class="col-md-12">
+                                                                            <!-- Input boxes will be appended here -->
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div class="mb-3 col-md-6">
+                                                                    <label class="form-label">Phone</label>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="col-md-9">
+                                                                            <input type="text" class="form-control"
+                                                                                placeholder="Enter Phone Number 1"
+                                                                                name="phone1" required>
+                                                                        </div>
+                                                                        <div class="col-md-2 ms-5">
+                                                                            <button id="addInput1"
+                                                                                class="btn btn-sm btn-primary">Add</button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div id="inputContainer1" class="col-md-12">
+                                                                            <!-- Input boxes will be appended here -->
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="mb-3 col-md-6">
+                                                                    <button type="submit"
+                                                                        class="btn btn-sm btn-primary">Order</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -83,127 +207,104 @@
 
     <script>
         $(document).ready(function() {
+            var maxInputBoxes = 4; // Maximum number of input boxes allowed
+            var inputCount = 0; // Current input box count
+            var num = 2;
 
-            $(document).on('click', '.edit', function(e) {
-                e.preventDefault();
+            function addInputBox() {
+                if (inputCount < maxInputBoxes) {
+                    // Create a new input element
+                    var inputElement = $("<div>")
+                        .addClass("input-container")
+                        .append(
+                            $("<input>").attr({
+                                type: "email",
+                                name: "email" + num, // Incrementing name
+                                class: "input-box form-control mt-2",
+                                placeholder: "Enter Email Id " + num + " (optional)",
+                            })
+                        )
+                        .append(
 
-                var id = $(this).val();
-                // alert(id);
+                            $("<button>").text("Remove").attr({
+                                class: "btn btn-sm btn-danger remove-button mt-2",
+                            })
+                        )
 
-                $('#editModal').modal('show');
+                    // Append the input element to the container
+                    $("#inputContainer").append(inputElement);
 
-                $.ajax({
-                    type: "GET",
-                    url: "/edit-emp/" + id,
-                    success: function(response) {
-                        // console.log(response);
-                        if (response.status == 404) {
-                            $('#sStatus').html("");
-                            $('#sStatus').addClass('alert alert-danger');
-                            $('#sStatus').text(response.message);
-                        } else {
-                            $('#etokenNo').val(response.employee.tokenNo);
-                            $('#esname').val(response.employee.sname);
-                            $('#efullName').val(response.employee.fullName);
-                            $('#ecategory').val(response.employee.category);
-                            $('#esetOrder').val(response.employee.setOrder);
-                            $('#estatus').val(response.employee.status);
-                        }
-                    }
-                });
+                    // Increment the input count
+                    inputCount++;
+                    num++;
+                    // Attach a click event handler to the Remove button
+                    $(".remove-button").click(function() {
+                        $(this).closest(".input-container").remove();
+                        inputCount--;
+                        num--;
+                    });
+                } else {
+                    alert("You can add only 5 email ids at once");
+                }
+            }
 
-            });
+            // Initial call to addInputBox function
+            addInputBox();
 
-            $(document).on('click', '.updateData', function(e) {
-                e.preventDefault();
-                var id = $('#e_id').val();
-
-                var data = {
-                    'tokenNo': $('#etokenNo').val(),
-                    'sname': $('#esname').val(),
-                    'fullName': $('#efullName').val(),
-                    'category': $('#ecategory').val(),
-                    'setOrder': $('#esetOrder').val(),
-                    'status': $('#estatus').val(),
-                };
-
-                $.ajax({
-                    type: "PUT",
-                    url: "update-emp/" + id,
-                    data: data,
-                    dataType: "json",
-                    success: function(response) {
-                        if (response.status == 400) {
-                            $('#updaterrstatus').html("");
-                            $('#updaterrstatus').addClass('alert alert-danger');
-                            $.each(response.errors, function(key, err_values) {
-                                $('#updaterrstatus').append('<li>' + err_values +
-                                    '</li>');
-                            });
-                        } else if (response.status == 404) {
-                            $('#errstatus').html("");
-                            $('#sStatus').addClass('alert alert-danger');
-                            $('#sStatus').text(response.message);
-                        } else {
-                            $('#errstatus').html("");
-                            $('#sStatus').html("");
-                            $('#sStatus').addClass('alert alert-success');
-                            $('#sStatus').text(response.message);
-                            $('#editModal').modal('hide');
-                        }
-                    }
-                });
-
-            });
-
-            $(document).on('click', '.close', function(e) {
-                e.preventDefault();
-                $('#editModal').modal('hide');
-            });
-
-            $(document).on('click', '.saveData', function(e) {
-                e.preventDefault();
-
-                var data = {
-                    'tokenNo': $('#tokenNo').val(),
-                    'sname': $('#sname').val(),
-                    'fullName': $('#fullName').val(),
-                    'category': $('#category').val(),
-                    'setOrder': $('#setOrder').val(),
-                    'status': $('#status').val(),
-                    'cusid': $('#cusid').val(),
-
-                };
-
-                // console.log(data);
-
-                $.ajax({
-                    type: "POST",
-                    url: "/submited",
-                    data: data,
-                    dataType: "json",
-                    success: function(response) {
-                        if (response.status == 400) {
-
-                            $('#errstatus').html("");
-                            $('#errstatus').addClass('alert alert-danger');
-                            $.each(response.errors, function(key, err_values) {
-                                $('#errstatus').append('<li>' + err_values + '</li>');
-                            });
-                        } else {
-                            $('#errstatus').html("");
-                            $('#sStatus').addClass('alert alert-success');
-                            $('#sStatus').text(response.message);
-                            $('#eModal').modal('hide');
-                            $('#eModal .modal-body').find('input').val("");
-                        }
-                    }
-                });
+            $("#addInput").click(function() {
+                addInputBox();
             });
         });
 
-        $(document).on('click', '.reload', function(e) {
-            location.reload();
+        $(document).ready(function() {
+            var maxInputBoxes = 4; // Maximum number of input boxes allowed
+            var inputCount = 0; // Current input box count
+            var num = 2;
+
+            function addInputBox() {
+                if (inputCount < maxInputBoxes) {
+                    // Create a new input element
+                    var inputElement = $("<div>")
+                        .addClass("input-container1")
+                        .append(
+                            $("<input>").attr({
+                                type: "number",
+                                name: "phone" + num, // Incrementing name
+                                class: "input-box form-control mt-2",
+                                placeholder: "Enter Phone Number " + num + " (optional)",
+                            })
+                        )
+                        .append(
+
+                            $("<button>").text("Remove").attr({
+                                class: "btn btn-sm btn-danger remove-button1 mt-2",
+                            })
+                        )
+
+                    // Append the input element to the container
+                    $("#inputContainer1").append(inputElement);
+
+                    // Increment the input count
+                    inputCount++;
+                    num++;
+
+                    // Attach a click event handler to the Remove button
+                    $(".remove-button1").click(function() {
+                        $(this).closest(".input-container1").remove();
+                        inputCount--;
+                        num--;
+                    });
+                } else {
+                    alert("You can add only 5 phone numbers at once");
+                }
+            }
+
+            // Initial call to addInputBox function
+            addInputBox();
+
+            $("#addInput1").click(function() {
+                addInputBox();
+            });
         });
     </script>
 </body>
