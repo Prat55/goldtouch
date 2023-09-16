@@ -12,27 +12,52 @@ use Illuminate\Support\Facades\Validator;
 
 class RouteSignedController extends Controller
 {
-    protected function sendTempRoute()
+    protected function sendTempRoute(Request $request)
     {
-        $customers = Customer::all();
+        $customers = Customer::latest();
+        if (!empty($request->get('c'))) {
+            $orders = $customers->where('cname', 'like', '%' . $request->get('c') . '%');
+        }
+
+        $customers =  $customers->paginate(10);
         return view('frontend.sendTempRoute', compact('customers'));
     }
 
     protected function sendMailRoute(Request $request)
     {
-        $url = URL::temporarySignedRoute('share-entry', now()->addMinutes(20), [
-            'cid' => $request->cid
+        $validator = Validator::make($request->all(), [
+            'cid' => 'required|max:100',
+            'cname' => 'required|max:100',
+            'email' => 'required|max:200',
         ]);
 
-        $mailData = [
-            'cname' => $request->cname,
-            'title' => 'Employee Details Fillup Form',
-            'body' => "Make sure this link is only valid for 30 minutes",
-            'link' => $url,
-        ];
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->messages(),
+            ]);
+        } else {
 
-        Mail::to($request->email)->send(new SendRoute($mailData));
+            $url = URL::temporarySignedRoute('share-entry', now()->addMinutes(30), [
+                'cid' => $request->input('cid'),
+            ]);
+
+            $mailData = [
+                'cname' => $request->input('cname'),
+                'title' => 'Employee Details Fillup Form',
+                'body' => "Make sure this link is only valid for 30 minutes",
+                'link' => $url,
+            ];
+
+            Mail::to($request->input('email'))->send(new SendRoute($mailData));
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Mail sent successfully',
+            ]);
+        }
     }
+
 
     protected function edit($id)
     {

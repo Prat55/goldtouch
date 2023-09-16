@@ -27,7 +27,7 @@ class SendRoute extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Employee Details Fillup Form',
+            subject: 'Employee Details Fillup Form Link',
         );
     }
 

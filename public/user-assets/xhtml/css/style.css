@@ -47191,3 +47191,13 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
 .dz-demo-panel {
     display: none;
 }
+
+.status {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.statusBox {
+    position: relative;
+}

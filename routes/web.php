@@ -29,12 +29,12 @@ Route::middleware('guest')->group(function () {
     });
 });
 
-Route::get('/temp', function () {
-    $url = URL::temporarySignedRoute('share-entry', now()->addHour(), [
-        'cid' => 5
-    ]);
-    return $url;
-});
+// Route::get('/temp', function () {
+//     $url = URL::temporarySignedRoute('share-entry', now()->addHour(), [
+//         'cid' => 5
+//     ]);
+//     return $url;
+// });
 
 Route::get('/submit/{cid}', [UserDashboardController::class, 'empData'])->name('share-entry')->middleware('signed');
 Route::post('/submited', [UserDashboardController::class, 'storeEmpData'])->name('submited');
@@ -58,7 +58,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('admin.auth')->group(function () {
     Route::get('/user-info', [UserDashboardController::class, 'userinfo'])->name('userinfo');
     Route::get('/customers', [RouteSignedController::class, 'sendTempRoute'])->name('customers');
-    Route::get('/send-mail', [RouteSignedController::class, 'sendMailRoute'])->name('customers');
+    Route::post('/send-mail', [RouteSignedController::class, 'sendMailRoute']);
 });
 
 require __DIR__ . '/auth.php';

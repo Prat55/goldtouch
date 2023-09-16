@@ -10,6 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="author" content="DexignZone" />
     <meta name="robots" content="" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <meta name="format-detection" content="telephone=no" />
 
@@ -117,7 +118,8 @@
                                 </a>
                             </li>
                             <li class="nav-item dropdown notification_dropdown">
-                                <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
+                                <a class="nav-link" href="javascript:void(0);" role="button"
+                                    data-bs-toggle="dropdown">
                                     <svg width="28" height="28" viewbox="0 0 28 28" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -414,7 +416,13 @@
     <script src="{{ asset('user-assets/xhtml/js/deznav-init.js') }}"></script>
     <script src="{{ asset('user-assets/xhtml/js/demo.js') }}"></script>
     <script src="{{ asset('user-assets/xhtml/js/styleSwitcher.js') }}"></script>
-
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
     @yield('customJs')
 </body>
 

@@ -237,23 +237,23 @@
                     </tr>
 
                     <tr>
-                        <td height="2" style="font-size: 10px; line-height: 10px;">
-                            {{ $mailData['cname'] }},
-                        </td>
-                        <td height="10" style="font-size: 10px; line-height: 10px;">&nbsp;</td>
-                    </tr>
-
-                    <tr>
                         <td align="center">
-                            <table border="0" width="40" align="center" cellpadding="0" cellspacing="0"
-                                bgcolor="eeeeee">
+                            <table border="0" align="center">
                                 <tr>
-                                    <td height="2" style="font-size: 2px; line-height: 2px;">
+                                    <td height="15" style="font-size: 15px; line-height: 15px;">
                                         {{ $mailData['title'] }}
                                     </td>
+                                    <td height="10" style="font-size: 10px; line-height: 10px;">&nbsp;</td>
                                 </tr>
                             </table>
                         </td>
+                    </tr>
+
+                    <tr>
+                        <td height="15" style="font-size: 15px; line-height: 15px;">
+                            {{ $mailData['cname'] }},
+                        </td>
+                        <td height="10" style="font-size: 10px; line-height: 10px;">&nbsp;</td>
                     </tr>
 
                     <tr>
