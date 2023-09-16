@@ -34,18 +34,18 @@ class RouteSignedController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'status' => 400,
-                'errors' => $validator->messages(), 
+                'errors' => $validator->messages(),
             ]);
         } else {
 
-            $url = URL::temporarySignedRoute('share-entry', now()->addMinutes(30), [
+            $url = URL::temporarySignedRoute('share-entry', now()->addHours(24), [
                 'cid' => $request->input('cid'),
             ]);
 
             $mailData = [
                 'cname' => $request->input('cname'),
                 'title' => 'Employee Details Fillup Form',
-                'body' => "Make sure this link is only valid for 30 minutes",
+                'body' => "Make sure this link is only valid for 24 hours",
                 'link' => $url,
             ];
 
