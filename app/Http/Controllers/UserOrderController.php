@@ -32,14 +32,16 @@ class UserOrderController extends Controller
             $imageName = time() . '_' . $file->getClientOriginalName();
             $file->move(\public_path("poimg/"), $imageName);
 
+            $random = $this->random();
+
             $order = new Order([
-                'order_id' => $this->random(),
+                'order_id' => $random,
                 'cname' => $request->cname,
                 'mtaker1' => $request->mtaker1 . ' ' . $request->mdatetime1,
                 'mtaker2' => $request->mtaker2 . ' ' . $request->mdatetime2,
                 'ponumber' => $request->pono,
                 'poimg' => $imageName,
-                'u_id' => Auth::user()->id,
+                'u_id' => $random,
                 'cadd' => $request->cadd,
                 'cgstin' => $request->cgstin,
                 'fabrics_status' => 0,
@@ -51,19 +53,19 @@ class UserOrderController extends Controller
             $order->save();
 
             $mailData = [
-                'title' => 'Order Placed',
+                'title' => 'Order Placed Details',
                 'name' => "$request->cname",
                 'add' => "$request->cadd",
                 'gstin' => "$request->cgstin",
                 'styleref' => "$request->styleref",
-                'email' => "$request->email1" . ',' . "$request->email2" . ',' . "$request->email3" . ',' . "$request->email4" . ',' . "$request->email5",
-                'phone' =>  "$request->phone1" . ',' . "$request->phone2" . ',' . "$request->phone3" . ',' . "$request->phone4" . ',' . "$request->phone5",
+                'email' => "$request->email1" . ' ' . "$request->email2" . ' ' . "$request->email3" . ' ' . "$request->email4" . ' ' . "$request->email5",
+                'phone' =>  "$request->phone1" . ' ' . "$request->phone2" . ' ' . "$request->phone3" . ' ' . "$request->phone4" . ' ' . "$request->phone5",
             ];
 
             Mail::to('pratikdesai9900@gmail.com')->cc("$request->email1", "$request->email2", "$request->email3", "$request->email4", "$request->email5")->send(new OrdersMail($mailData));
         }
 
-        return redirect('/order')->with('Order placed successfully');
+        return redirect('/order')->with('success', 'Order placed successfully');
     }
 
     protected function orders(Request $request)

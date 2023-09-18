@@ -42,13 +42,6 @@
                         <span class="nav-text">User Info</span>
                     </a>
                 </li>
-                <li>
-                    <a class="" href="{{ route('customers') }}" aria-expanded="false">
-                        {{-- <i class="fa fa-cl"></i> --}}
-                        <i class="fa fa-user" aria-hidden="true"></i>
-                        <span class="nav-text">Customers</span>
-                    </a>
-                </li>
             @else
                 <li>
                     <a class="" href="{{ route('order') }}" aria-expanded="false">

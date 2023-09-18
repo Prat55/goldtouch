@@ -22,17 +22,11 @@
                                 <div class="order-user">
                                     <i class="fas fa-user text-white bg-primary"></i>
                                 </div>
-                                @if (Auth::user()->role == 2)
-                                    <div class="ms-4 customer">
-                                        <h2 class="mb-0  font-w600">{{ $aordersCount }}</h2>
-                                        <p class="mb-0 font-w500">Total Orders</p>
-                                    </div>
-                                @else
-                                    <div class="ms-4 customer">
-                                        <h2 class="mb-0  font-w600">{{ $uordersCount }}</h2>
-                                        <p class="mb-0 font-w500">Total Orders</p>
-                                    </div>
-                                @endif
+
+                                <div class="ms-4 customer">
+                                    <h2 class="mb-0  font-w600">{{ $aordersCount }}</h2>
+                                    <p class="mb-0 font-w500">Total Orders</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -53,241 +47,124 @@
                     </div>
                 </div> --}}
 
-                @if (Auth::user()->role == 2)
-                    <div class="col-xl-12">
-                        <div class="d-flex flex-wrap">
-                            <div class="table-search mb-3 pe-3">
-                                <form action="" method="get">
-                                    <div class="input-group search-area">
-                                        <input type="text" name="c" class="form-control"
-                                            placeholder="Search customer name here" value="{{ Request::get('c') }}"
-                                            required>
+                <div class="col-md-12 statusBox">
+                    <div id="sStatus" class="status">
 
-                                        <button type="submit" class="btn btn-sm input-group-text">
-                                            <i class="flaticon-381-search-2"></i>
-                                        </button>
-
-                                    </div>
-                                </form>
-                            </div>
-
-                            <a href="{{ route('orders') }}" class="btn btn-warning mb-3">
-                                <i class="fas fa-redo-alt"></i>
-                            </a>
-                        </div>
                     </div>
-                @endif
+                </div>
+
+                <div class="col-xl-12">
+                    <div class="d-flex flex-wrap">
+                        <div class="table-search mb-3 pe-3">
+                            <form action="" method="get">
+                                <div class="input-group search-area">
+                                    <input type="text" name="c" class="form-control"
+                                        placeholder="Search customer name here" value="{{ Request::get('c') }}" required>
+
+                                    <button type="submit" class="btn btn-sm input-group-text">
+                                        <i class="flaticon-381-search-2"></i>
+                                    </button>
+
+                                </div>
+                            </form>
+                        </div>
+
+                        <a href="{{ route('orders') }}" class="btn btn-warning mb-3">
+                            <i class="fas fa-redo-alt"></i>
+                        </a>
+                    </div>
+                </div>
+
                 <div class="col-xl-12">
                     <div class="table-responsive fs-14">
                         <table class="table display mb-4 dataTablesCard order-table shadow-hover  card-table"
                             id="example5">
                             <thead>
                                 <tr class="text-center">
-                                    {{-- <th>
-                                        <div class="form-check ms-2">
-                                            <input class="form-check-input" type="checkbox" value="" id="checkAll">
-                                            <label class="form-check-label" for="checkAll">
-                                            </label>
-                                        </div>
-                                    </th> --}}
                                     <th>Order ID</th>
-                                    <th>Date</th>
-                                    @if (Auth::user()->role == 2)
-                                        <th>Customer<br> Name</th>
-                                    @endif
+                                    <th>Customer<br> Name</th>
                                     <th>Address</th>
                                     <th>GSTIN No.</th>
                                     <th>Style<br> Reference</th>
                                     <th>Emails</th>
                                     <th>Phone</th>
                                     <th>Status</th>
-                                    @if (Auth::user()->role == 2)
-                                        <th class="">Edits</th>
-                                    @endif
+                                    <th class="">Edits</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="text-center">
                                 @if ($orders->isNotEmpty())
                                     @foreach ($orders as $od)
-                                        @if (Auth::user()->role == 1)
-                                            @if ($od->u_id == Auth::user()->id)
-                                                <tr>
-                                                    {{-- <td>
-                                                        <div class="form-check ms-2">
-                                                            <input class="form-check-input" type="checkbox" value=""
-                                                                id="customCheckBox1">
-                                                            <label class="form-check-label" for="customCheckBox1">
-                                                            </label>
-                                                        </div>
-                                                    </td> --}}
-                                                    <td>#{{ $od->order_id }}</td>
-                                                    <td class="wspace-no">{{ $od->created_at }}</td>
-                                                    <td class="text-ov">{{ $od->cadd }}</td>
-                                                    <td class="text-ov">{{ $od->cgstin }}</td>
-                                                    <td>{{ $od->cstyle_ref }}</td>
-                                                    <td>{{ $od->email1 }}<br>
-
-                                                        {{ $od->email2 }}
-                                                        @if ($od->email2)
-                                                            <br>
-                                                        @endif
-
-                                                        {{ $od->email3 }}
-                                                        @if ($od->email3)
-                                                            <br>
-                                                        @endif
-
-                                                        {{ $od->email4 }}
-                                                        @if ($od->email4)
-                                                            <br>
-                                                        @endif
-
-                                                        {{ $od->email5 }}
-                                                        @if ($od->email5)
-                                                            <br>
-                                                        @endif
-                                                    </td>
-                                                    <td>{{ $od->phone1 }}<br>
-
-                                                        {{ $od->phone2 }}
-                                                        @if ($od->phone2)
-                                                            <br>
-                                                        @endif
-
-                                                        {{ $od->phone3 }}
-                                                        @if ($od->phone3)
-                                                            <br>
-                                                        @endif
-
-                                                        {{ $od->phone4 }}
-                                                        @if ($od->phone4)
-                                                            <br>
-                                                        @endif
-
-                                                        {{ $od->phone5 }}
-                                                        @if ($od->phone5)
-                                                            <br>
-                                                        @endif
-                                                    </td>
-                                                    <td><span class="text-warning">Pending</span></td>
-                                                </tr>
-                                            @endif
-                                        @else
-                                            <tr>
-                                                <td>
-                                                    <div class="form-check ms-2">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                            id="customCheckBox1">
-                                                        <label class="form-check-label" for="customCheckBox1">
-                                                        </label>
+                                        <tr>
+                                            <td>#{{ $od->order_id }}</td>
+                                            <td>{{ $od->cname }}</td>
+                                            <td class="text-ov">{{ $od->cadd }}</td>
+                                            <td class="text-ov">{{ $od->cgstin }}</td>
+                                            <td>{{ $od->cstyle_ref }}</td>
+                                            <td>{{ $od->email }}
+                                            </td>
+                                            <td>{{ $od->phone1 }}
+                                            </td>
+                                            <td><span class="text-warning">Pending</span></td>
+                                            <td>
+                                                <div class="dropdown ms-auto c-pointer">
+                                                    <div class="btn-link" data-bs-toggle="dropdown">
+                                                        <svg width="24" height="24" viewbox="0 0 24 24"
+                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M11.0005 12C11.0005 12.5523 11.4482 13 12.0005 13C12.5528 13 13.0005 12.5523 13.0005 12C13.0005 11.4477 12.5528 11 12.0005 11C11.4482 11 11.0005 11.4477 11.0005 12Z"
+                                                                stroke="#3E4954" stroke-width="2" stroke-linecap="round"
+                                                                stroke-linejoin="round">
+                                                            </path>
+                                                            <path
+                                                                d="M18.0005 12C18.0005 12.5523 18.4482 13 19.0005 13C19.5528 13 20.0005 12.5523 20.0005 12C20.0005 11.4477 19.5528 11 19.0005 11C18.4482 11 18.0005 11.4477 18.0005 12Z"
+                                                                stroke="#3E4954" stroke-width="2" stroke-linecap="round"
+                                                                stroke-linejoin="round">
+                                                            </path>
+                                                            <path
+                                                                d="M4.00049 12C4.00049 12.5523 4.4482 13 5.00049 13C5.55277 13 6.00049 12.5523 6.00049 12C6.00049 11.4477 5.55277 11 5.00049 11C4.4482 11 4.00049 11.4477 4.00049 12Z"
+                                                                stroke="#3E4954" stroke-width="2" stroke-linecap="round"
+                                                                stroke-linejoin="round">
+                                                            </path>
+                                                        </svg>
                                                     </div>
-                                                </td>
-                                                <td>#{{ $od->order_id }}</td>
-                                                <td class="wspace-no">{{ $od->created_at }}</td>
-                                                <td>{{ $od->cname }}</td>
-                                                <td class="text-ov">{{ $od->cadd }}</td>
-                                                <td class="text-ov">{{ $od->cgstin }}</td>
-                                                <td>{{ $od->cstyle_ref }}</td>
-                                                <td>{{ $od->email1 }}<br>
 
-                                                    {{ $od->email2 }}
-                                                    @if ($od->email2)
-                                                        <br>
-                                                    @endif
-
-                                                    {{ $od->email3 }}
-                                                    @if ($od->email3)
-                                                        <br>
-                                                    @endif
-
-                                                    {{ $od->email4 }}
-                                                    @if ($od->email4)
-                                                        <br>
-                                                    @endif
-
-                                                    {{ $od->email5 }}
-                                                    @if ($od->email5)
-                                                        <br>
-                                                    @endif
-                                                </td>
-                                                <td>{{ $od->phone1 }}<br>
-
-                                                    {{ $od->phone2 }}
-                                                    @if ($od->phone2)
-                                                        <br>
-                                                    @endif
-
-                                                    {{ $od->phone3 }}
-                                                    @if ($od->phone3)
-                                                        <br>
-                                                    @endif
-
-                                                    {{ $od->phone4 }}
-                                                    @if ($od->phone4)
-                                                        <br>
-                                                    @endif
-
-                                                    {{ $od->phone5 }}
-                                                    @if ($od->phone5)
-                                                        <br>
-                                                    @endif
-                                                </td>
-                                                <td><span class="text-warning">Pending</span></td>
-                                                <td>
-                                                    <div class="dropdown ms-auto c-pointer">
-                                                        <div class="btn-link" data-bs-toggle="dropdown">
-                                                            <svg width="24" height="24" viewbox="0 0 24 24"
-                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path
-                                                                    d="M11.0005 12C11.0005 12.5523 11.4482 13 12.0005 13C12.5528 13 13.0005 12.5523 13.0005 12C13.0005 11.4477 12.5528 11 12.0005 11C11.4482 11 11.0005 11.4477 11.0005 12Z"
-                                                                    stroke="#3E4954" stroke-width="2" stroke-linecap="round"
-                                                                    stroke-linejoin="round">
-                                                                </path>
-                                                                <path
-                                                                    d="M18.0005 12C18.0005 12.5523 18.4482 13 19.0005 13C19.5528 13 20.0005 12.5523 20.0005 12C20.0005 11.4477 19.5528 11 19.0005 11C18.4482 11 18.0005 11.4477 18.0005 12Z"
-                                                                    stroke="#3E4954" stroke-width="2" stroke-linecap="round"
-                                                                    stroke-linejoin="round">
-                                                                </path>
-                                                                <path
-                                                                    d="M4.00049 12C4.00049 12.5523 4.4482 13 5.00049 13C5.55277 13 6.00049 12.5523 6.00049 12C6.00049 11.4477 5.55277 11 5.00049 11C4.4482 11 4.00049 11.4477 4.00049 12Z"
-                                                                    stroke="#3E4954" stroke-width="2" stroke-linecap="round"
-                                                                    stroke-linejoin="round">
-                                                                </path>
-                                                            </svg>
-                                                        </div>
-
-                                                        <div class="dropdown-menu dropdown-menu-right">
-                                                            <form action="/accept/{{ $od->id }}" method="POST">
-                                                                {{-- <a class="dropdown-item text-black"
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <form action="/accept/{{ $od->id }}" method="POST">
+                                                            {{-- <a class="dropdown-item text-black"
                                                                     href="javascript:void(0);">
                                                                 </a> --}}
-                                                                <button type="submit" class="dropdown-item text-black">
-                                                                    Accept order
-                                                                </button>
-                                                            </form>
-                                                            <form action="/reject/{{ $od->id }}" method="POST">
-                                                                {{-- <a class="dropdown-item text-black"
+                                                            <button type="submit" class="dropdown-item text-black">
+                                                                Available
+                                                            </button>
+                                                        </form>
+                                                        <form action="/reject/{{ $od->id }}" method="POST">
+                                                            {{-- <a class="dropdown-item text-black"
                                                                     href="javascript:void(0);">
                                                                     Reject order
                                                                 </a> --}}
-                                                                <button type="submit" class="dropdown-item text-black">
-                                                                    Reject order
-                                                                </button>
-                                                            </form>
-                                                            <form action="/details/{{ $od->id }}" method="POST">
-                                                                {{-- <a class="dropdown-item text-black"
+                                                            <button type="submit" class="dropdown-item text-black">
+                                                                Not Available
+                                                            </button>
+                                                        </form>
+                                                        {{-- <a class="dropdown-item text-black"
                                                                     href="javascript:void(0);">
                                                                     View Details
                                                                 </a> --}}
-                                                                <button type="submit" class="dropdown-item text-black">
-                                                                    View Details
-                                                                </button>
-                                                            </form>
-                                                        </div>
+                                                        <input type="hidden" name="cid" id="cid"
+                                                            value="{{ $od->u_id }}">
+                                                        <input type="hidden" name="cname" id="cname"
+                                                            value="{{ $od->cname }}">
+                                                        <input type="hidden" name="email" id="email"
+                                                            value="{{ $od->email }}">
+                                                        <button type="button"
+                                                            class="sendMail dropdown-item text-black">Send
+                                                            Mail</button>
+
                                                     </div>
-                                                </td>
-                                            </tr>
-                                        @endif
+                                                </div>
+                                            </td>
+                                        </tr>
                                     @endforeach
                                 @else
                                     <tr>
@@ -329,4 +206,45 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+
+@section('customJs')
+    <script>
+        $(document).on('click', '.sendMail', function(e) {
+            e.preventDefault();
+
+            var data = {
+                'cid': $('#cid').val(),
+                'cname': $('#cname').val(),
+                'email': $('#email').val(),
+            };
+
+            $('.sendMail').html("sending...");
+
+            $.ajax({
+                type: "POST",
+                url: "send-mail",
+                data: data,
+                dataType: "json",
+                success: function(response) {
+                    if (response.status == 400) {
+                        $('#sStatus').html("");
+                        $('#sStatus').addClass('alert alert-danger').delay(1000).fadeOut(2000);
+                        $.each(response.errors, function(key, err_values) {
+                            $('#sStatus').append('<p>' + err_values + '</p>');
+                        });
+                    } else {
+                        $('#sStatus').html("");
+                        $('#sStatus').addClass('alert alert-success').delay(1000).fadeOut(2000);
+                        $('#sStatus').text(response.message);
+                        $('.sendMail').html("Send Mail");
+                    }
+                }
+
+            });
+
+        });
+    </script>
 @endsection

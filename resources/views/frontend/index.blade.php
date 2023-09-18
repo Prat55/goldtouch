@@ -26,12 +26,12 @@
                     <div class="card">
                         <div class="card-body d-flex align-items-center justify-content-between">
                             <div class="card-data me-2">
-                                <h5>Properties for Sale</h5>
-                                <h2 class="fs-40 font-w600">684</h2>
+                                <h5>Total Orders</h5>
+                                <h2 class="fs-40 font-w600">{{ $countOrder->count() }}</h2>
                             </div>
                             <div>
                                 <span class="donut1"
-                                    data-peity='{ "fill": ["var(--primary)", "rgba(242, 246, 252)"]}'>5/6</span>
+                                    data-peity='{ "fill": ["var(--primary)", "rgba(242, 246, 252)"]}'>{{ $countOrder->count() }}/100</span>
                             </div>
                         </div>
                     </div>
@@ -589,6 +589,6 @@
         </div>
     </div>
     <!--**********************************
-                                                                Content body end
-                                                            ***********************************-->
+                                                                                        Content body end
+                                                                                    ***********************************-->
 @endsection

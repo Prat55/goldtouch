@@ -32,12 +32,13 @@
                             <div class="col-xl-12">
                                 <div class="auth-form">
                                     <div class="text-center mb-3">
-                                        <a href="/"><img class="logo-light"
+                                        {{-- <a href="/"><img class="logo-light"
                                                 src="{{ asset('user-assets/xhtml/images/logo-full.png') }}"
                                                 alt=""></a>
                                         <a href="/"><img class="logo-dark"
                                                 src="{{ asset('user-assets/xhtml/images/logo-white-full.png') }}"
-                                                alt=""></a>
+                                                alt=""></a> --}}
+                                        <h2>Gold <span class="text-blue">Touch</span></h2>
                                     </div>
                                     <h4 class="text-center mb-4">Sign in your account</h4>
                                     <!-- Session Status -->
@@ -94,6 +95,10 @@
                                         <p>Don't have an account? <a class="text-primary"
                                                 href="{{ route('register') }}">Sign
                                                 up</a></p>
+                                    </div>
+                                    <div class="new-account mt-3">
+                                        <p>Want to place order <a class="text-primary" href="{{ route('order') }}">click
+                                                here</a></p>
                                     </div>
                                 </div>
                             </div>
