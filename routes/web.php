@@ -43,13 +43,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/make-order', [UserOrderController::class, 'makeUserOrder'])->name('userorder');
+    Route::get('/orders', [UserOrderController::class, 'orders'])->name('orders');
+    Route::post('/change-profile/{id}', [UserDashboardController::class, 'updateProfileImg']);
 });
 
 //? Admin Routes
 Route::middleware('admin.auth')->group(function () {
     Route::get('/user-info', [UserDashboardController::class, 'userinfo'])->name('userinfo');
     Route::post('/send-mail', [RouteSignedController::class, 'sendMailRoute']);
-    Route::get('/orders', [UserOrderController::class, 'orders'])->name('orders');
+    // Route::get('/orders', [UserOrderController::class, 'orders'])->name('orders');
+    Route::get('/send-notification', [AdminDashboardController::class, 'sendTask'])->name('sendTask');
+    Route::post('/send-task/{order_id}', [AdminDashboardController::class, 'sendorderTask']);
 });
 
 require __DIR__ . '/auth.php';

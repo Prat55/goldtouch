@@ -12,17 +12,6 @@ use Illuminate\Support\Facades\Validator;
 
 class RouteSignedController extends Controller
 {
-    protected function sendTempRoute(Request $request)
-    {
-        $customers = Customer::latest();
-        if (!empty($request->get('c'))) {
-            $orders = $customers->where('cname', 'like', '%' . $request->get('c') . '%');
-        }
-
-        $customers =  $customers->paginate(10);
-        return view('frontend.sendTempRoute', compact('customers'));
-    }
-
     protected function sendMailRoute(Request $request)
     {
         $validator = Validator::make($request->all(), [

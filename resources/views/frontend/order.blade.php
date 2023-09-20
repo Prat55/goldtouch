@@ -23,7 +23,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="basic-form">
-                                <form action="{{ route('makeOrder') }}" method="POST">
+                                <form action="{{ route('makeOrder') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('put')
                                     <div class="row">
@@ -40,14 +40,17 @@
                                             <input type="text" class="form-control" name="cgstin" required>
                                         </div>
 
-                                        {{-- <div class="mb-3 col-md-6">
-                                            <label class="form-label">PO NUMBER</label>
-                                            <input type="text" class="form-control" name="pnumber">
-                                        </div> --}}
-
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">STYLE REF</label>
                                             <input type="text" class="form-control" name="styleref" required>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label">PO NUMBER</label>
+                                            <input type="text" class="form-control" name="pono" required>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label">PO COPY UPLOAD</label>
+                                            <input type="file" class="form-control" name="poimg" required>
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">MEASURMENT TAKER 1</label>
@@ -60,7 +63,7 @@
                                                 </div>
                                                 <div class="col-3">
                                                     <!-- Date-time input with 30% width -->
-                                                    <input type="datetime-local" name="mdatetime" class="form-control"
+                                                    <input type="datetime-local" name="mdatetime1" class="form-control"
                                                         style="width: 100%" required />
                                                 </div>
                                             </div>
@@ -72,20 +75,15 @@
                                                     <!-- Text input with 70% width -->
                                                     <input type="text" name="mtaker2" class="form-control"
                                                         style="width: 100%"
-                                                        placeholder="Enter measurement taker (optional)" />
+                                                        placeholder="Enter measurement taker name (optional)" />
                                                 </div>
                                                 <div class="col-3">
                                                     <!-- Date-time input with 30% width -->
-                                                    <input type="datetime-local" name="mdatetime" class="form-control"
+                                                    <input type="datetime-local" name="mdatetime2" class="form-control"
                                                         style="width: 100%" />
                                                 </div>
                                             </div>
                                         </div>
-
-                                        {{-- <div class="mb-3 col-md-6">
-                                            <label class="form-label">PO COPY UPLOAD</label>
-                                            <input type="text" class="form-control" name="pocopyupload">
-                                        </div> --}}
 
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">Email</label>

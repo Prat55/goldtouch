@@ -20,7 +20,6 @@
             @if (Auth::user()->role == 2)
                 <li>
                     <a class="" href="{{ route('orders') }}" aria-expanded="false">
-                        {{-- <i class="fa fa-cl"></i> --}}
                         <i class="fa fa-clock" aria-hidden="true"></i>
                         <span class="nav-text">Orders</span>
                     </a>
@@ -28,7 +27,6 @@
             @else
                 <li>
                     <a class="" href="{{ route('orders') }}" aria-expanded="false">
-                        {{-- <i class="fa fa-cl"></i> --}}
                         <i class="fa fa-clock" aria-hidden="true"></i>
                         <span class="nav-text">My orders</span>
                     </a>
@@ -37,14 +35,19 @@
             @if (Auth::user()->role == 2)
                 <li>
                     <a class="" href="{{ route('userinfo') }}" aria-expanded="false">
-                        {{-- <i class="fa fa-cl"></i> --}}
                         <i class="flaticon-050-info" aria-hidden="true"></i>
                         <span class="nav-text">User Info</span>
                     </a>
                 </li>
+                <li>
+                    <a class="" href="{{ route('sendTask') }}" aria-expanded="false">
+                        <i class="flaticon-050-info" aria-hidden="true"></i>
+                        <span class="nav-text">Send Notification</span>
+                    </a>
+                </li>
             @else
                 <li>
-                    <a class="" href="{{ route('order') }}" aria-expanded="false">
+                    <a class="" href="{{ route('userorder') }}" aria-expanded="false">
                         <i class="flaticon-067-plus"></i>
                         <span class="nav-text">Order</span>
                     </a>

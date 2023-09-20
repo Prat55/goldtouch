@@ -45576,9 +45576,9 @@ table.dataTable.display tbody td {
     left: 0;
 }
 
-[direction="rtl"] {
-    /* ===== Light gallery ===== */
-}
+/* [direction="rtl"] {
+    /* ===== Light gallery =====
+} */
 
 [direction="rtl"] .select2-container--default .select2-selection--single .select2-selection__arrow {
     left: 15px;
@@ -47184,20 +47184,66 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
 
 /*# sourceMappingURL=style.css.map */
 
-.sidebar-right {
+.statusBox {
+    position: relative;
+}
+
+/** Profile Code **/
+
+.fileMenu {
     display: none;
+}
+
+.upload-img:hover {
+    transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+    color: #999;
+}
+
+.upload-img {
+    color: #fff;
+    font-size: 1.8rem;
+}
+
+.fileUpload {
+    position: absolute;
+    top: 30%;
+    left: 35%;
+    transition: .3s;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+    .upload-img {
+        color: #fff;
+        font-size: 1.5rem;
+    }
+
+    .fileUpload {
+        position: absolute;
+        top: 34%;
+        left: 35%;
+        transition: .3s;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .upload-img {
+        color: #fff;
+        font-size: 1.2rem;
+    }
+
+    .fileUpload {
+        position: absolute;
+        top: 35%;
+        left: 35%;
+        transition: .3s;
+    }
+}
+
+.sidebar-right {
+    display: none !important;
 }
 
 .dz-demo-panel {
-    display: none;
-}
-
-.status {
-    position: absolute;
-    right: 0;
-    top: 0;
-}
-
-.statusBox {
-    position: relative;
+    display: none !important;
 }

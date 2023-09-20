@@ -16,6 +16,11 @@ class UserOrderController extends Controller
         return view('frontend.customerOrder');
     }
 
+    protected function makeUserOrder()
+    {
+        return view('frontend.order');
+    }
+
     protected function random()
     {
         do {

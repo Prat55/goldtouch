@@ -27,8 +27,16 @@
                             </div>
                             <div class="profile-info">
                                 <div class="profile-photo">
-                                    <img src="{{ asset('user-assets/xhtml/images/profile/profile.png') }}"
-                                        class="img-fluid rounded-circle" alt="">
+                                    <img src="{{ 'user-assets/xhtml/images/avatar/1.jpg' }}"
+                                        id="preview-image-before-upload" class="img-fluid rounded-circle" alt="profile-img">
+                                    <input type="hidden" name="" value="{{ Auth::user()->id }}" id="UserId">
+                                    <div class="fileMenu">
+                                        <input type="file" name="fileupload" id="image">
+                                    </div>
+
+                                    <div class="fileUpload">
+                                        <i class="fa fa-camera upload-img"></i>
+                                    </div>
                                 </div>
                                 <div class="profile-details">
                                     <div class="profile-name px-3 pt-2">
@@ -305,4 +313,49 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('customJs')
+    <script>
+        $(document).ready(function(e) {
+
+
+            $('#image').change(function() {
+
+                let reader = new FileReader();
+
+                reader.onload = (e) => {
+
+                    $('#preview-image-before-upload').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(this.files[0]);
+            });
+
+            $("#preview-image-before-upload").on('change', function() {
+                previewFile(this);
+
+                var userid = $('#UserId').val();
+                var image = {
+                    'image': $('#preview-image-before-upload').val(),
+                };
+
+                $.ajax({
+                    type: "post",
+                    url: "/change-profile/" + id,
+                    data: image,
+                    dataType: "json",
+                    success: function(response) {
+                        alert('Successfully updated')
+                    }
+                });
+            });
+
+            $(document).on('click', '.fileUpload', function(e) {
+                e.preventDefault();
+
+                $('#image').click();
+            });
+        });
+    </script>
 @endsection

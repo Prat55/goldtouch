@@ -15,22 +15,24 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xl-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="order-user">
-                                    <i class="fas fa-user text-white bg-primary"></i>
-                                </div>
+                @if (Auth::user()->role == 2)
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="order-user">
+                                        <i class="fas fa-user text-white bg-primary"></i>
+                                    </div>
 
-                                <div class="ms-4 customer">
-                                    <h2 class="mb-0  font-w600">{{ $aordersCount }}</h2>
-                                    <p class="mb-0 font-w500">Total Orders</p>
+                                    <div class="ms-4 customer">
+                                        <h2 class="mb-0  font-w600">{{ $aordersCount }}</h2>
+                                        <p class="mb-0 font-w500">Total Orders</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endif
                 {{-- <div class="col-xl-3 col-md-6">
                     <div class="card">
                         <div class="card-body">
@@ -88,8 +90,12 @@
                                     <th>Style<br> Reference</th>
                                     <th>Emails</th>
                                     <th>Phone</th>
-                                    <th>Status</th>
-                                    <th class="">Edits</th>
+                                    @if (Auth::user()->role == 2)
+                                        <th>Status</th>
+                                        <th class="">Edits</th>
+                                    @else
+                                        <th class="">Fabric Status</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody class="text-center">
@@ -101,69 +107,71 @@
                                             <td class="text-ov">{{ $od->cadd }}</td>
                                             <td class="text-ov">{{ $od->cgstin }}</td>
                                             <td>{{ $od->cstyle_ref }}</td>
-                                            <td>{{ $od->email }}
-                                            </td>
-                                            <td>{{ $od->phone1 }}
-                                            </td>
-                                            <td><span class="text-warning">Pending</span></td>
-                                            <td>
-                                                <div class="dropdown ms-auto c-pointer">
-                                                    <div class="btn-link" data-bs-toggle="dropdown">
-                                                        <svg width="24" height="24" viewbox="0 0 24 24"
-                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-                                                                d="M11.0005 12C11.0005 12.5523 11.4482 13 12.0005 13C12.5528 13 13.0005 12.5523 13.0005 12C13.0005 11.4477 12.5528 11 12.0005 11C11.4482 11 11.0005 11.4477 11.0005 12Z"
-                                                                stroke="#3E4954" stroke-width="2" stroke-linecap="round"
-                                                                stroke-linejoin="round">
-                                                            </path>
-                                                            <path
-                                                                d="M18.0005 12C18.0005 12.5523 18.4482 13 19.0005 13C19.5528 13 20.0005 12.5523 20.0005 12C20.0005 11.4477 19.5528 11 19.0005 11C18.4482 11 18.0005 11.4477 18.0005 12Z"
-                                                                stroke="#3E4954" stroke-width="2" stroke-linecap="round"
-                                                                stroke-linejoin="round">
-                                                            </path>
-                                                            <path
-                                                                d="M4.00049 12C4.00049 12.5523 4.4482 13 5.00049 13C5.55277 13 6.00049 12.5523 6.00049 12C6.00049 11.4477 5.55277 11 5.00049 11C4.4482 11 4.00049 11.4477 4.00049 12Z"
-                                                                stroke="#3E4954" stroke-width="2" stroke-linecap="round"
-                                                                stroke-linejoin="round">
-                                                            </path>
-                                                        </svg>
-                                                    </div>
+                                            <td>{{ $od->email }}</td>
+                                            <td>{{ $od->phone }}</td>
+                                            @if (Auth::user()->role == 2)
+                                                <td><span class="text-warning">Pending</span></td>
 
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <form action="/accept/{{ $od->id }}" method="POST">
-                                                            {{-- <a class="dropdown-item text-black"
-                                                                    href="javascript:void(0);">
-                                                                </a> --}}
-                                                            <button type="submit" class="dropdown-item text-black">
-                                                                Available
-                                                            </button>
-                                                        </form>
-                                                        <form action="/reject/{{ $od->id }}" method="POST">
-                                                            {{-- <a class="dropdown-item text-black"
-                                                                    href="javascript:void(0);">
-                                                                    Reject order
-                                                                </a> --}}
-                                                            <button type="submit" class="dropdown-item text-black">
-                                                                Not Available
-                                                            </button>
-                                                        </form>
-                                                        {{-- <a class="dropdown-item text-black"
-                                                                    href="javascript:void(0);">
-                                                                    View Details
-                                                                </a> --}}
-                                                        <input type="hidden" name="cid" id="cid"
-                                                            value="{{ $od->u_id }}">
-                                                        <input type="hidden" name="cname" id="cname"
-                                                            value="{{ $od->cname }}">
-                                                        <input type="hidden" name="email" id="email"
-                                                            value="{{ $od->email }}">
-                                                        <button type="button"
-                                                            class="sendMail dropdown-item text-black">Send
-                                                            Mail</button>
+                                                <td>
+                                                    <div class="dropdown ms-auto c-pointer">
+                                                        <div class="btn-link" data-bs-toggle="dropdown">
+                                                            <svg width="24" height="24" viewbox="0 0 24 24"
+                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+                                                                    d="M11.0005 12C11.0005 12.5523 11.4482 13 12.0005 13C12.5528 13 13.0005 12.5523 13.0005 12C13.0005 11.4477 12.5528 11 12.0005 11C11.4482 11 11.0005 11.4477 11.0005 12Z"
+                                                                    stroke="#3E4954" stroke-width="2" stroke-linecap="round"
+                                                                    stroke-linejoin="round">
+                                                                </path>
+                                                                <path
+                                                                    d="M18.0005 12C18.0005 12.5523 18.4482 13 19.0005 13C19.5528 13 20.0005 12.5523 20.0005 12C20.0005 11.4477 19.5528 11 19.0005 11C18.4482 11 18.0005 11.4477 18.0005 12Z"
+                                                                    stroke="#3E4954" stroke-width="2" stroke-linecap="round"
+                                                                    stroke-linejoin="round">
+                                                                </path>
+                                                                <path
+                                                                    d="M4.00049 12C4.00049 12.5523 4.4482 13 5.00049 13C5.55277 13 6.00049 12.5523 6.00049 12C6.00049 11.4477 5.55277 11 5.00049 11C4.4482 11 4.00049 11.4477 4.00049 12Z"
+                                                                    stroke="#3E4954" stroke-width="2" stroke-linecap="round"
+                                                                    stroke-linejoin="round">
+                                                                </path>
+                                                            </svg>
+                                                        </div>
 
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <form action="/accept/{{ $od->id }}" method="POST">
+                                                                <button type="submit" class="dropdown-item text-black">
+                                                                    Available
+                                                                </button>
+                                                            </form>
+                                                            <form action="/reject/{{ $od->id }}" method="POST">
+                                                                <button type="submit" class="dropdown-item text-black">
+                                                                    Not Available
+                                                                </button>
+                                                            </form>
+                                                            <input type="hidden" name="cid" id="cid"
+                                                                value="{{ $od->u_id }}">
+                                                            <input type="hidden" name="cname" id="cname"
+                                                                value="{{ $od->cname }}">
+                                                            <input type="hidden" name="email" id="email"
+                                                                value="{{ $od->email }}">
+                                                            <button type="button"
+                                                                class="sendMail dropdown-item text-black">Send
+                                                                Mail</button>
+
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
+                                                </td>
+                                            @else
+                                                <td>
+
+                                                    @if ($od->fabrics_status == 1)
+                                                        <span class="text-danger">Not Available</span>
+                                                    @elseif ($od->fabrics_status == 2)
+                                                        <span class="text-success">Available</span>
+                                                    @else
+                                                        <span class="text-warning">Pending</span>
+                                                    @endif
+
+                                                </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 @else
@@ -175,33 +183,6 @@
                         </table>
                         {{ $orders->links() }}
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">New Tranasactions</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-xl-12">
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">OrderID</label>
-                                <input type="text" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="#0001234">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>

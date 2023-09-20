@@ -66,4 +66,41 @@ class UserDashboardController extends Controller
             ]);
         }
     }
+
+    protected function updateProfileImg(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->messages(),
+            ]);
+        } else {
+
+            $file = $request->file('image');
+            $imageName = time() . '_' . $file->getClientOriginalName();
+            $file->move(\public_path("profile/"), $imageName);
+
+            $emp = User::find($id);
+            if ($emp) {
+
+                $emp->profileImg = $imageName;
+                $emp->update();
+
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Profile Updated Successfully',
+                ]);
+            } else {
+
+                return response()->json([
+                    'status' => 404,
+                    'message' => "File Not Found",  
+                ]);
+            }
+        }
+    }
 }
