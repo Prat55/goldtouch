@@ -24,6 +24,8 @@ class Order extends Model
         'ponumber',
         'poimg',
         'fabrics_status',
+        'assignId',
+        'assignName',
     ];
 
     protected function uid()

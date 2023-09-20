@@ -91,8 +91,8 @@ class UserOrderController extends Controller
     protected function assign(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'id' => 'required|max:100',
-            'orderId' => 'required|max:100',
+            'userId' => 'required|max:100',
+            'userName' => 'required|max:250',
         ]);
 
         if ($validator->fails()) {
@@ -101,26 +101,21 @@ class UserOrderController extends Controller
                 'errors' => $validator->messages(),
             ]);
         } else {
-            $emp = Order::find($id);
-            if ($emp) {
+            $order = Order::find($id);
 
-                $emp->tokenNo = $request->input('tokenNo');
-                $emp->sname = $request->input('sname');
-                $emp->fullName = $request->input('fullName');
-                $emp->category = $request->input('category');
-                $emp->setOrder = $request->input('setOrder');
-                $emp->status = $request->input('status');
-                $emp->update();
+            if ($order) {
+                $order->assignId = $request->input('userId');
+                $order->assignName = $request->input('userName');
+                $order->update();
 
                 return response()->json([
                     'status' => 200,
-                    'message' => 'Employee Updated Successfully',
+                    'message' => 'Task assigned successfully',
                 ]);
             } else {
-
                 return response()->json([
                     'status' => 404,
-                    'message' => "Employee doesn't exist",
+                    'message' => "Something went wrong!",
                 ]);
             }
         }

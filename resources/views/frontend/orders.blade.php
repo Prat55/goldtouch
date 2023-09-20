@@ -84,10 +84,9 @@
                             <thead>
                                 <tr class="text-center">
                                     <th>Order ID</th>
-                                    <th>Customer<br> Name</th>
+                                    <th>Customer Name</th>
                                     <th>Address</th>
                                     <th>GSTIN No.</th>
-                                    <th>Style<br> Reference</th>
                                     <th>Emails</th>
                                     <th>Phone</th>
                                     @if (Auth::user()->role == 2)
@@ -108,7 +107,6 @@
                                             <td>{{ $od->cname }}</td>
                                             <td class="text-ov">{{ $od->cadd }}</td>
                                             <td class="text-ov">{{ $od->cgstin }}</td>
-                                            <td>{{ $od->cstyle_ref }}</td>
                                             <td>{{ $od->email }}</td>
                                             <td>{{ $od->phone }}</td>
                                             @if (Auth::user()->role == 2)
@@ -163,7 +161,6 @@
                                                 </td>
                                             @else
                                                 <td>
-
                                                     @if ($od->fabrics_status == 1)
                                                         <span class="text-danger">Not Available</span>
                                                     @elseif ($od->fabrics_status == 2)
@@ -171,19 +168,31 @@
                                                     @else
                                                         <span class="text-warning">Pending</span>
                                                     @endif
-
                                                 </td>
 
                                                 <td>
-                                                    <input type="hidden" value="{{ $od->order_id }}" id="orderId">
-                                                    <input type="hidden" name="userID" id="userID"
-                                                        value="{{ Auth::user()->id }}">
-                                                    <input type="button" id="assign" name="assign"
-                                                        class="btn btn-sm btn-secondary" value="Assign">
+                                                    <form action="" method="post">
+                                                        @csrf
+
+                                                        <input type="hidden" value="{{ $od->id }}"
+                                                            id="orderId">
+
+                                                        <input type="hidden" name="userID" id="userID"
+                                                            value="{{ Auth::user()->id }}">
+
+                                                        <input type="hidden" value="{{ Auth::user()->name }}"
+                                                            id="userName">
+
+                                                        <input type="button" id="assign" name="assign"
+                                                            class="btn btn-sm btn-secondary"
+                                                            value="{{ $od->assignId == Auth::user()->id ? 'Assigned' : 'Assign' }}"
+                                                            {{ $od->assignId == Auth::user()->id ? 'disabled' : '' }}>
+
+                                                    </form>
                                                 </td>
                                             @endif
                                             <td>
-                                                {{ $od->id }}
+                                                {{ $od->assignName }}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -206,74 +215,121 @@
 
 @section('customJs')
     <script>
-        $(document).on('click', '.sendMail', function(e) {
-            e.preventDefault();
+        $(document).ready(function() {
+            $(document).on('click', '.sendMail', function(e) {
+                e.preventDefault();
 
-            var data = {
-                'cid': $('#cid').val(),
-                'cname': $('#cname').val(),
-                'email': $('#email').val(),
-            };
+                var data = {
+                    'cid': $('#cid').val(),
+                    'cname': $('#cname').val(),
+                    'email': $('#email').val(),
+                };
 
-            $('.sendMail').html("sending...");
+                $('.sendMail').html("sending...");
 
-            $.ajax({
-                type: "POST",
-                url: "send-mail",
-                data: data,
-                dataType: "json",
-                success: function(response) {
-                    if (response.status == 400) {
-                        $('#sStatus').html("");
-                        $('#sStatus').addClass('alert alert-danger').delay(1000).fadeOut(2000);
-                        $.each(response.errors, function(key, err_values) {
-                            $('#sStatus').append('<p>' + err_values + '</p>');
-                        });
-                    } else {
-                        $('#sStatus').html("");
-                        $('#sStatus').addClass('alert alert-success').delay(1000).fadeOut(2000);
-                        $('#sStatus').text(response.message);
-                        $('.sendMail').html("Send Mail");
+                $.ajax({
+                    type: "POST",
+                    url: "send-mail",
+                    data: data,
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.status == 400) {
+                            $('#sStatus').html("");
+                            $('#sStatus').addClass('alert alert-danger').delay(1000).fadeOut(
+                                2000);
+                            $.each(response.errors, function(key, err_values) {
+                                $('#sStatus').append('<p>' + err_values + '</p>');
+                            });
+                        } else {
+                            $('#sStatus').html("");
+                            $('#sStatus').addClass('alert alert-success').delay(1000).fadeOut(
+                                2000);
+                            $('#sStatus').text(response.message);
+                            $('.sendMail').html("Send Mail");
+                        }
                     }
-                }
+
+                });
 
             });
 
-        });
+            // $(document).on('click', '#assign', function(e) {
+            //     e.preventDefault();
+            //     var id = $('#orderId').val();
 
-        $(document).on('click', '#assign', function(e) {
-            e.preventDefault();
-            var id = $('#userID').val();
-            var data = {
-                'orderId': $('#orderId').val(),
-            };
+            //     var data = {
+            //         'userId': $('#userID').val(),
+            //         'userName': $('#userName').val(),
+            //     };
 
-            $('#assign').prop("disabled", true).val('Assigning');
-            $.ajax({
-                type: "get",
-                url: "/assign/" + id,
-                data: data,
-                dataType: "json",
-                success: function(response) {
-                    if (response.status == 400) {
-                        $('#updaterrstatus').html("");
-                        $('#updaterrstatus').addClass('alert alert-danger');
-                        $.each(response.errors, function(key, err_values) {
-                            $('#updaterrstatus').append('<li>' + err_values +
-                                '</li>');
-                        });
-                    } else if (response.status == 404) {
-                        $('#errstatus').html("");
-                        $('#sStatus').addClass('alert alert-danger');
-                        $('#sStatus').text(response.message);
-                    } else {
-                        $('#errstatus').html("");
-                        $('#sStatus').html("");
-                        $('#sStatus').addClass('alert alert-success');
-                        $('#sStatus').text(response.message);
-                        $('#assign').prop("disabled", true).val('assigned');
+            //     $('#assign').prop("disabled", true).val('wait...');
+
+            //     $.ajax({
+            //         type: "post",
+            //         url: "/assign/" + id,
+            //         data: data,
+            //         dataType: "json",
+            //         success: function(response) {
+            //             if (response.status == 400) {
+            //                 $('#errstatus').html("");
+            //                 $('#errstatus').addClass('alert alert-danger');
+            //                 $.each(response.errors, function(key, err_values) {
+            //                     $('#errstatus').append('<li>' + err_values +
+            //                         '</li>').delay(300).fadeOut(2000);
+            //                 });
+            //             } else if (response.status == 404) {
+            //                 $('#errstatus').html("");
+            //                 $('#sStatus').addClass('alert alert-danger');
+            //                 $('#sStatus').text(response.message);
+            //             } else {
+            //                 $('#errstatus').html("");
+            //                 $('#sStatus').html("");
+            //                 $('#sStatus').addClass('alert alert-success');
+            //                 $('#sStatus').text(response.message).delay(300).fadeOut(2000);
+            //                 $('#assign').prop("disabled", true).val('assigned');
+            //             }
+            //         }
+            //     });
+            // });
+
+            $(document).on('click', '#assign', function(e) {
+                e.preventDefault();
+                var id = $('#orderId').val();
+
+                var data = {
+                    'userId': $('#userID').val(),
+                    'userName': $('#userName').val(),
+                };
+
+                $('#assign').prop("disabled", true).val('wait...');
+
+
+                $.ajax({
+                    type: "post",
+                    url: "/assign/" + id,
+                    data: data,
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.status == 400) {
+                            $('#errstatus').html("");
+                            $('#errstatus').addClass('alert alert-danger');
+                            $.each(response.errors, function(key, err_values) {
+                                $('#errstatus').append('<li>' + err_values +
+                                    '</li>').delay(300).fadeOut(2000);
+                            });
+                        } else if (response.status == 404) {
+                            $('#errstatus').html("");
+                            $('#sStatus').addClass('alert alert-danger');
+                            $('#sStatus').text(response.message);
+                        } else {
+                            $('#errstatus').html("");
+                            $('#sStatus').html("");
+                            $('#sStatus').addClass('alert alert-success');
+                            $('#sStatus').text(response.message).delay(300).fadeOut(2000);
+                            $('#assign').prop("disabled", true).val('assigned');
+                        }
                     }
-                }
+                });
             });
         });
     </script>
