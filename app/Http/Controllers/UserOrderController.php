@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class UserOrderController extends Controller
 {
@@ -85,5 +86,43 @@ class UserOrderController extends Controller
 
         $orders =  $orders->paginate(10);
         return view('frontend.orders', compact('orders', 'uordersCount', 'aordersCount'));
+    }
+
+    protected function assign(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|max:100',
+            'orderId' => 'required|max:100',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->messages(),
+            ]);
+        } else {
+            $emp = Order::find($id);
+            if ($emp) {
+
+                $emp->tokenNo = $request->input('tokenNo');
+                $emp->sname = $request->input('sname');
+                $emp->fullName = $request->input('fullName');
+                $emp->category = $request->input('category');
+                $emp->setOrder = $request->input('setOrder');
+                $emp->status = $request->input('status');
+                $emp->update();
+
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Employee Updated Successfully',
+                ]);
+            } else {
+
+                return response()->json([
+                    'status' => 404,
+                    'message' => "Employee doesn't exist",
+                ]);
+            }
+        }
     }
 }

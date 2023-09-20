@@ -26,18 +26,22 @@
                                 <div class="cover-photo rounded"></div>
                             </div>
                             <div class="profile-info">
-                                <div class="profile-photo">
-                                    <img src="{{ 'user-assets/xhtml/images/avatar/1.jpg' }}"
-                                        id="preview-image-before-upload" class="img-fluid rounded-circle" alt="profile-img">
-                                    <input type="hidden" name="" value="{{ Auth::user()->id }}" id="UserId">
-                                    <div class="fileMenu">
-                                        <input type="file" name="fileupload" id="image">
-                                    </div>
+                                <form action="" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="profile-photo">
+                                        <img src="/profileImg/{{ Auth::user()->profileImg }}"
+                                            id="preview-image-before-upload" class="img-fluid rounded-circle"
+                                            alt="profile-img">
+                                        <input type="hidden" name="" value="{{ Auth::user()->id }}" id="UserId">
+                                        <div class="fileMenu">
+                                            <input type="file" name="fileupload" id="image">
+                                        </div>
 
-                                    <div class="fileUpload">
-                                        <i class="fa fa-camera upload-img"></i>
+                                        <div class="fileUpload">
+                                            <i class="fa fa-camera upload-img"></i>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
                                 <div class="profile-details">
                                     <div class="profile-name px-3 pt-2">
                                         <h4 class="text-primary mb-0">{{ Auth::user()->name }}</h4>
@@ -47,6 +51,10 @@
                                         <h4 class="text-muted mb-0">{{ Auth::user()->email }}</h4>
                                         <p>Email</p>
                                     </div>
+
+                                    <ul id="errstatus"></ul>
+
+                                    <div id="sStatus"></div>
                                 </div>
                             </div>
                         </div>
@@ -327,35 +335,56 @@
                 reader.onload = (e) => {
 
                     $('#preview-image-before-upload').attr('src', e.target.result);
+                    $('#preview-image-before-upload1').attr('src', e.target.result);
                 }
 
                 reader.readAsDataURL(this.files[0]);
             });
 
-            $("#preview-image-before-upload").on('change', function() {
-                previewFile(this);
-
+            $('#image').on('change', function(e) {
+                e.preventDefault();
                 var userid = $('#UserId').val();
-                var image = {
-                    'image': $('#preview-image-before-upload').val(),
-                };
+                var formData = new FormData();
 
+                // Append the selected image to the FormData object
+                formData.append('image', $(this)[0].files[0]);
+
+                // Send the image using jQuery AJAX
                 $.ajax({
-                    type: "post",
-                    url: "/change-profile/" + id,
-                    data: image,
-                    dataType: "json",
+                    type: 'POST',
+                    url: 'change-profile/' + userid,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
                     success: function(response) {
-                        alert('Successfully updated')
-                    }
+                        if (response.status == 400) {
+                            $('#errstatus').html("");
+                            $('#errstatus').addClass('alert alert-danger');
+                            $.each(response.errors, function(key, err_values) {
+                                $('#errstatus').append('<li>' + err_values +
+                                    '</li>');
+                            }).delay(200).fadeOut(2000);
+                        } else if (response.status == 404) {
+                            $('#errstatus').html("");
+                            $('#sStatus').addClass('alert alert-danger');
+                            $('#sStatus').text(response.message);
+                        } else {
+                            $('#errstatus').html("");
+                            $('#sStatus').html("");
+                            $('#sStatus').addClass('alert alert-success');
+                            $('#sStatus').text(response.message).delay(200).fadeOut(2000);
+                        }
+                    },
                 });
             });
+
 
             $(document).on('click', '.fileUpload', function(e) {
                 e.preventDefault();
 
                 $('#image').click();
             });
+
         });
     </script>
 @endsection

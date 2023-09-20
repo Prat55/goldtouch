@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Empdetail;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class UserDashboardController extends Controller
@@ -79,26 +82,31 @@ class UserDashboardController extends Controller
                 'errors' => $validator->messages(),
             ]);
         } else {
-
-            $file = $request->file('image');
-            $imageName = time() . '_' . $file->getClientOriginalName();
-            $file->move(\public_path("profile/"), $imageName);
-
             $emp = User::find($id);
-            if ($emp) {
 
-                $emp->profileImg = $imageName;
+            if (file::exists("profileImg/" . $emp->profileImg)) {
+                File::delete("profileImg/" . $emp->profileImg);
+            }
+
+            // Store the new image in the database
+            $image = $request->file('image');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(\public_path("profileImg/"), $filename);
+
+
+            if ($emp) {
+                $emp->profileImg = $filename;
                 $emp->update();
 
                 return response()->json([
                     'status' => 200,
-                    'message' => 'Profile Updated Successfully',
+                    'message' => 'Profile Picture Updated Successfully',
                 ]);
             } else {
 
                 return response()->json([
                     'status' => 404,
-                    'message' => "File Not Found",  
+                    'message' => "File Not Found",
                 ]);
             }
         }

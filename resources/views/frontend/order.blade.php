@@ -63,7 +63,7 @@
                                                 </div>
                                                 <div class="col-3">
                                                     <!-- Date-time input with 30% width -->
-                                                    <input type="datetime-local" name="mdatetime1" class="form-control"
+                                                    <input type="date" name="mdatetime1" class="form-control"
                                                         style="width: 100%" required />
                                                 </div>
                                             </div>
@@ -79,7 +79,7 @@
                                                 </div>
                                                 <div class="col-3">
                                                     <!-- Date-time input with 30% width -->
-                                                    <input type="datetime-local" name="mdatetime2" class="form-control"
+                                                    <input type="date" name="mdatetime2" class="form-control"
                                                         style="width: 100%" />
                                                 </div>
                                             </div>

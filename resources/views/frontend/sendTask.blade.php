@@ -33,7 +33,7 @@
                                 <select class="form-control" name="taskOrderId" id="taskOrderId" required>
                                     <option>--select order--</option>
                                     @foreach ($orders as $order)
-                                        @if ($order->fabrics_status == 0)
+                                        @if ($order->fabrics_status == 1)
                                             <option value="{{ $order->order_id }}">{{ $order->order_id }}</option>
                                         @endif
                                     @endforeach
@@ -91,6 +91,7 @@
                             $('#errstatus').append('<li>' + err_values + '</li>').delay(500)
                                 .fadeOut(3000);
                         });
+                        $('.taskSubmit').prop("disabled", false).val('Resend');
                     } else {
                         $('#errstatus').html("");
                         $('#sStatus').addClass('alert alert-success');

@@ -8,11 +8,8 @@
     <!-- Meta -->
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="author" content="DexignZone" />
     <meta name="robots" content="" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <meta name="format-detection" content="telephone=no" />
 
     <!-- Mobile Specific -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -118,8 +115,7 @@
                                 </a>
                             </li>
                             <li class="nav-item dropdown notification_dropdown">
-                                <a class="nav-link" href="javascript:void(0);" role="button"
-                                    data-bs-toggle="dropdown">
+                                <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
                                     <svg width="28" height="28" viewbox="0 0 28 28" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -311,8 +307,8 @@
                                         <span class="fs-18 font-w500 text-end">{{ Auth::user()->name }}</span>
                                         <small class="text-end fs-14 font-w400">{{ Auth::user()->email }}</small>
                                     </div>
-                                    <img src="{{ asset('user-assets/xhtml/images/profile/pic1.jpg') }}" width="20"
-                                        alt="" />
+                                    <img src="/profileImg/{{ Auth::user()->profileImg }}" width="20"
+                                        alt="" id="preview-image-before-upload1" />
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
                                     <a href="{{ route('profile.edit') }}" class="dropdown-item ai-icon">

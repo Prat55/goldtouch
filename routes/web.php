@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/make-order', [UserOrderController::class, 'makeUserOrder'])->name('userorder');
     Route::get('/orders', [UserOrderController::class, 'orders'])->name('orders');
     Route::post('/change-profile/{id}', [UserDashboardController::class, 'updateProfileImg']);
+    Route::post('/assign/{id}', [UserOrderController::class, 'assign']);
 });
 
 //? Admin Routes

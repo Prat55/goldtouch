@@ -95,7 +95,9 @@
                                         <th class="">Edits</th>
                                     @else
                                         <th class="">Fabric Status</th>
+                                        <th>Assign</th>
                                     @endif
+                                    <th>Assigned</th>
                                 </tr>
                             </thead>
                             <tbody class="text-center">
@@ -171,7 +173,18 @@
                                                     @endif
 
                                                 </td>
+
+                                                <td>
+                                                    <input type="hidden" value="{{ $od->order_id }}" id="orderId">
+                                                    <input type="hidden" name="userID" id="userID"
+                                                        value="{{ Auth::user()->id }}">
+                                                    <input type="button" id="assign" name="assign"
+                                                        class="btn btn-sm btn-secondary" value="Assign">
+                                                </td>
                                             @endif
+                                            <td>
+                                                {{ $od->id }}
+                                            </td>
                                         </tr>
                                     @endforeach
                                 @else
@@ -226,6 +239,42 @@
 
             });
 
+        });
+
+        $(document).on('click', '#assign', function(e) {
+            e.preventDefault();
+            var id = $('#userID').val();
+            var data = {
+                'orderId': $('#orderId').val(),
+            };
+
+            $('#assign').prop("disabled", true).val('Assigning');
+            $.ajax({
+                type: "get",
+                url: "/assign/" + id,
+                data: data,
+                dataType: "json",
+                success: function(response) {
+                    if (response.status == 400) {
+                        $('#updaterrstatus').html("");
+                        $('#updaterrstatus').addClass('alert alert-danger');
+                        $.each(response.errors, function(key, err_values) {
+                            $('#updaterrstatus').append('<li>' + err_values +
+                                '</li>');
+                        });
+                    } else if (response.status == 404) {
+                        $('#errstatus').html("");
+                        $('#sStatus').addClass('alert alert-danger');
+                        $('#sStatus').text(response.message);
+                    } else {
+                        $('#errstatus').html("");
+                        $('#sStatus').html("");
+                        $('#sStatus').addClass('alert alert-success');
+                        $('#sStatus').text(response.message);
+                        $('#assign').prop("disabled", true).val('assigned');
+                    }
+                }
+            });
         });
     </script>
 @endsection

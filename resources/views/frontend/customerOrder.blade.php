@@ -87,7 +87,6 @@
                                                                         <div id="inputContainer" class="col-md-12">
                                                                             <!-- Input boxes will be appended here -->
                                                                         </div>
-
                                                                     </div>
 
                                                                 </div>
@@ -111,7 +110,6 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
                                                                 <div class="mb-3 col-md-6">
                                                                     <button type="submit"
                                                                         class="btn btn-sm btn-primary">Order
@@ -144,9 +142,11 @@
     <script src="{{ asset('user-assets/xhtml/js/deznav-init.js') }}"></script>
     <script src="{{ asset('user-assets/xhtml/js/demo.js') }}"></script>
     <script src="{{ asset('user-assets/xhtml/js/styleSwitcher.js') }}"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
     </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>

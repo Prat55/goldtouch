@@ -57,14 +57,21 @@
                                         </div>
 
                                         <!-- Password -->
-                                        <div class="mt-4">
+                                        <div class="mt-4 position-relative">
                                             <x-input-label for="password" :value="__('Password')" />
 
-                                            <x-text-input id="password" class="form-control block mt-1 w-full"
+                                            <x-text-input id="dz-password" class="form-control block mt-1 w-full"
                                                 type="password" name="password" required
                                                 autocomplete="current-password" />
+                                            <span class="show-pass eye">
+
+                                                <i class="fa fa-eye-slash"></i>
+                                                <i class="fa fa-eye"></i>
+
+                                            </span>
 
                                             <x-input-error :messages="$errors->get('password')" class="text-danger mt-2" />
+
                                         </div>
 
                                         <!-- Remember Me -->
