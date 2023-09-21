@@ -85,7 +85,11 @@ class UserDashboardController extends Controller
             $emp = User::find($id);
 
             if (file::exists("profileImg/" . $emp->profileImg)) {
-                File::delete("profileImg/" . $emp->profileImg);
+
+                if ($emp->profileImg == "1.png") {
+                } else {
+                    File::delete("profileImg/" . $emp->profileImg);
+                }
             }
 
             // Store the new image in the database

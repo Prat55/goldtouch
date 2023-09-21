@@ -15,24 +15,41 @@
                 </div>
             </div>
             <div class="row">
-                @if (Auth::user()->role == 2)
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="order-user">
-                                        <i class="fas fa-user text-white bg-primary"></i>
-                                    </div>
 
-                                    <div class="ms-4 customer">
-                                        <h2 class="mb-0  font-w600">{{ $aordersCount }}</h2>
-                                        <p class="mb-0 font-w500">Total Orders</p>
-                                    </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="order-user">
+                                    <i class="fas fa-user text-white bg-primary"></i>
+                                </div>
+
+                                <div class="ms-4 customer">
+                                    <h2 class="mb-0  font-w600">{{ $aordersCount }}</h2>
+                                    <p class="mb-0 font-w500">Total Orders</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                @endif
+                </div>
+
+                <div class="col-xl-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="order-user">
+                                    <i class="fas fa-user text-white bg-primary"></i>
+                                </div>
+
+                                <div class="ms-4 customer">
+                                    <h2 class="mb-0  font-w600">{{ $assignOrdersCount }}</h2>
+                                    <p class="mb-0 font-w500">Assigned Orders</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 {{-- <div class="col-xl-3 col-md-6">
                     <div class="card">
                         <div class="card-body">
@@ -53,6 +70,10 @@
                     <div id="sStatus" class="status">
 
                     </div>
+                </div>
+
+                <div class="col-md-4 warningBox">
+                    @include('frontend.message')
                 </div>
 
                 <div class="col-xl-12">
@@ -171,23 +192,18 @@
                                                 </td>
 
                                                 <td>
-                                                    <form action="" method="post">
+                                                    <form action="/assign/{{ $od->id }}" method="post">
                                                         @csrf
-
-                                                        <input type="hidden" value="{{ $od->id }}"
-                                                            id="orderId">
-
                                                         <input type="hidden" name="userID" id="userID"
                                                             value="{{ Auth::user()->id }}">
 
                                                         <input type="hidden" value="{{ Auth::user()->name }}"
-                                                            id="userName">
+                                                            id="userName" name="userName">
 
-                                                        <input type="button" id="assign" name="assign"
+                                                        <input type="submit" id="" name="assign"
                                                             class="btn btn-sm btn-secondary"
                                                             value="{{ $od->assignId == Auth::user()->id ? 'Assigned' : 'Assign' }}"
                                                             {{ $od->assignId == Auth::user()->id ? 'disabled' : '' }}>
-
                                                     </form>
                                                 </td>
                                             @endif
@@ -252,45 +268,6 @@
                 });
 
             });
-
-            // $(document).on('click', '#assign', function(e) {
-            //     e.preventDefault();
-            //     var id = $('#orderId').val();
-
-            //     var data = {
-            //         'userId': $('#userID').val(),
-            //         'userName': $('#userName').val(),
-            //     };
-
-            //     $('#assign').prop("disabled", true).val('wait...');
-
-            //     $.ajax({
-            //         type: "post",
-            //         url: "/assign/" + id,
-            //         data: data,
-            //         dataType: "json",
-            //         success: function(response) {
-            //             if (response.status == 400) {
-            //                 $('#errstatus').html("");
-            //                 $('#errstatus').addClass('alert alert-danger');
-            //                 $.each(response.errors, function(key, err_values) {
-            //                     $('#errstatus').append('<li>' + err_values +
-            //                         '</li>').delay(300).fadeOut(2000);
-            //                 });
-            //             } else if (response.status == 404) {
-            //                 $('#errstatus').html("");
-            //                 $('#sStatus').addClass('alert alert-danger');
-            //                 $('#sStatus').text(response.message);
-            //             } else {
-            //                 $('#errstatus').html("");
-            //                 $('#sStatus').html("");
-            //                 $('#sStatus').addClass('alert alert-success');
-            //                 $('#sStatus').text(response.message).delay(300).fadeOut(2000);
-            //                 $('#assign').prop("disabled", true).val('assigned');
-            //             }
-            //         }
-            //     });
-            // });
 
             $(document).on('click', '#assign', function(e) {
                 e.preventDefault();

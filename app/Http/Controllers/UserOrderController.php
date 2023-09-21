@@ -76,7 +76,7 @@ class UserOrderController extends Controller
 
     protected function orders(Request $request)
     {
-        $uordersCount = Order::where('u_id', Auth::user()->id)->count();
+        $assignOrdersCount = Order::where('assignId', Auth::user()->id)->count();
         $aordersCount = Order::count();
 
         $orders = Order::latest();
@@ -85,39 +85,23 @@ class UserOrderController extends Controller
         }
 
         $orders =  $orders->paginate(10);
-        return view('frontend.orders', compact('orders', 'uordersCount', 'aordersCount'));
+        return view('frontend.orders', compact('orders', 'assignOrdersCount', 'aordersCount'));
     }
 
     protected function assign(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'userId' => 'required|max:100',
-            'userName' => 'required|max:250',
-        ]);
+        $order = Order::findOrFail($id);
+        $user = Auth::user();
+        $order->assignId = $request->userID;
+        $order->assignName = $request->userName;
+        $order->update();
 
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 400,
-                'errors' => $validator->messages(),
-            ]);
-        } else {
-            $order = Order::find($id);
+        // $mailData = [
+        //     'title' => 'Order Details',
+        // ];
 
-            if ($order) {
-                $order->assignId = $request->input('userId');
-                $order->assignName = $request->input('userName');
-                $order->update();
+        // Mail::to('pratikdesai9900@gmail.com')->send(new OrdersMail($mailData));
 
-                return response()->json([
-                    'status' => 200,
-                    'message' => 'Task assigned successfully',
-                ]);
-            } else {
-                return response()->json([
-                    'status' => 404,
-                    'message' => "Something went wrong!",
-                ]);
-            }
-        }
+        return redirect('orders')->with('success', 'Order assigned successfully');
     }
 }

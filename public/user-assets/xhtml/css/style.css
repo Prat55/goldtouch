@@ -47247,3 +47247,8 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
 .dz-demo-panel {
     display: none !important;
 }
+
+.warningBox {
+    position: absolute;
+    right: 0;
+}
