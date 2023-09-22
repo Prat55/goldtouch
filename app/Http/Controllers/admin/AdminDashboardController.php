@@ -44,7 +44,7 @@ class AdminDashboardController extends Controller
             ]);
         } else {
             $emp = Empdetail::find($order_id);
-            if ($emp) { 
+            if ($emp) {
                 $emp->tokenNo = $request->input('tokenNo');
                 $emp->sname = $request->input('sname');
                 $emp->fullName = $request->input('fullName');
@@ -65,5 +65,10 @@ class AdminDashboardController extends Controller
                 ]);
             }
         }
+    }
+
+    protected function calender()
+    {
+        return view('frontend.calender');
     }
 }

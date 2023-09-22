@@ -23,6 +23,7 @@
         type="text/css" media="all" />
     <!-- Style css -->
     <link href="{{ asset('user-assets/xhtml/css/style.css') }}" rel="stylesheet" />
+    <link href="{{ 'user-assets/xhtml/vendor/fullcalendar/css/main.min.css' }}" rel="stylesheet">
 </head>
 
 <body>
@@ -411,7 +412,11 @@
     <script src="{{ asset('user-assets/xhtml/js/custom.min.js') }}"></script>
     <script src="{{ asset('user-assets/xhtml/js/deznav-init.js') }}"></script>
     <script src="{{ asset('user-assets/xhtml/js/demo.js') }}"></script>
+    <script src="{{ asset('user-assets/xhtml/vendor/moment/moment.min.js') }}"></script>
     <script src="{{ asset('user-assets/xhtml/js/styleSwitcher.js') }}"></script>
+    <script src="{{ asset('user-assets/xhtml/vendor/fullcalendar/js/main.min.js') }}"></script>
+    <script src="{{ asset('user-assets/xhtml/js/plugins-init/fullcalendar-init.js') }}"></script>
+
     <script>
         $.ajaxSetup({
             headers: {
