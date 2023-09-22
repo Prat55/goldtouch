@@ -47252,3 +47252,10 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
     position: absolute;
     right: 0;
 }
+
+.warningBox2 {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 100;
+}

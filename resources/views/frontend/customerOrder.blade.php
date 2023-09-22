@@ -3,7 +3,7 @@
 
 <head>
     <!-- Title -->
-    <title>Gold Touch | Employee Entry</title>
+    <title>Gold Touch | Customer Order</title>
 
     <!-- Meta -->
     <meta charset="utf-8">
@@ -30,9 +30,12 @@
                     <div class="row no-gutters">
                         <div class="col-xl-12">
                             <div class="auth-form">
-                                <center>
+                                <center class="position-relative">
                                     <h3>Gold Touch</h3>
                                     <h4 class="text-danger">Enter Order Details</h4>
+                                    <div class="col-md-4 warningBox2">
+                                        @include('frontend.message')
+                                    </div>
                                 </center>
                                 <div class="container">
                                     <div class="row">

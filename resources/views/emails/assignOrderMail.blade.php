@@ -268,9 +268,8 @@
                                     <td align="left"
                                         style="color: #888888; font-size: 16px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 24px;">
                                         <!-- section text ======-->
-                                        <p style="line-height: 24px;">Style Reference: {{ $mailData['styleref'] }}</p>
-                                        <p style="line-height: 24px;">Email: {{ $mailData['email'] }}</p>
-                                        <p style="line-height: 24px;">Phone: {{ $mailData['phone'] }}</p>
+                                        <p>Your assigned order id is {{ $mailData['orderid'] }} and customer name is
+                                            {{ $mailData['ordername'] }}</p>
                                     </td>
                                 </tr>
                             </table>

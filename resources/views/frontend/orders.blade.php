@@ -50,22 +50,6 @@
                     </div>
                 </div>
 
-                {{-- <div class="col-xl-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="order-user">
-                                    <i class="far fa-building bg-warning text-white"></i>
-                                </div>
-                                <div class="ms-4 customer">
-                                    <h2 class="mb-0  font-w600">5,623</h2>
-                                    <p class="mb-0  font-w500">Total Properties</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
-
                 <div class="col-md-12 statusBox">
                     <div id="sStatus" class="status">
 

@@ -23,7 +23,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="basic-form">
-                                <form action="{{ route('makeOrder') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('usermakeOrder') }}" method="POST">
                                     @csrf
                                     @method('put')
                                     <div class="row">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AssignOrderMail;
 use App\Mail\OrdersMail;
 use App\Models\Order;
 use App\Models\User;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use PhpParser\JsonDecoder;
 
 class UserOrderController extends Controller
 {
@@ -74,6 +76,42 @@ class UserOrderController extends Controller
         return redirect('/order')->with('success', 'Order placed successfully');
     }
 
+    protected function userOrder(Request $request)
+    {
+        $random = $this->random();
+        $email = array($request->email1, $request->email2, $request->email2, $request->email3, $request->email4, $request->email5);
+        $emails = json_encode($email);
+        $phone = array($request->phone1, $request->phone2, $request->phone2, $request->phone3, $request->phone4, $request->phone5);
+        $phones = json_encode($phone);
+
+        $order = new Order([
+            'order_id' => $random,
+            'u_id' => $random,
+            'cname' => $request->cname,
+            'cadd' => $request->cadd,
+            'cgstin' => $request->cgstin,
+            'fabrics_status' => 0,
+            'remark' => $request->remark,
+            'email' => $emails,
+            'phone' => $phones,
+        ]);
+        $order->save();
+
+        $mailData = [
+            'title' => 'Order Placed Details',
+            'name' => "$request->cname",
+            'add' => "$request->cadd",
+            'gstin' => "$request->cgstin",
+            'styleref' => "$request->styleref",
+            'email' => "$request->email1" . ' ' . "$request->email2" . ' ' . "$request->email3" . ' ' . "$request->email4" . ' ' . "$request->email5",
+            'phone' =>  "$request->phone1" . ' ' . "$request->phone2" . ' ' . "$request->phone3" . ' ' . "$request->phone4" . ' ' . "$request->phone5",
+        ];
+
+        Mail::to('pratikdesai9900@gmail.com')->cc("$request->email1", "$request->email2", "$request->email3", "$request->email4", "$request->email5")->send(new OrdersMail($mailData));
+
+        return redirect('/order')->with('success', 'Order placed successfully');
+    }
+
     protected function orders(Request $request)
     {
         $assignOrdersCount = Order::where('assignId', Auth::user()->id)->count();
@@ -96,11 +134,14 @@ class UserOrderController extends Controller
         $order->assignName = $request->userName;
         $order->update();
 
-        // $mailData = [
-        //     'title' => 'Order Details',
-        // ];
+        $mailData = [
+            'title' => 'Your Assigned Order Details',
+            'name' => $user->name,
+            'orderid' => $order->order_id,
+            'ordername' => $order->cname,
+        ];
 
-        // Mail::to('pratikdesai9900@gmail.com')->send(new OrdersMail($mailData));
+        Mail::to($user->email)->send(new AssignOrderMail($mailData));
 
         return redirect('orders')->with('success', 'Order assigned successfully');
     }
