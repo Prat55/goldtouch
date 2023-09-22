@@ -41,13 +41,13 @@
                 </li>
                 <li>
                     <a class="" href="{{ route('sendTask') }}" aria-expanded="false">
-                        <i class="flaticon-050-info" aria-hidden="true"></i>
+                        <i class="fa-regular fa-message"></i>
                         <span class="nav-text">Send Notification</span>
                     </a>
                 </li>
                 <li>
                     <a class="" href="{{ route('calender') }}" aria-expanded="false">
-                        <i class="flaticon-050-info" aria-hidden="true"></i>
+                        <i class="fa-solid fa-calendar-days"></i>
                         <span class="nav-text">Calender</span>
                     </a>
                 </li>
