@@ -2,58 +2,63 @@
 @section('title', 'Users Information')
 
 @section('content')
-    <div class="content-body">
-        <!-- row -->
-        <div class="container-fluid">
-            <div class="row">
-                <div class="container mt-5">
-                    <div class="row">
-                        <div class="col-md-6 offset-md-3">
-                            <h2 class="text-center">Task Manager</h2>
-                            <div class="col-md-12">
-                                <div id="errstatus">
+    @if (Auth::user()->role === 2)
+        <div class="content-body">
+            <!-- row -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="container mt-5">
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <h2 class="text-center">Task Manager</h2>
+                                <div class="col-md-12">
+                                    <div id="errstatus">
 
+                                    </div>
+                                    <div id="sStatus">
+
+                                    </div>
                                 </div>
-                                <div id="sStatus">
 
+                                <div class="form-group m-1">
+                                    <label for="taskName">Order Id</label>
+                                    <select class="form-control" name="taskOrderId" id="taskOrderId" required>
+                                        <option>--select order--</option>
+                                        @forelse ($orders as $order)
+                                            @if ($order->fabrics_status == 1 && $orders->assign_status == 0)
+                                                <option value="{{ $order->order_id }}">{{ $order->order_id }}</option>
+                                            @endif
+                                        @empty
+                                            <option>No Orders</option>
+                                        @endforelse
+                                    </select>
                                 </div>
-                            </div>
+                                <div class="form-group m-2">
+                                    <label for="taskDescription">Task Due</label>
+                                    <input type="date" name="tdue" id="tdue" class="form-control" required>
+                                </div>
+                                <div class="form-group m-2">
+                                    <label for="taskPriority">Select User</label>
+                                    <select class="form-control" name="taskUser" id="taskUser" required>
+                                        <option>--select user--</option>
+                                        @foreach ($users as $user)
+                                            @if ($user->role == 1)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                {{-- <button type="button" class="btn btn-sm btn-primary m-2 taskSubmit">Submit</button> --}}
+                                <input type="button" value="Send" class="btn btn-sm btn-primary m-2 taskSubmit">
 
-                            <div class="form-group m-1">
-                                <label for="taskName">Order Id</label>
-                                <select class="form-control" name="taskOrderId" id="taskOrderId" required>
-                                    <option>--select order--</option>
-                                    @foreach ($orders as $order)
-                                        @if ($order->fabrics_status == 1 && $orders->assign_status == 0)
-                                            <option value="{{ $order->order_id }}">{{ $order->order_id }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
                             </div>
-                            <div class="form-group m-2">
-                                <label for="taskDescription">Task Due</label>
-                                <input type="date" name="tdue" id="tdue" class="form-control" required>
-                            </div>
-                            <div class="form-group m-2">
-                                <label for="taskPriority">Select User</label>
-                                <select class="form-control" name="taskUser" id="taskUser" required>
-                                    <option>--select user--</option>
-                                    @foreach ($users as $user)
-                                        @if ($user->role == 1)
-                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                            {{-- <button type="button" class="btn btn-sm btn-primary m-2 taskSubmit">Submit</button> --}}
-                            <input type="button" value="Send" class="btn btn-sm btn-primary m-2 taskSubmit">
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @else
+    @endif
 @endsection
 
 @section('customJs')

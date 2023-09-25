@@ -48,6 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/orders', [UserOrderController::class, 'orders'])->name('orders');
     Route::post('/change-profile/{id}', [UserDashboardController::class, 'updateProfileImg']);
     Route::post('/assign/{id}', [UserOrderController::class, 'assign']);
+    Route::get('/task', [AdminDashboardController::class, 'sendTask'])->name('sendTask');
 });
 
 //? Admin Routes
@@ -55,9 +56,8 @@ Route::middleware('admin.auth')->group(function () {
     Route::get('/user-info', [UserDashboardController::class, 'userinfo'])->name('userinfo');
     Route::post('/send-mail', [RouteSignedController::class, 'sendMailRoute']);
     // Route::get('/orders', [UserOrderController::class, 'orders'])->name('orders');
-    Route::get('/task', [AdminDashboardController::class, 'sendTask'])->name('sendTask');
     Route::post('/send-task/{order_id}', [AdminDashboardController::class, 'sendorderTask']);
-    Route::get('/calender' , [AdminDashboardController::class, 'calender'])->name('calender');
+    Route::get('/calender', [AdminDashboardController::class, 'calender'])->name('calender');
 });
 
 require __DIR__ . '/auth.php';

@@ -2,9 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Laravel\Sanctum\Guard;
 use Symfony\Component\HttpFoundation\Response;
 
 class AdminAuthenticate
@@ -19,10 +22,10 @@ class AdminAuthenticate
     {
         $user = Auth::user();
 
-        if ($user->role == 2) {
+        if ($user->role === 2) {
             return $next($request);
-        } else if ($user->role == 1) {
-            abort(404);
-        }
+        } else if ($user->role === 1) {
+            abort(403);
+        }   
     }
 }

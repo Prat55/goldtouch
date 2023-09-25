@@ -130,19 +130,29 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
                                     <div id="DZ_W_Notification1" class="widget-media dz-scroll p-3"
-                                        style="height: 380px">
+                                        style="min-height: auto; max-height: 380px;">
                                         <ul class="timeline">
-                                            <li>
-                                                <div class="timeline-panel">
-                                                    <div class="media me-2 media-success">
-                                                        <i class="fa fa-home"></i>
+                                            @if (Auth::user()->role === 2)
+                                                <li>
+                                                    <div class="timeline-panel">
+                                                        <div class="media me-2 media-success">
+                                                            <i class="fa fa-home"></i>
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <h6 class="mb-1">Reminder : Due date of #095986 is near!
+                                                            </h6>
+                                                            <small class="d-block">29 July 2020 - 02:26 PM</small>
+                                                        </div>
                                                     </div>
-                                                    <div class="media-body">
-                                                        <h6 class="mb-1">Reminder : Due date of #095986 is near!</h6>
-                                                        <small class="d-block">29 July 2020 - 02:26 PM</small>
+                                                </li>
+                                            @else
+                                                <li>
+                                                    <div class="text-center">
+                                                        <h4 class="">No notifications</h4>
                                                     </div>
-                                                </div>
-                                            </li>
+                                                </li>
+                                            @endif
+
                                         </ul>
                                     </div>
                                     <a class="all-notification" href="javascript:void(0);">See all notifications <i
