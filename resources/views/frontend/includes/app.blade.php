@@ -62,7 +62,7 @@
                         d="M28.246 48.6458H22.296C21.5169 48.6458 20.8794 48.0083 20.8794 47.2292V37.95C20.8794 37.1709 21.5169 36.5334 22.296 36.5334H28.246C29.0252 36.5334 29.6627 37.1709 29.6627 37.95V47.2292C29.6627 48.0083 29.0252 48.6458 28.246 48.6458ZM23.7127 45.8833H26.8294V39.3667H23.7127V45.8833Z"
                         fill="#F2F6FC"></path>
                 </svg>
-                <svg class="brand-title" width="108" height="44" viewbox="0 0 108 44" fill="none"
+                {{-- <svg class="brand-title" width="108" height="44" viewbox="0 0 108 44" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path class="svg-title-path"
                         d="M11.0979 43.58C7.81657 43.58 5.2559 43.0893 3.4159 42.108C1.60657 41.1573 0.701904 39.5933 0.701904 37.416C0.701904 36.2813 0.962571 35.2693 1.4839 34.38C2.0359 33.5213 2.87924 32.632 4.0139 31.712C3.4619 31.344 3.03257 30.8687 2.7259 30.286C2.4499 29.7033 2.3119 29.09 2.3119 28.446C2.3119 27.986 2.41924 27.5107 2.6339 27.02C2.87924 26.5293 3.3699 25.7013 4.1059 24.536C2.02057 23.0027 0.977904 20.764 0.977904 17.82C0.977904 15.0293 1.82124 12.9593 3.5079 11.61C5.22524 10.23 7.6019 9.53999 10.6379 9.53999C11.9259 9.53999 13.4746 9.73933 15.2839 10.138L22.6899 9.90799V14.83L19.2399 14.554C19.6386 15.198 19.8992 15.75 20.0219 16.21C20.1752 16.67 20.2519 17.2987 20.2519 18.096C20.2519 20.856 19.4699 22.834 17.9059 24.03C16.3419 25.1953 13.9652 25.778 10.7759 25.778C9.8559 25.778 9.15057 25.7167 8.6599 25.594C8.35324 26.33 8.1999 26.9587 8.1999 27.48C8.1999 28.124 8.50657 28.5227 9.1199 28.676C9.7639 28.7987 10.9446 28.8753 12.6619 28.906C15.0232 28.9673 16.8939 29.1513 18.2739 29.458C19.6846 29.7647 20.7732 30.3933 21.5399 31.344C22.3066 32.264 22.6899 33.6287 22.6899 35.438C22.6899 38.2287 21.7392 40.2833 19.8379 41.602C17.9366 42.9207 15.0232 43.58 11.0979 43.58ZM10.6839 21.086C13.0146 21.086 14.1799 19.9513 14.1799 17.682C14.1799 15.4433 13.0146 14.324 10.6839 14.324C8.32257 14.324 7.1419 15.4433 7.1419 17.682C7.1419 19.9513 8.32257 21.086 10.6839 21.086ZM11.5119 38.52C13.2599 38.52 14.5172 38.3207 15.2839 37.922C16.0812 37.5233 16.4799 36.91 16.4799 36.082C16.4799 35.3153 16.1886 34.8247 15.6059 34.61C15.0539 34.426 14.3946 34.3187 13.6279 34.288C12.8919 34.2573 12.4012 34.242 12.1559 34.242L8.0159 33.92C7.18791 34.748 6.7739 35.576 6.7739 36.404C6.7739 37.14 7.15724 37.6767 7.9239 38.014C8.72124 38.3513 9.91724 38.52 11.5119 38.52Z"
@@ -80,7 +80,7 @@
                         d="M82.9776 33.552C78.2242 33.552 75.8476 31.0373 75.8476 26.008C75.8476 23.616 76.4762 21.8987 77.7336 20.856C79.0216 19.7827 81.0762 19.154 83.8976 18.97L88.8196 18.602V17.176C88.8196 16.256 88.6049 15.612 88.1756 15.244C87.7769 14.876 87.0869 14.692 86.1056 14.692C85.0936 14.692 83.6982 14.738 81.9196 14.83C80.1409 14.8913 78.6536 14.968 77.4576 15.06L77.2736 10.782C80.5856 9.89266 83.7136 9.44799 86.6576 9.44799C89.6016 9.44799 91.7176 10.0613 93.0056 11.288C94.3242 12.5147 94.9836 14.4773 94.9836 17.176V26.744C95.0449 27.5107 95.1676 28.032 95.3516 28.308C95.5662 28.584 95.9496 28.7833 96.5016 28.906L96.3176 33.552C94.7229 33.552 93.4502 33.4447 92.4996 33.23C91.5796 33.0153 90.6596 32.586 89.7396 31.942C87.5009 33.0153 85.2469 33.552 82.9776 33.552ZM84.3116 28.538C85.4769 28.538 86.7496 28.354 88.1296 27.986L88.8196 27.802V22.88L84.6336 23.248C82.9162 23.4013 82.0576 24.3213 82.0576 26.008C82.0576 27.6947 82.8089 28.538 84.3116 28.538Z"
                         fill="#273240"></path>
                     <path class="svg-title-path" d="M100.584 25.364H107.208V33H100.584V25.364Z" fill="#273240"></path>
-                </svg>
+                </svg> --}}
             </a>
             <div class="nav-control">
                 <div class="hamburger is-active">
@@ -126,7 +126,7 @@
                                             d="M26.3532 19.74C24.877 17.8785 22.3996 14.2195 22.3996 10.64C22.3996 7.09073 20.1193 3.89758 16.7996 2.72382C16.7593 1.21406 15.5183 0 14.0007 0C12.482 0 11.2422 1.21406 11.2018 2.72382C7.88101 3.89758 5.6007 7.09073 5.6007 10.64C5.6007 14.2207 3.1244 17.8785 1.64712 19.74C1.15433 20.3616 1.00197 21.1825 1.24058 21.9363C1.47354 22.6721 2.05367 23.2422 2.79288 23.4595C4.08761 23.8415 6.20997 24.2715 9.44682 24.491C10.8479 24.5851 12.3543 24.64 14.0008 24.64C15.646 24.64 17.1525 24.5851 18.5535 24.491C21.7915 24.2715 23.9128 23.8415 25.2086 23.4595C25.9478 23.2422 26.5268 22.6722 26.7598 21.9363C26.9983 21.1825 26.8449 20.3616 26.3532 19.74Z"
                                             fill="#737B8B"></path>
                                     </svg>
-                                    <span class="badge light text-white bg-primary rounded-circle">4</span>
+                                    <span class="badge light text-white bg-primary rounded-circle">1</span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
                                     <div id="DZ_W_Notification1" class="widget-media dz-scroll p-3"
@@ -134,64 +134,11 @@
                                         <ul class="timeline">
                                             <li>
                                                 <div class="timeline-panel">
-                                                    <div class="media me-2">
-                                                        <img alt="image" width="50"
-                                                            src="images/avatar/1.jpg" />
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <h6 class="mb-1">Dr sultads Send you Photo</h6>
-                                                        <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="timeline-panel">
-                                                    <div class="media me-2 media-info">KG</div>
-                                                    <div class="media-body">
-                                                        <h6 class="mb-1">Resport created successfully</h6>
-                                                        <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="timeline-panel">
                                                     <div class="media me-2 media-success">
                                                         <i class="fa fa-home"></i>
                                                     </div>
                                                     <div class="media-body">
-                                                        <h6 class="mb-1">Reminder : Treatment Time!</h6>
-                                                        <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="timeline-panel">
-                                                    <div class="media me-2">
-                                                        <img alt="image" width="50"
-                                                            src="images/avatar/1.jpg" />
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <h6 class="mb-1">Dr sultads Send you Photo</h6>
-                                                        <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="timeline-panel">
-                                                    <div class="media me-2 media-danger">KG</div>
-                                                    <div class="media-body">
-                                                        <h6 class="mb-1">Resport created successfully</h6>
-                                                        <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="timeline-panel">
-                                                    <div class="media me-2 media-primary">
-                                                        <i class="fa fa-home"></i>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <h6 class="mb-1">Reminder : Treatment Time!</h6>
+                                                        <h6 class="mb-1">Reminder : Due date of #095986 is near!</h6>
                                                         <small class="d-block">29 July 2020 - 02:26 PM</small>
                                                     </div>
                                                 </div>
@@ -202,7 +149,7 @@
                                             class="ti-arrow-end"></i></a>
                                 </div>
                             </li>
-                            <li class="nav-item dropdown notification_dropdown">
+                            {{-- <li class="nav-item dropdown notification_dropdown">
                                 <a class="nav-link" href="javascript:void(0);" data-bs-toggle="dropdown">
                                     <svg width="28" height="28" viewbox="0 0 28 28" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -300,7 +247,7 @@
                                     </svg>
                                     <span class="badge light text-white bg-orange rounded-circle">76</span>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="javascript:void(0);" role="button"
                                     data-bs-toggle="dropdown">
@@ -322,7 +269,7 @@
                                         </svg>
                                         <span class="ms-2">Profile </span>
                                     </a>
-                                    <a href="email-inbox.html" class="dropdown-item ai-icon">
+                                    <a href="{{ route('sendTask') }}" class="dropdown-item ai-icon">
                                         <svg id="icon-inbox" xmlns="http://www.w3.org/2000/svg" class="text-success"
                                             width="18" height="18" viewbox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2" stroke-linecap="round"

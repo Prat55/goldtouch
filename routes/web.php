@@ -55,7 +55,7 @@ Route::middleware('admin.auth')->group(function () {
     Route::get('/user-info', [UserDashboardController::class, 'userinfo'])->name('userinfo');
     Route::post('/send-mail', [RouteSignedController::class, 'sendMailRoute']);
     // Route::get('/orders', [UserOrderController::class, 'orders'])->name('orders');
-    Route::get('/send-notification', [AdminDashboardController::class, 'sendTask'])->name('sendTask');
+    Route::get('/task', [AdminDashboardController::class, 'sendTask'])->name('sendTask');
     Route::post('/send-task/{order_id}', [AdminDashboardController::class, 'sendorderTask']);
     Route::get('/calender' , [AdminDashboardController::class, 'calender'])->name('calender');
 });

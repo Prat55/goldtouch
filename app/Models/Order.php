@@ -26,6 +26,7 @@ class Order extends Model
         'fabrics_status',
         'assignId',
         'assignName',
+        'assign_status',
     ];
 
     protected function uid()

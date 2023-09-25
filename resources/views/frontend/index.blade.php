@@ -31,7 +31,7 @@
                             </div>
                             <div>
                                 <span class="donut1"
-                                    data-peity='{ "fill": ["var(--primary)", "rgba(242, 246, 252)"]}'>{{ $countOrder->count() }}/100</span>
+                                    data-peity='{ "fill": ["var(--primary)", "rgba(242, 246, 252)"]}'>{{ $countOrder->count() }}/1000</span>
                             </div>
                         </div>
                     </div>
@@ -45,7 +45,7 @@
                             </div>
                             <div>
                                 <span class="donut1"
-                                    data-peity='{ "fill": ["rgb(56, 226, 93,1)", "rgba(242, 246, 252)"]}'>{{ $countOrder->count() }}/100</span>
+                                    data-peity='{ "fill": ["rgb(56, 226, 93,1)", "rgba(242, 246, 252)"]}'>{{ $countOrder->count() }}/1000</span>
                             </div>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                             </div>
                             <div>
                                 <span class="donut1"
-                                    data-peity='{ "fill": ["rgb(255, 135, 35,1)", "rgba(242, 246, 252)"]}'>0/100</span>
+                                    data-peity='{ "fill": ["rgb(255, 135, 35,1)", "rgba(242, 246, 252)"]}'>0/1000</span>
                             </div>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
                             </div>
                             <div>
                                 <span class="donut1"
-                                    data-peity='{ "fill": ["rgb(51, 62, 75,1)", "rgba(242, 246, 252)"]}'>3/8</span>
+                                    data-peity='{ "fill": ["rgb(51, 62, 75,1)", "rgba(242, 246, 252)"]}'>3/1000</span>
                             </div>
                         </div>
                     </div>
@@ -83,6 +83,6 @@
         </div>
     </div>
     <!--**********************************
-                                                                                                                        Content body end
-                                                                                                                    ***********************************-->
+                                                                                                                                        Content body end
+                                                                                                                                    ***********************************-->
 @endsection

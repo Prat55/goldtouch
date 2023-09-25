@@ -122,7 +122,7 @@ class UserOrderController extends Controller
             $orders = $orders->where('cname', 'like', '%' . $request->get('c') . '%');
         }
 
-        $orders =  $orders->paginate(10);
+        $orders =  $orders->paginate(20);
         return view('frontend.orders', compact('orders', 'assignOrdersCount', 'aordersCount'));
     }
 
@@ -132,6 +132,7 @@ class UserOrderController extends Controller
         $user = Auth::user();
         $order->assignId = $request->userID;
         $order->assignName = $request->userName;
+        $order->assign_status = 0;
         $order->update();
 
         $mailData = [

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             $table->string('remark', 255);
+            $table->bigInteger('assign_status');
         });
     }
 
@@ -23,6 +24,7 @@ return new class extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             $table->dropColumn('remark');
+            $table->dropColumn('assign_status');
         });
     }
 };

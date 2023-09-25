@@ -5,15 +5,6 @@
     <div class="content-body">
         <!-- row -->
         <div class="container-fluid">
-            <div class="mb-sm-4 d-flex flex-wrap align-items-center text-head ">
-                <h2 class="mb-3 me-auto">Users Information</h2>
-                <div>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Users Information</a></li>
-                    </ol>
-                </div>
-            </div>
             <div class="row">
                 <div class="container mt-5">
                     <div class="row">
@@ -33,7 +24,7 @@
                                 <select class="form-control" name="taskOrderId" id="taskOrderId" required>
                                     <option>--select order--</option>
                                     @foreach ($orders as $order)
-                                        @if ($order->fabrics_status == 1)
+                                        @if ($order->fabrics_status == 1 || $orders->)
                                             <option value="{{ $order->order_id }}">{{ $order->order_id }}</option>
                                         @endif
                                     @endforeach
