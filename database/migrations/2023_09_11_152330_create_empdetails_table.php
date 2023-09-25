@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('empdetails', function (Blueprint $table) {
             $table->id();
-            $table->string('tokenNo', 200);
-            $table->string('sname', 200);
-            $table->string('fullName', 200);
-            $table->string('category', 200);
-            $table->string('setOrder', 200);
-            $table->string('status', 200);
+            $table->string('tokenNo');
+            $table->string('sname');
+            $table->string('fullName');
+            $table->string('category');
+            $table->string('setOrder');
+            $table->string('status');
             $table->timestamps();
         });
     }

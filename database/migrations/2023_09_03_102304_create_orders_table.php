@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('cname', 200);
+            $table->string('cname');
             $table->text('cadd');
             $table->string('cgstin', 50);
             $table->text('cstyle_ref');
-            $table->string('email', 200);
+            $table->string('email');
             $table->string('phone', 50);
             $table->timestamps();
         });

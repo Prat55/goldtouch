@@ -42,7 +42,7 @@
                                 </div>
 
                                 <div class="ms-4 customer">
-                                    <h2 class="mb-0  font-w600">{{ $assignOrdersCount }}</h2>
+                                    <h2 class="mb-0  font-w600">{{ $fabricStatus }}</h2>
                                     <p class="mb-0 font-w500">Completed Orders</p>
                                 </div>
                             </div>

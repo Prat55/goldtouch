@@ -115,7 +115,7 @@ class UserOrderController extends Controller
 
     protected function orders(Request $request)
     {
-        $assignOrdersCount = Order::where('fabrics_status', 1);
+        $fabricStatus = Order::where('fabrics_status', '1')->count();
         $aordersCount = Order::count();
 
         $orders = Order::latest();
@@ -124,7 +124,7 @@ class UserOrderController extends Controller
         }
 
         $orders =  $orders->paginate(20);
-        return view('frontend.orders', compact('orders', 'assignOrdersCount', 'aordersCount'));
+        return view('frontend.orders', compact('orders', 'fabricStatus', 'aordersCount'));
     }
 
     protected function assign(Request $request, $id)

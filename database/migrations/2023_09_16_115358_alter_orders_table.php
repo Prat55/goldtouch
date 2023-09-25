@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('mtaker1', 255)->after('phone');
             $table->string('mtaker2', 255);
             $table->string('ponumber', 255);
-            $table->text('poimg');
+            $table->string('poimg');
             $table->integer('fabrics_status')->default('0');
         });
     }
