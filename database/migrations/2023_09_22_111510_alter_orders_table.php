@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->bigInteger('assign_status')->default('0')->after('assignName');
             $table->string('remark', 255)->after('assign_status');
         });
     }
@@ -23,7 +22,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->dropColumn('assign_status');
             $table->dropColumn('remark');
         });
     }

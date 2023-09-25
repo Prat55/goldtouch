@@ -28,7 +28,7 @@ Route::middleware('guest')->group(function () {
     Route::put('/makeorder', [UserOrderController::class, 'userOrder'])->name('makeOrder');
 });
 
-//? Public Routes
+//? Signed Routes
 Route::get('/submit/{cid}', [UserDashboardController::class, 'empData'])->name('share-entry')->middleware('signed');
 Route::post('/submited', [UserDashboardController::class, 'storeEmpData'])->name('submited');
 Route::delete('/delete-empdetails/{id}', [RouteSignedController::class, 'delete']);

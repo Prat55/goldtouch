@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+
 use Illuminate\Support\Facades\Validator;
 use PhpParser\JsonDecoder;
 
@@ -114,7 +115,7 @@ class UserOrderController extends Controller
 
     protected function orders(Request $request)
     {
-        $assignOrdersCount = Order::where('assignId', Auth::user()->id)->count();
+        $assignOrdersCount = Order::where('fabrics_status', 1);
         $aordersCount = Order::count();
 
         $orders = Order::latest();

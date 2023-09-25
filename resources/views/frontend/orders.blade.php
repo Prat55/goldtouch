@@ -43,7 +43,7 @@
 
                                 <div class="ms-4 customer">
                                     <h2 class="mb-0  font-w600">{{ $assignOrdersCount }}</h2>
-                                    <p class="mb-0 font-w500">Assigned Orders</p>
+                                    <p class="mb-0 font-w500">Completed Orders</p>
                                 </div>
                             </div>
                         </div>
@@ -99,108 +99,86 @@
                                         <th class="">Edits</th>
                                     @else
                                         <th class="">Fabric Status</th>
-                                        <th>Assign</th>
                                     @endif
-                                    <th>Assigned</th>
                                 </tr>
                             </thead>
+
                             <tbody class="text-center">
-                                @if ($orders->isNotEmpty())
-                                    @foreach ($orders as $od)
-                                        <tr>
-                                            <td>#{{ $od->order_id }}</td>
-                                            <td>{{ $od->cname }}</td>
-                                            <td class="text-ov">{{ $od->cadd }}</td>
-                                            <td class="text-ov">{{ $od->cgstin }}</td>
-                                            <td>{{ $od->email }}</td>
-                                            <td>{{ $od->phone }}</td>
-                                            @if (Auth::user()->role == 2)
-                                                <td><span class="text-warning">Pending</span></td>
+                                @forelse ($orders as $od)
+                                    <tr>
+                                        <td>#{{ $od->order_id }}</td>
+                                        <td>{{ $od->cname }}</td>
+                                        <td class="text-ov">{{ $od->cadd }}</td>
+                                        <td class="text-ov">{{ $od->cgstin }}</td>
+                                        <td>{{ $od->email }}</td>
+                                        <td>{{ $od->phone }}</td>
+                                        @if (Auth::user()->role == 2)
+                                            <td><span class="text-warning">Pending</span></td>
 
-                                                <td>
-                                                    <div class="dropdown ms-auto c-pointer">
-                                                        <div class="btn-link" data-bs-toggle="dropdown">
-                                                            <svg width="24" height="24" viewbox="0 0 24 24"
-                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path
-                                                                    d="M11.0005 12C11.0005 12.5523 11.4482 13 12.0005 13C12.5528 13 13.0005 12.5523 13.0005 12C13.0005 11.4477 12.5528 11 12.0005 11C11.4482 11 11.0005 11.4477 11.0005 12Z"
-                                                                    stroke="#3E4954" stroke-width="2" stroke-linecap="round"
-                                                                    stroke-linejoin="round">
-                                                                </path>
-                                                                <path
-                                                                    d="M18.0005 12C18.0005 12.5523 18.4482 13 19.0005 13C19.5528 13 20.0005 12.5523 20.0005 12C20.0005 11.4477 19.5528 11 19.0005 11C18.4482 11 18.0005 11.4477 18.0005 12Z"
-                                                                    stroke="#3E4954" stroke-width="2" stroke-linecap="round"
-                                                                    stroke-linejoin="round">
-                                                                </path>
-                                                                <path
-                                                                    d="M4.00049 12C4.00049 12.5523 4.4482 13 5.00049 13C5.55277 13 6.00049 12.5523 6.00049 12C6.00049 11.4477 5.55277 11 5.00049 11C4.4482 11 4.00049 11.4477 4.00049 12Z"
-                                                                    stroke="#3E4954" stroke-width="2" stroke-linecap="round"
-                                                                    stroke-linejoin="round">
-                                                                </path>
-                                                            </svg>
-                                                        </div>
-
-                                                        <div class="dropdown-menu dropdown-menu-right">
-                                                            <form action="/accept/{{ $od->id }}" method="POST">
-                                                                <button type="submit" class="dropdown-item text-black">
-                                                                    Available
-                                                                </button>
-                                                            </form>
-                                                            <form action="/reject/{{ $od->id }}" method="POST">
-                                                                <button type="submit" class="dropdown-item text-black">
-                                                                    Not Available
-                                                                </button>
-                                                            </form>
-                                                            <input type="hidden" name="cid" id="cid"
-                                                                value="{{ $od->u_id }}">
-                                                            <input type="hidden" name="cname" id="cname"
-                                                                value="{{ $od->cname }}">
-                                                            <input type="hidden" name="email" id="email"
-                                                                value="{{ $od->email }}">
-                                                            <button type="button"
-                                                                class="sendMail dropdown-item text-black">Send
-                                                                Mail</button>
-
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            @else
-                                                <td>
-                                                    @if ($od->fabrics_status == 1)
-                                                        <span class="text-danger">Not Available</span>
-                                                    @elseif ($od->fabrics_status == 2)
-                                                        <span class="text-success">Available</span>
-                                                    @else
-                                                        <span class="text-warning">Pending</span>
-                                                    @endif
-                                                </td>
-
-                                                <td>
-                                                    <form action="/assign/{{ $od->id }}" method="post">
-                                                        @csrf
-                                                        <input type="hidden" name="userID" id="userID"
-                                                            value="{{ Auth::user()->id }}">
-
-                                                        <input type="hidden" value="{{ Auth::user()->name }}"
-                                                            id="userName" name="userName">
-
-                                                        <input type="submit" id="" name="assign"
-                                                            class="btn btn-sm btn-secondary"
-                                                            value="{{ $od->assignId == Auth::user()->id ? 'Assigned' : 'Assign' }}"
-                                                            {{ $od->assignId == Auth::user()->id ? 'disabled' : '' }}>
-                                                    </form>
-                                                </td>
-                                            @endif
                                             <td>
-                                                {{ $od->assignName }}
+                                                <div class="dropdown ms-auto c-pointer">
+                                                    <div class="btn-link" data-bs-toggle="dropdown">
+                                                        <svg width="24" height="24" viewbox="0 0 24 24"
+                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M11.0005 12C11.0005 12.5523 11.4482 13 12.0005 13C12.5528 13 13.0005 12.5523 13.0005 12C13.0005 11.4477 12.5528 11 12.0005 11C11.4482 11 11.0005 11.4477 11.0005 12Z"
+                                                                stroke="#3E4954" stroke-width="2" stroke-linecap="round"
+                                                                stroke-linejoin="round">
+                                                            </path>
+                                                            <path
+                                                                d="M18.0005 12C18.0005 12.5523 18.4482 13 19.0005 13C19.5528 13 20.0005 12.5523 20.0005 12C20.0005 11.4477 19.5528 11 19.0005 11C18.4482 11 18.0005 11.4477 18.0005 12Z"
+                                                                stroke="#3E4954" stroke-width="2" stroke-linecap="round"
+                                                                stroke-linejoin="round">
+                                                            </path>
+                                                            <path
+                                                                d="M4.00049 12C4.00049 12.5523 4.4482 13 5.00049 13C5.55277 13 6.00049 12.5523 6.00049 12C6.00049 11.4477 5.55277 11 5.00049 11C4.4482 11 4.00049 11.4477 4.00049 12Z"
+                                                                stroke="#3E4954" stroke-width="2" stroke-linecap="round"
+                                                                stroke-linejoin="round">
+                                                            </path>
+                                                        </svg>
+                                                    </div>
+
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <form action="/accept/{{ $od->id }}" method="POST">
+                                                            <button type="submit" class="dropdown-item text-black">
+                                                                Available
+                                                            </button>
+                                                        </form>
+                                                        <form action="/reject/{{ $od->id }}" method="POST">
+                                                            <button type="submit" class="dropdown-item text-black">
+                                                                Not Available
+                                                            </button>
+                                                        </form>
+                                                        <input type="hidden" name="cid" id="cid"
+                                                            value="{{ $od->u_id }}">
+                                                        <input type="hidden" name="cname" id="cname"
+                                                            value="{{ $od->cname }}">
+                                                        <input type="hidden" name="email" id="email"
+                                                            value="{{ $od->email }}">
+                                                        <button type="button"
+                                                            class="sendMail dropdown-item text-black">Send
+                                                            Mail</button>
+
+                                                    </div>
+                                                </div>
                                             </td>
-                                        </tr>
-                                    @endforeach
-                                @else
+                                        @else
+                                            <td>
+                                                @if ($od->fabrics_status == 1)
+                                                    <span class="text-danger">Not Available</span>
+                                                @elseif ($od->fabrics_status == 2)
+                                                    <span class="text-success">Available</span>
+                                                @else
+                                                    <span class="text-warning">Pending</span>
+                                                @endif
+                                            </td>
+                                        @endif
+                                    </tr>
+                                @empty
                                     <tr>
                                         <td colspan="10" class="text-center">No records found!</td>
                                     </tr>
-                                @endif
+                                @endforelse
                             </tbody>
                         </table>
                         {{ $orders->links() }}
