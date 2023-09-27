@@ -47259,3 +47259,23 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
     top: 0;
     z-index: 100;
 }
+
+.avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar2 {
+    height: 50px;
+    width: 50px;
+    border-radius: 40px;
+    /* background-color: #008abd; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.closebtn {
+    cursor: pointer;
+}

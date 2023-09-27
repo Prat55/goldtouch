@@ -77,7 +77,7 @@ class UserOrderController extends Controller
         return redirect('/order')->with('success', 'Order placed successfully');
     }
 
-    protected function userOrder(Request $request)
+    protected function customerOrder(Request $request)
     {
         $random = $this->random();
         $email = array($request->email1, $request->email2, $request->email2, $request->email3, $request->email4, $request->email5);
@@ -101,9 +101,10 @@ class UserOrderController extends Controller
         $mailData = [
             'title' => 'Order Placed Details',
             'name' => "$request->cname",
+            'orderId' => "$random",
             'add' => "$request->cadd",
             'gstin' => "$request->cgstin",
-            'styleref' => "$request->styleref",
+            'remark' => "$request->remark",
             'email' => "$request->email1" . ' ' . "$request->email2" . ' ' . "$request->email3" . ' ' . "$request->email4" . ' ' . "$request->email5",
             'phone' =>  "$request->phone1" . ' ' . "$request->phone2" . ' ' . "$request->phone3" . ' ' . "$request->phone4" . ' ' . "$request->phone5",
         ];

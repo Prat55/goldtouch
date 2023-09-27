@@ -268,15 +268,24 @@
                                     <td align="left"
                                         style="color: #888888; font-size: 16px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 24px;">
                                         <!-- section text ======-->
-
+                                        <h4>{{ $mailData['title'] }}</h4>
                                         {{-- <p style="line-height: 24px; margin-bottom:20px;">
                                             {{ $mailData['body'] }}
                                         </p> --}}
+                                        {{-- <p style="line-height: 24px;">Order Id: {{ $mailData['orderId'] }}</p>
                                         <p style="line-height: 24px;">Address: {{ $mailData['add'] }}</p>
                                         <p style="line-height: 24px;">GSTIN No.: {{ $mailData['gstin'] }}</p>
-                                        <p style="line-height: 24px;">Style Reference: {{ $mailData['styleref'] }}</p>
+                                        <p style="line-height: 24px;">Remark: {{ $mailData['remark'] }}</p>
                                         <p style="line-height: 24px;">Email: {{ $mailData['email'] }}</p>
-                                        <p style="line-height: 24px;">Phone: {{ $mailData['phone'] }}</p>
+                                        <p style="line-height: 24px;">Phone: {{ $mailData['phone'] }}</p> --}}
+                                        <ul type="none">
+                                            <li>Order Id: {{ $mailData['orderId'] }}</li>
+                                            <li>Address: {{ $mailData['add'] }}</li>
+                                            <li>GSTIN No.: {{ $mailData['gstin'] }}</li>
+                                            <li>Remark: {{ $mailData['remark'] }}</li>
+                                            <li>Email: {{ $mailData['email'] }}</li>
+                                            <li>Phone: {{ $mailData['phone'] }}</li>
+                                        </ul>
                                     </td>
                                 </tr>
                             </table>

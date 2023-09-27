@@ -99,11 +99,6 @@
                                         </x-primary-button>
                                     </form>
                                     <div class="new-account mt-3">
-                                        <p>Don't have an account? <a class="text-primary"
-                                                href="{{ route('register') }}">Sign
-                                                up</a></p>
-                                    </div>
-                                    <div class="new-account mt-3">
                                         <p>Want to place order <a class="text-primary" href="{{ route('order') }}">click
                                                 here</a></p>
                                     </div>

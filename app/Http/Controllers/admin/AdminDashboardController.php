@@ -67,6 +67,14 @@ class AdminDashboardController extends Controller
         }
     }
 
+    protected function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return back()->with('success', 'User deleted Successfully');
+    }
+
     protected function calender()
     {
         return view('frontend.calender');

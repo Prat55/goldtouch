@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Support\Str;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -12,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Nette\Utils\Random;
+use PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Random as MathTrigRandom;
 
 class RegisteredUserController extends Controller
 {
@@ -28,6 +31,17 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+    protected function randomColor()
+    {
+        // $chars = [
+        //     '008abd',
+        //     ''
+        // ];
+        // return substr(str_shuffle($chars), 0, $length);
+        $rand_color = '#' . dechex(mt_rand(0, 16777215));
+        return $rand_color;
+    }
+
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
@@ -41,12 +55,15 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role == 2 ? "$request->role" : '1',
+            'color' => $this->randomColor(),
         ]);
 
         event(new Registered($user));
 
-        Auth::login($user);
+        // Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
-    }   
+        // return redirect(RouteServiceProvider::HOME);
+
+        return back()->with('success', 'User Added Successfully');
+    }
 }

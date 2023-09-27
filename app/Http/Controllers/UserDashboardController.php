@@ -14,7 +14,7 @@ class UserDashboardController extends Controller
 {
     protected function userinfo(Request $request)
     {
-        $users = User::latest();
+        $users = User::latest()->where('role', '1');
 
         if (!empty($request->get('name'))) {
             $orders = $users->where('name', 'like', '%' . $request->get('name') . '%');
@@ -22,7 +22,7 @@ class UserDashboardController extends Controller
 
         $users1 = User::where('role', '1')->count();
         $users2 = User::where('role', '2')->count();
-        $users =  $users->paginate(10);
+        $users =  $users->paginate(12);
         return view('frontend.userinfo', compact('users', 'users1', 'users2'));
     }
 

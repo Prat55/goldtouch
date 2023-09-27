@@ -5,13 +5,16 @@
     <div class="content-body">
         <!-- row -->
         <div class="container-fluid">
-            <div class="mb-sm-4 d-flex flex-wrap align-items-center text-head ">
+            <div class="mb-sm-4 d-flex flex-wrap align-items-center text-head position-relative">
                 <h2 class="mb-3 me-auto">Users Information</h2>
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Users Information</a></li>
                     </ol>
+                </div>
+                <div class="col-md-4 warningBox2">
+                    @include('frontend.message')
                 </div>
             </div>
             <div class="row">
@@ -65,82 +68,246 @@
                                 </div>
                             </form>
                         </div>
-                        {{-- <div class="newest mb-3 me-3">
-                            <select class="form-control default-select ms-0 border">
-                                <option>Newest</option>
-                                <option>Oldest</option>
-                                <option>Newest</option>
-                            </select>
-                        </div> --}}
+
+
                         {{-- <a href="javascript:void(0);" class="btn btn-primary me-3 mb-3"><i
                                 class="fas fa-calendar me-3"></i>Filter</a> --}}
-                        <a href="{{ route('userinfo') }}" class="btn btn-warning mb-3"><i class="fas fa-redo-alt"></i></a>
-                    </div>
-                </div>
-                <div class="col-xl-12">
-                    <div class="table-responsive fs-14">
-                        <table class="table display mb-4 dataTablesCard order-table shadow-hover  card-table"
-                            id="example5">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Emails</th>
-                                    <th>Role</th>
-                                    <th>Ban</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if ($users->isNotEmpty())
-                                    @foreach ($users as $od)
-                                        <tr>
-                                            <td>{{ $od->name }}</td>
-                                            <td>{{ $od->email }}</td>
-                                            <td>{{ $od->role == 2 ? 'Admin' : 'User' }}</td>
-                                            <td>
-                                                <form action="/ban/{{ $od->id }}" method="post">
-                                                    @csrf
-                                                    @method('ban')
-                                                    <button type="submit"
-                                                        class="btn btn-sm btn-outline-danger">Ban</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td colspan="4" class="text-center">No users found</td>
-                                    </tr>
-                                @endif
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                        <a href="{{ route('userinfo') }}" class="btn btn-warning mb-3">
+                            <i class="fas fa-redo-alt"></i>
+                        </a>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">New Tranasactions</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-xl-12">
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">OrderID</label>
-                                <input type="text" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="#0001234">
+                        <div class="newest mb-3 me-3">
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                data-target="#addUser">
+                                Add User
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="addUser" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Add user</h5>
+                                            <span class="close closebtn" data-dismiss="modal" aria-label="Close"
+                                                aria-hidden="true">
+                                                &times;
+                                            </span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="POST" action="{{ route('register') }}">
+                                                @csrf
+
+                                                <!-- Name -->
+                                                <div>
+                                                    <x-input-label for="name" :value="__('Name')" />
+                                                    <x-text-input id="name" class="form-control block mt-1 w-full"
+                                                        type="text" name="name" :value="old('name')" required autofocus
+                                                        autocomplete="name" />
+                                                    <x-input-error :messages="$errors->get('name')" class="text-danger mt-2" />
+                                                </div>
+
+                                                <!-- Email Address -->
+                                                <div class="mt-4">
+                                                    <x-input-label for="email" :value="__('Email')" />
+                                                    <x-text-input id="email" class="form-control block mt-1 w-full"
+                                                        type="email" name="email" :value="old('email')" required
+                                                        autocomplete="username" />
+                                                    <x-input-error :messages="$errors->get('email')" class="text-danger mt-2" />
+                                                </div>
+
+                                                <!-- Password -->
+                                                <div class="mt-4">
+                                                    <x-input-label for="password" :value="__('Password')" />
+
+                                                    <x-text-input id="password" class="form-control block mt-1 w-full"
+                                                        type="password" name="password" required
+                                                        autocomplete="new-password" />
+
+                                                    <x-input-error :messages="$errors->get('password')" class="text-danger mt-2" />
+                                                </div>
+
+                                                <!-- Confirm Password -->
+                                                <div class="mt-4">
+                                                    <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+
+                                                    <x-text-input id="password_confirmation"
+                                                        class="form-control block mt-1 w-full" type="password"
+                                                        name="password_confirmation" required autocomplete="new-password" />
+
+                                                    <x-input-error :messages="$errors->get('password_confirmation')" class="text-danger mt-2" />
+                                                </div>
+
+                                                <div class="mt-4">
+                                                    <select name="role" id="role" class="form-control">
+                                                        <option value="1">User</option selected>
+                                                        <option value="2">Admin</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="d-flex items-center mt-4">
+                                                    <button type="button" class="btn btn-sm btn-secondary w-50"
+                                                        data-dismiss="modal">Close</button>
+
+                                                    <x-primary-button class="btn btn-primary ml-4 w-50">
+                                                        {{ __('Add User') }}
+                                                    </x-primary-button>
+                                                </div>
+                                                {{-- <div class="mt-4">
+                                                    <input type="hidden" name="color" value="{{ $color }}">
+                                                </div> --}}
+                                            </form>
+                                        </div>
+                                        {{-- <div class="modal-footer">
+                                            <button type="button" class="btn btn-sm btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-sm btn-primary">Add User</button>
+                                        </div> --}}
+                                    </div>
+                                </div>
                             </div>
+
+                            <div class="modal fade" id="addUser" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                            <span class="close closebtn" data-dismiss="modal" aria-label="Close"
+                                                aria-hidden="true">
+                                                &times;
+                                            </span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="POST" action="{{ route('register') }}">
+                                                @csrf
+
+                                            </form>
+                                        </div>
+                                        {{-- <div class="modal-footer">
+                                            <button type="button" class="btn btn-sm btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-sm btn-primary">Add User</button>
+                                        </div> --}}
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+
+                <div class="row">
+                    @forelse ($users as $user)
+                        <!-- Modal -->
+                        <div class="modal fade" id="removeUser" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Remove
+                                            user</h5>
+                                        <span class="close closebtn" data-dismiss="modal" aria-label="Close"
+                                            aria-hidden="true">
+                                            &times;
+                                        </span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4>Are you sure you want to remove this user</h4>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-sm btn-secondary"
+                                            data-dismiss="modal">Cancel</button>
+                                        <form method="POST" action="/delete/{{ $user->id }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-sm btn-danger">
+                                                Confirm
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-lg-4 col-sm-6">
+                            <div class="card text-center">
+                                <div class="card-header border-0 pb-0">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h6 class="mb-0">
+                                            @if ($user->role == 2)
+                                                <div class="badge p-2 px-3 rounded bg-success">
+                                                    {{ __('Admin') }}
+                                                </div>
+                                            @else
+                                                <div class="badge p-2 px-3 rounded bg-warning">
+                                                    {{ __('User') }}
+                                                </div>
+                                            @endif
+                                        </h6>
+                                    </div>
+                                    <div class="card-header-right">
+                                        <div class="btn-group card-option">
+                                            <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                                <i class="feather icon-more-vertical"></i>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-end">
+
+                                                {{-- <a href="#" class="dropdown-item" data-ajax-popup="true"
+                                                    data-size="md" data-title="{{ __('Edit') }}" data-url="">
+                                                    <i class="ti ti-pencil"></i>
+                                                    <span>{{ __('Edit') }}</span>
+                                                </a> --}}
+
+                                                <a href="#" class="dropdown-item text-danger bs-pass-para"
+                                                    data-toggle="modal" data-target="#removeUser">
+                                                    <i class="ti ti-trash"></i>
+                                                    <span>{{ __('Remove User') }}</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="text-end">
+                                    <div class="btn-group card-option">
+                                        <button type="button" class="btn " data-bs-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <i class="feather icon-more-vertical"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-end">
+
+                                            <a href="#" class="dropdown-item" data-ajax-popup="true"
+                                                data-size="md" data-title="{{ __('Reset Password') }}" data-url=""><i
+                                                    class="ti ti-edit"></i>
+                                                <span>{{ __('Reset Password') }}</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="card-body">
+                                    <div class="avatar">
+                                        <div class="avatar2" style="background-color: {{ $user->color }};">
+                                            <h3 class="text-white">{{ $user->name[0] }}</h3 class="text-white">
+                                        </div>
+                                    </div>
+                                    <h4>{{ $user->name }}</h4>
+
+                                    <h4 class="mt-2">{{ $user->created_at }}</h4>
+                                    <small></small>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        <h4 class="text-center">No users added</h4>
+                    @endforelse
                 </div>
             </div>
         </div>

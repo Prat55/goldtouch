@@ -25,7 +25,7 @@ Route::middleware('guest')->group(function () {
     });
 
     Route::get('/order', [UserOrderController::class, 'order'])->name('order');
-    Route::put('/makeorder', [UserOrderController::class, 'userOrder'])->name('makeOrder');
+    Route::put('/makeorder', [UserOrderController::class, 'customerOrder'])->name('makeOrder');
 });
 
 //? Signed Routes
@@ -58,6 +58,7 @@ Route::middleware('admin.auth')->group(function () {
     // Route::get('/orders', [UserOrderController::class, 'orders'])->name('orders');
     Route::post('/send-task/{order_id}', [AdminDashboardController::class, 'sendorderTask']);
     Route::get('/calender', [AdminDashboardController::class, 'calender'])->name('calender');
+    Route::delete('delete/{id}', [AdminDashboardController::class, 'destroy']);
 });
 
 require __DIR__ . '/auth.php';
