@@ -36,12 +36,12 @@
             @if (Auth::user()->role == 2)
                 <li>
                     <a class="" href="{{ route('userinfo') }}" aria-expanded="false">
-                        <i class="flaticon-050-info" aria-hidden="true"></i>
+                        <i class="fa fa-user-group"></i>
                         <span class="nav-text">User Info</span>
                     </a>
                 </li>
                 <li>
-                    <a class="" href="" aria-expanded="false">
+                    <a class="" href="{{ route('sendUserTask') }}" aria-expanded="false">
                         <i class="fa-regular fa-message"></i>
                         <span class="nav-text">Send Notification</span>
                     </a>

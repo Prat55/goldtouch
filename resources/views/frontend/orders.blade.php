@@ -249,11 +249,13 @@
                                                                 </button>
                                                             </form>
                                                         @elseif ($od->fabrics_status == 0)
-                                                            <span class="text-center">Waiting For Fabric
-                                                                availability</span>
+                                                            <span class="text-center">
+                                                                Waiting for fabric availability
+                                                            </span>
                                                         @elseif ($od->fabrics_status == 1)
-                                                            <span class="text-center">Fabric is not available for this
-                                                                order</span>
+                                                            <span class="text-center">
+                                                                Fabric is not available for this order
+                                                            </span>
                                                         @elseif ($od->fabrics_status == 3)
                                                             <span class="text-center">Order is on hold</span>
                                                         @endif

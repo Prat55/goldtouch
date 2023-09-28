@@ -57,7 +57,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/d-pending/{id}', [UserOrderController::class, 'dispatching_pending']);
     Route::post('/p-pending/{id}', [UserOrderController::class, 'readyfordispatch_paymentpending']);
     Route::post('/ready-dispatch/{id}', [UserOrderController::class, 'ready_dispatch']);
+    Route::get('/calender', [AdminDashboardController::class, 'calender'])->name('calender');
     Route::post('/dispatch/{id}', [UserOrderController::class, 'dispatch']);
+    Route::get('/calender', [AdminDashboardController::class, 'calender'])->name('calender');
 });
 
 //? Admin Routes
@@ -65,8 +67,8 @@ Route::middleware('admin.auth')->group(function () {
     Route::get('/user-info', [UserDashboardController::class, 'userinfo'])->name('userinfo');
     Route::post('/send-mail/{id}', [RouteSignedController::class, 'sendMailRoute']);
     // Route::get('/orders', [UserOrderController::class, 'orders'])->name('orders');
-    Route::post('/send-task/{order_id}', [AdminDashboardController::class, 'sendorderTask'])->name('sendTask');
-    Route::get('/calender', [AdminDashboardController::class, 'calender'])->name('calender');
+    Route::get('/tasks', [AdminDashboardController::class, 'addTasks'])->name('sendUserTask');
+    Route::post('/add-task', [AdminDashboardController::class, 'addTask'])->name('sendTask');
     Route::delete('delete/{id}', [AdminDashboardController::class, 'destroy']);
     Route::post('/accept/{id}', [AdminDashboardController::class, 'accept']);
     Route::post('/reject/{id}', [AdminDashboardController::class, 'reject']);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Empdetail;
 use App\Models\Order;
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -22,48 +23,26 @@ class AdminDashboardController extends Controller
         return view('frontend.index', compact('countOrder'));
     }
 
-    protected function sendTask()
+    protected function addTasks()
     {
-        $users = User::all();
-        $orders = Order::all();
-        return view('frontend.sendTask', compact('users', 'orders'));
+        $tasks = Task::latest()->paginate(10);
+        return view('frontend.sendTask', compact('tasks'));
     }
 
-    protected function sendorderTask(Request $request, $order_id)
+    protected function addTask(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'taskOrderId' => 'required|max:100',
-            'tdue' => 'required|max:100',
-            'taskUser' => 'required|max:100',
+        $tasks = new Task([
+            'customer_name' => $request->cusname,
+            'description' => $request->description,
+            'status' => $request->status,
+            'due_date' => $request->due_date,
         ]);
+        $tasks->save();
 
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 400,
-                'errors' => $validator->messages(),
-            ]);
+        if ($tasks) {
+            return back()->with('success', 'Task created successfully');
         } else {
-            $emp = Empdetail::find($order_id);
-            if ($emp) {
-                $emp->tokenNo = $request->input('tokenNo');
-                $emp->sname = $request->input('sname');
-                $emp->fullName = $request->input('fullName');
-                $emp->category = $request->input('category');
-                $emp->setOrder = $request->input('setOrder');
-                $emp->status = $request->input('status');
-                $emp->update();
-
-                return response()->json([
-                    'status' => 200,
-                    'message' => 'Employee Updated Successfully',
-                ]);
-            } else {
-
-                return response()->json([
-                    'status' => 404,
-                    'message' => "Employee doesn't exist",
-                ]);
-            }
+            return back()->with('error', 'Task creation failed!');
         }
     }
 
