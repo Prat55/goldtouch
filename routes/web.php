@@ -67,12 +67,18 @@ Route::middleware('admin.auth')->group(function () {
     Route::get('/user-info', [UserDashboardController::class, 'userinfo'])->name('userinfo');
     Route::post('/send-mail/{id}', [RouteSignedController::class, 'sendMailRoute']);
     // Route::get('/orders', [UserOrderController::class, 'orders'])->name('orders');
-    Route::get('/tasks', [AdminDashboardController::class, 'addTasks'])->name('sendUserTask');
-    Route::post('/add-task', [AdminDashboardController::class, 'addTask'])->name('sendTask');
     Route::delete('delete/{id}', [AdminDashboardController::class, 'destroy']);
     Route::post('/accept/{id}', [AdminDashboardController::class, 'accept']);
     Route::post('/reject/{id}', [AdminDashboardController::class, 'reject']);
     Route::post('/hold/{id}', [AdminDashboardController::class, 'hold']);
+
+    // ? Tasks Routes
+    Route::get('/tasks', [AdminDashboardController::class, 'addTasks'])->name('sendUserTask');
+    Route::post('/add-task', [AdminDashboardController::class, 'addTask'])->name('sendTask');
+    Route::post('/finished/{id}', [AdminDashboardController::class, 'finished']);
+    Route::post('/cancelled/{id}', [AdminDashboardController::class, 'cancelled']);
+    Route::post('/onhold/{id}', [AdminDashboardController::class, 'onhold']);
+    Route::post('/process/{id}', [AdminDashboardController::class, 'process']);
 });
 
 require __DIR__ . '/auth.php';

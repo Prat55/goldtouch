@@ -103,4 +103,60 @@ class AdminDashboardController extends Controller
     {
         return view('frontend.calender');
     }
+
+    protected function finished($id)
+    {
+        $tasks = Task::findOrFail($id);
+
+        if ($tasks) {
+            $tasks->status = 2;
+            $tasks->update();
+
+            return back()->with('success', 'Change Status to Finished');
+        } else {
+            return back()->with('error', 'Something went wrong!');
+        }
+    }
+
+    protected function cancelled($id)
+    {
+        $tasks = Task::findOrFail($id);
+
+        if ($tasks) {
+            $tasks->status = 3;
+            $tasks->update();
+
+            return back()->with('success', 'Change Status to Cancelled!');
+        } else {
+            return back()->with('error', 'Something went wrong!');
+        }
+    }
+
+    protected function onhold($id)
+    {
+        $tasks = Task::findOrFail($id);
+
+        if ($tasks) {
+            $tasks->status = 4;
+            $tasks->update();
+
+            return back()->with('success', 'Change Status to Hold');
+        } else {
+            return back()->with('error', 'Something went wrong!');
+        }
+    }
+
+    protected function process($id)
+    {
+        $tasks = Task::findOrFail($id);
+
+        if ($tasks) {
+            $tasks->status = 1;
+            $tasks->update();
+
+            return back()->with('success', 'Change Status to On Process');
+        } else {
+            return back()->with('error', 'Something went wrong!');
+        }
+    }
 }
