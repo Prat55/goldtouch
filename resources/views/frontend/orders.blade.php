@@ -94,12 +94,9 @@
                                     <th>GSTIN No.</th>
                                     <th>Emails</th>
                                     <th>Phone</th>
-                                    @if (Auth::user()->role == 2)
-                                        <th>Status</th>
-                                        <th class="">Edits</th>
-                                    @else
-                                        <th class="">Fabric Status</th>
-                                    @endif
+                                    <th>Order Status</th>
+                                    <th class="">Fabric Status</th>
+                                    <th class="">Edits</th>
                                 </tr>
                             </thead>
 
@@ -112,41 +109,84 @@
                                         <td class="text-ov">{{ $od->cgstin }}</td>
                                         <td>{{ $od->email }}</td>
                                         <td>{{ $od->phone }}</td>
-                                        @if (Auth::user()->role == 2)
-                                            <td><span class="text-warning">Pending</span></td>
 
-                                            <td>
-                                                <div class="dropdown ms-auto c-pointer">
-                                                    <div class="btn-link" data-bs-toggle="dropdown">
-                                                        <svg width="24" height="24" viewbox="0 0 24 24"
-                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-                                                                d="M11.0005 12C11.0005 12.5523 11.4482 13 12.0005 13C12.5528 13 13.0005 12.5523 13.0005 12C13.0005 11.4477 12.5528 11 12.0005 11C11.4482 11 11.0005 11.4477 11.0005 12Z"
-                                                                stroke="#3E4954" stroke-width="2" stroke-linecap="round"
-                                                                stroke-linejoin="round">
-                                                            </path>
-                                                            <path
-                                                                d="M18.0005 12C18.0005 12.5523 18.4482 13 19.0005 13C19.5528 13 20.0005 12.5523 20.0005 12C20.0005 11.4477 19.5528 11 19.0005 11C18.4482 11 18.0005 11.4477 18.0005 12Z"
-                                                                stroke="#3E4954" stroke-width="2" stroke-linecap="round"
-                                                                stroke-linejoin="round">
-                                                            </path>
-                                                            <path
-                                                                d="M4.00049 12C4.00049 12.5523 4.4482 13 5.00049 13C5.55277 13 6.00049 12.5523 6.00049 12C6.00049 11.4477 5.55277 11 5.00049 11C4.4482 11 4.00049 11.4477 4.00049 12Z"
-                                                                stroke="#3E4954" stroke-width="2" stroke-linecap="round"
-                                                                stroke-linejoin="round">
-                                                            </path>
-                                                        </svg>
-                                                    </div>
+                                        <td>
+                                            @if ($od->status == 2)
+                                                <span class="text-danger">On hold</span>
+                                            @elseif ($od->status == 1)
+                                                <span class="text-warning">Processing</span>
+                                            @elseif ($od->status == 3)
+                                                <span class="text-warning">Measurement Pending</span>
+                                            @elseif ($od->status == 4)
+                                                <span class="text-success">Measurement Done</span>
+                                            @elseif ($od->status == 5)
+                                                <span class="text-success">Processing Done</span>
+                                            @elseif ($od->status == 6)
+                                                <span class="text-warning">Dispatching Pending</span>
+                                            @elseif ($od->status == 7)
+                                                <span class="text-warning">Ready for dispatch payment pending</span>
+                                            @elseif ($od->status == 8)
+                                                <span class="text-success">Ready for dispatch</span>
+                                            @elseif ($od->status == 9)
+                                                <span class="text-success">Dispatched</span>
+                                            @elseif ($od->status == 10)
+                                                <span class="text-danger">Cancelled</span>
+                                            @else
+                                                <span class="text-warning">Pending</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($od->fabrics_status == 1)
+                                                <span class="text-danger">Not Available</span>
+                                            @elseif ($od->fabrics_status == 2)
+                                                <span class="text-success">Available</span>
+                                            @elseif ($od->fabrics_status == 3)
+                                                <span class="text-danger">On Hold</span>
+                                            @else
+                                                <span class="text-warning">Pending</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <div class="dropdown ms-auto c-pointer">
+                                                <div class="btn-link" data-bs-toggle="dropdown">
+                                                    <svg width="24" height="24" viewbox="0 0 24 24" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M11.0005 12C11.0005 12.5523 11.4482 13 12.0005 13C12.5528 13 13.0005 12.5523 13.0005 12C13.0005 11.4477 12.5528 11 12.0005 11C11.4482 11 11.0005 11.4477 11.0005 12Z"
+                                                            stroke="#3E4954" stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                        </path>
+                                                        <path
+                                                            d="M18.0005 12C18.0005 12.5523 18.4482 13 19.0005 13C19.5528 13 20.0005 12.5523 20.0005 12C20.0005 11.4477 19.5528 11 19.0005 11C18.4482 11 18.0005 11.4477 18.0005 12Z"
+                                                            stroke="#3E4954" stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                        </path>
+                                                        <path
+                                                            d="M4.00049 12C4.00049 12.5523 4.4482 13 5.00049 13C5.55277 13 6.00049 12.5523 6.00049 12C6.00049 11.4477 5.55277 11 5.00049 11C4.4482 11 4.00049 11.4477 4.00049 12Z"
+                                                            stroke="#3E4954" stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                        </path>
+                                                    </svg>
+                                                </div>
 
-                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    @if (Auth::user()->role == 2)
                                                         <form action="/accept/{{ $od->id }}" method="POST">
+                                                            @csrf
                                                             <button type="submit" class="dropdown-item text-black">
                                                                 Available
                                                             </button>
                                                         </form>
                                                         <form action="/reject/{{ $od->id }}" method="POST">
+                                                            @csrf
                                                             <button type="submit" class="dropdown-item text-black">
                                                                 Not Available
+                                                            </button>
+                                                        </form>
+                                                        <form action="/hold/{{ $od->id }}" method="POST">
+                                                            @csrf
+                                                            <button type="submit" class="dropdown-item text-black">
+                                                                Hold
                                                             </button>
                                                         </form>
                                                         <input type="hidden" name="cid" id="cid"
@@ -155,24 +195,72 @@
                                                             value="{{ $od->cname }}">
                                                         <input type="hidden" name="email" id="email"
                                                             value="{{ $od->email }}">
-                                                        <button type="button"
-                                                            class="sendMail dropdown-item text-black">Send
-                                                            Mail</button>
-
-                                                    </div>
+                                                        @if ($od->fabrics_status == 2)
+                                                            <form action="/send-mail/{{ $od->id }}" method="post">
+                                                                @csrf
+                                                                <button type="submit" class="dropdown-item text-black">
+                                                                    Send Mail
+                                                                </button>
+                                                            </form>
+                                                        @endif
+                                                    @else
+                                                        @if ($od->fabrics_status == 2)
+                                                            <form action="/m-done/{{ $od->id }}" method="POST">
+                                                                @csrf
+                                                                <button type="submit" class="dropdown-item text-black">
+                                                                    Measurement Done
+                                                                </button>
+                                                            </form>
+                                                            <form action="/m-pending/{{ $od->id }}" method="POST">
+                                                                @csrf
+                                                                <button type="submit" class="dropdown-item text-black">
+                                                                    Measurement Pending
+                                                                </button>
+                                                            </form>
+                                                            <form action="/p-done/{{ $od->id }}" method="POST">
+                                                                @csrf
+                                                                <button type="submit" class="dropdown-item text-black">
+                                                                    Processing Done
+                                                                </button>
+                                                            </form>
+                                                            <form action="/d-pending/{{ $od->id }}" method="POST">
+                                                                @csrf
+                                                                <button type="submit" class="dropdown-item text-black">
+                                                                    Dispatching Pending
+                                                                </button>
+                                                            </form>
+                                                            <form action="/p-pending/{{ $od->id }}" method="POST">
+                                                                @csrf
+                                                                <button type="submit" class="dropdown-item text-black">
+                                                                    Ready for dispatch payment pending
+                                                                </button>
+                                                            </form>
+                                                            <form action="/ready-dispatch/{{ $od->id }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                <button type="submit" class="dropdown-item text-black">
+                                                                    Ready for dispatch
+                                                                </button>
+                                                            </form>
+                                                            <form action="/dispatch/{{ $od->id }}" method="POST">
+                                                                @csrf
+                                                                <button type="submit" class="dropdown-item text-black">
+                                                                    Dispatched
+                                                                </button>
+                                                            </form>
+                                                        @elseif ($od->fabrics_status == 0)
+                                                            <span class="text-center">Waiting For Fabric
+                                                                availability</span>
+                                                        @elseif ($od->fabrics_status == 1)
+                                                            <span class="text-center">Fabric is not available for this
+                                                                order</span>
+                                                        @elseif ($od->fabrics_status == 3)
+                                                            <span class="text-center">Order is on hold</span>
+                                                        @endif
+                                                    @endif
                                                 </div>
-                                            </td>
-                                        @else
-                                            <td>
-                                                @if ($od->fabrics_status == 1)
-                                                    <span class="text-danger">Not Available</span>
-                                                @elseif ($od->fabrics_status == 2)
-                                                    <span class="text-success">Available</span>
-                                                @else
-                                                    <span class="text-warning">Pending</span>
-                                                @endif
-                                            </td>
-                                        @endif
+                                            </div>
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
@@ -194,43 +282,6 @@
 @section('customJs')
     <script>
         $(document).ready(function() {
-            $(document).on('click', '.sendMail', function(e) {
-                e.preventDefault();
-
-                var data = {
-                    'cid': $('#cid').val(),
-                    'cname': $('#cname').val(),
-                    'email': $('#email').val(),
-                };
-
-                $('.sendMail').html("sending...");
-
-                $.ajax({
-                    type: "POST",
-                    url: "send-mail",
-                    data: data,
-                    dataType: "json",
-                    success: function(response) {
-                        if (response.status == 400) {
-                            $('#sStatus').html("");
-                            $('#sStatus').addClass('alert alert-danger').delay(1000).fadeOut(
-                                2000);
-                            $.each(response.errors, function(key, err_values) {
-                                $('#sStatus').append('<p>' + err_values + '</p>');
-                            });
-                        } else {
-                            $('#sStatus').html("");
-                            $('#sStatus').addClass('alert alert-success').delay(1000).fadeOut(
-                                2000);
-                            $('#sStatus').text(response.message);
-                            $('.sendMail').html("Send Mail");
-                        }
-                    }
-
-                });
-
-            });
-
             $(document).on('click', '#assign', function(e) {
                 e.preventDefault();
                 var id = $('#orderId').val();

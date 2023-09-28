@@ -33,11 +33,6 @@ class RegisteredUserController extends Controller
      */
     protected function randomColor()
     {
-        // $chars = [
-        //     '008abd',
-        //     ''
-        // ];
-        // return substr(str_shuffle($chars), 0, $length);
         $rand_color = '#' . dechex(mt_rand(0, 16777215));
         return $rand_color;
     }

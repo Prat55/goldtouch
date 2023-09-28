@@ -80,10 +80,6 @@ class UserOrderController extends Controller
     protected function customerOrder(Request $request)
     {
         $random = $this->random();
-        $email = array($request->email1, $request->email2, $request->email2, $request->email3, $request->email4, $request->email5);
-        $emails = json_encode($email);
-        $phone = array($request->phone1, $request->phone2, $request->phone2, $request->phone3, $request->phone4, $request->phone5);
-        $phones = json_encode($phone);
 
         $order = new Order([
             'order_id' => $random,
@@ -93,8 +89,8 @@ class UserOrderController extends Controller
             'cgstin' => $request->cgstin,
             'fabrics_status' => 0,
             'remark' => $request->remark,
-            'email' => $emails,
-            'phone' => $phones,
+            'email' => $request->email1 . ' ' . $request->email2 . ' ' . $request->email2 . ' ' . $request->email3 . ' ' . $request->email4 . ' ' . $request->email5,
+            'phone' => $request->phone1 . ' ' . $request->phone2 . ' ' . $request->phone2 . ' ' . $request->phone3 . ' ' . $request->phone4 . ' ' . $request->phone5,
         ]);
         $order->save();
 
@@ -116,7 +112,7 @@ class UserOrderController extends Controller
 
     protected function orders(Request $request)
     {
-        $fabricStatus = Order::where('fabrics_status', '1')->count();
+        $fabricStatus = Order::where('status', '9')->count();
         $aordersCount = Order::count();
 
         $orders = Order::latest();
@@ -147,5 +143,103 @@ class UserOrderController extends Controller
         Mail::to($user->email)->send(new AssignOrderMail($mailData));
 
         return redirect('orders')->with('success', 'Order assigned successfully');
+    }
+
+    protected function measurement_pending($id)
+    {
+        $order = Order::findOrFail($id);
+
+        if ($order) {
+            $order->status = 3;
+            $order->update();
+
+            return back()->with('success', 'Order status updated successfully to Measurement Pending');
+        } else {
+            return back()->with('error', 'Something went wrong!');
+        }
+    }
+
+    protected function measurement_done($id)
+    {
+        $order = Order::findOrFail($id);
+
+        if ($order) {
+            $order->status = 4;
+            $order->update();
+
+            return back()->with('success', 'Order status updated successfully to Measurement Done');
+        } else {
+            return back()->with('error', 'Something went wrong!');
+        }
+    }
+
+    protected function processing_done($id)
+    {
+        $order = Order::findOrFail($id);
+
+        if ($order) {
+            $order->status = 5;
+            $order->update();
+
+            return back()->with('success', 'Order status updated successfully to Proccessing Done');
+        } else {
+            return back()->with('error', 'Something went wrong!');
+        }
+    }
+
+    protected function dispatching_pending($id)
+    {
+        $order = Order::findOrFail($id);
+
+        if ($order) {
+            $order->status = 6;
+            $order->update();
+
+            return back()->with('success', 'Order status updated successfully to Dispatching Pending');
+        } else {
+            return back()->with('error', 'Something went wrong!');
+        }
+    }
+
+    protected function readyfordispatch_paymentpending($id)
+    {
+        $order = Order::findOrFail($id);
+
+        if ($order) {
+            $order->status = 7;
+            $order->update();
+
+            return back()->with('success', 'Order status updated successfully to Ready for Dispatch Payment Pending');
+        } else {
+            return back()->with('error', 'Something went wrong!');
+        }
+    }
+
+    protected function ready_dispatch($id)
+    {
+        $order = Order::findOrFail($id);
+
+        if ($order) {
+            $order->status = 8;
+            $order->update();
+
+            return back()->with('success', 'Order status updated successfully to Ready for Dispatch');
+        } else {
+            return back()->with('error', 'Something went wrong!');
+        }
+    }
+
+    protected function dispatch($id)
+    {
+        $order = Order::findOrFail($id);
+
+        if ($order) {
+            $order->status = 9;
+            $order->update();
+
+            return back()->with('success', 'Order status updated successfully to Dispatched');
+        } else {
+            return back()->with('error', 'Something went wrong!');
+        }
     }
 }

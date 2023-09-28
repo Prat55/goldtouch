@@ -279,7 +279,7 @@
                                         </svg>
                                         <span class="ms-2">Profile </span>
                                     </a>
-                                    <a href="{{ route('sendTask') }}" class="dropdown-item ai-icon">
+                                    <a href="" class="dropdown-item ai-icon">
                                         <svg id="icon-inbox" xmlns="http://www.w3.org/2000/svg" class="text-success"
                                             width="18" height="18" viewbox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2" stroke-linecap="round"

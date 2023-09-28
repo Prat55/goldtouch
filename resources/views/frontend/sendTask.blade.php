@@ -25,7 +25,7 @@
                                     <select class="form-control" name="taskOrderId" id="taskOrderId" required>
                                         <option>--select order--</option>
                                         @forelse ($orders as $order)
-                                            @if ($order->fabrics_status == 1 && $orders->assign_status == 0)
+                                            @if ($order->fabrics_status == 1)
                                                 <option value="{{ $order->order_id }}">{{ $order->order_id }}</option>
                                             @endif
                                         @empty

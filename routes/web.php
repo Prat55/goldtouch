@@ -48,17 +48,29 @@ Route::middleware('auth')->group(function () {
     Route::get('/orders', [UserOrderController::class, 'orders'])->name('orders');
     Route::post('/change-profile/{id}', [UserDashboardController::class, 'updateProfileImg']);
     Route::post('/assign/{id}', [UserOrderController::class, 'assign']);
-    Route::get('/task', [AdminDashboardController::class, 'sendTask'])->name('sendTask');
+    // Route::get('/task', [AdminDashboardController::class, 'sendTask'])->name('sendTask');
+
+    // ?Order Status updation routes
+    Route::post('/m-done/{id}', [UserOrderController::class, 'measurement_done']);
+    Route::post('/m-pending/{id}', [UserOrderController::class, 'measurement_pending']);
+    Route::post('/p-done/{id}', [UserOrderController::class, 'processing_done']);
+    Route::post('/d-pending/{id}', [UserOrderController::class, 'dispatching_pending']);
+    Route::post('/p-pending/{id}', [UserOrderController::class, 'readyfordispatch_paymentpending']);
+    Route::post('/ready-dispatch/{id}', [UserOrderController::class, 'ready_dispatch']);
+    Route::post('/dispatch/{id}', [UserOrderController::class, 'dispatch']);
 });
 
 //? Admin Routes
 Route::middleware('admin.auth')->group(function () {
     Route::get('/user-info', [UserDashboardController::class, 'userinfo'])->name('userinfo');
-    Route::post('/send-mail', [RouteSignedController::class, 'sendMailRoute']);
+    Route::post('/send-mail/{id}', [RouteSignedController::class, 'sendMailRoute']);
     // Route::get('/orders', [UserOrderController::class, 'orders'])->name('orders');
-    Route::post('/send-task/{order_id}', [AdminDashboardController::class, 'sendorderTask']);
+    Route::post('/send-task/{order_id}', [AdminDashboardController::class, 'sendorderTask'])->name('sendTask');
     Route::get('/calender', [AdminDashboardController::class, 'calender'])->name('calender');
     Route::delete('delete/{id}', [AdminDashboardController::class, 'destroy']);
+    Route::post('/accept/{id}', [AdminDashboardController::class, 'accept']);
+    Route::post('/reject/{id}', [AdminDashboardController::class, 'reject']);
+    Route::post('/hold/{id}', [AdminDashboardController::class, 'hold']);
 });
 
 require __DIR__ . '/auth.php';

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\SendRoute;
 use App\Models\Customer;
 use App\Models\Empdetail;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
@@ -12,38 +13,27 @@ use Illuminate\Support\Facades\Validator;
 
 class RouteSignedController extends Controller
 {
-    protected function sendMailRoute(Request $request)
+    protected function sendMailRoute($id)
     {
-        $validator = Validator::make($request->all(), [
-            'cid' => 'required|max:100',
-            'cname' => 'required|max:100',
-            'email' => 'required|max:200',
-        ]);
+        $order = Order::findOrFail($id);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 400,
-                'errors' => $validator->messages(),
-            ]);
-        } else {
-
+        if ($order) {
             $url = URL::temporarySignedRoute('share-entry', now()->addHours(24), [
-                'cid' => $request->input('cid'),
+                'cid' => $order->u_id,
             ]);
 
             $mailData = [
-                'cname' => $request->input('cname'),
+                'cname' => $order->cname,
                 'title' => 'Employee Details Fillup Form',
                 'body' => "Make sure this link is only valid for 24 hours",
                 'link' => $url,
             ];
 
-            Mail::to($request->input('email'))->send(new SendRoute($mailData));
+            Mail::to($order->email)->send(new SendRoute($mailData));
 
-            return response()->json([
-                'status' => 200,
-                'message' => 'Mail sent successfully',
-            ]);
+            return back()->with('success', 'Email Sended Successfully');
+        } else {
+            return back()->with('error', 'Email not sended try again later');
         }
     }
 

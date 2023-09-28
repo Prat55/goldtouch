@@ -67,6 +67,51 @@ class AdminDashboardController extends Controller
         }
     }
 
+    protected function accept($id)
+    {
+        $order = Order::findOrFail($id);
+
+        if ($order) {
+            $order->fabrics_status = 2;
+            $order->status = 1; //? this will change the status to processing
+            $order->update();
+
+            return back()->with('success', 'Fabric status Updated Successfully');
+        } else {
+            return back()->with('error', 'Something went wrong!');
+        }
+    }
+
+    protected function reject($id)
+    {
+        $order = Order::findOrFail($id);
+
+        if ($order) {
+            $order->fabrics_status = 1;
+            $order->status = 10;
+            $order->update();
+
+            return back()->with('success', 'Fabric status Updated Successfully');
+        } else {
+            return back()->with('error', 'Something went wrong!');
+        }
+    }
+
+    protected function hold($id)
+    {
+        $order = Order::findOrFail($id);
+
+        if ($order) {
+            $order->fabrics_status = 3;
+            $order->status = 2; //? This will change the status to On Hold
+            $order->update();
+
+            return back()->with('success', 'Fabric status Updated Successfully');
+        } else {
+            return back()->with('error', 'Something went wrong!');
+        }
+    }
+
     protected function destroy($id)
     {
         $user = User::findOrFail($id);
