@@ -118,8 +118,8 @@ class AdminDashboardController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:198',
-            'start' => 'required|max:100',
-            'end' => 'required|max:100',
+            'start_date' => 'required|max:100',
+            'end_date' => 'required|max:100',
         ]);
 
         if ($validator->fails()) {
@@ -130,8 +130,8 @@ class AdminDashboardController extends Controller
         } else {
             $events = new Event([
                 'title' => $request->input('title'),
-                'start_date' => $request->input('start'),
-                'end_date' => $request->input('end'),
+                'start_date' => $request->input('start_date'),
+                'end_date' => $request->input('end_date'),
             ]);
             $events->save();
 

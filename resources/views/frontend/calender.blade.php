@@ -76,15 +76,16 @@
                 events: tasks,
                 selectable: true,
                 selectMirror: true,
-                select: function(start, end, alldays) {
+                select: function(arg) {
                     $('#title').modal('toggle');
 
                     $('#saveData').click(function() {
                         var title = $('#titleData').val();
-                        var start_date = moment(start).format('YYYY-MM-DD');
-                        var end_date = moment(end).format('YYYY-MM-DD');
-                        // console.log(start_date);
-                        // console.log(end_date);
+                        var start_date = arg.start;
+                        var end_date = arg.end;
+
+                        console.log(start_date);
+                        console.log(end_date);
 
                         $('#saveData').html('Creating...');
 
@@ -118,9 +119,15 @@
                             }
                         });
                     });
+                    calendar.unselect();
                 },
                 editable: true,
                 droppable: true,
+                weekNumbers: true,
+                navLinks: true, // can click day/week names to navigate views
+                editable: true,
+                selectable: true,
+                nowIndicator: true,
 
             });
             calendar.render();
