@@ -50,7 +50,8 @@
                 <div class="col-xl-12 col-xxl-12">
                     <div class="card">
                         <div class="card-body">
-                            <div id="calendar"></div>
+                            <div id="calendar" class="">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -122,10 +123,10 @@
                 },
                 editable: true,
                 droppable: true,
-                weekNumbers: true,
-                navLinks: true, // can click day/week names to navigate views
-                editable: true,
-                selectable: true,
+                // weekNumbers: true,
+                // navLinks: true, // can click day/week names to navigate views
+                // editable: true,
+                // selectable: true,
                 nowIndicator: true,
 
             });

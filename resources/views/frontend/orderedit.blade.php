@@ -23,30 +23,35 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="basic-form">
-                                <form action="{{ route('usermakeOrder') }}" method="POST" enctype="multipart/form-data">
+                                <form action="" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('put')
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">CUSTOMER NAME</label>
-                                            <input type="text" class="form-control" name="cname" required>
+                                            <input type="text" class="form-control" name="cname"
+                                                value="{{ $order->cname }}" required>
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">CUSTOMER ADD</label>
-                                            <input type="text" class="form-control" name="cadd" required>
+                                            <input type="text" class="form-control" name="cadd"
+                                                value="{{ $order->cadd }}" required>
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">CUSTOMER GSTIN</label>
-                                            <input type="text" class="form-control" name="cgstin" required>
+                                            <input type="text" class="form-control" name="cgstin"
+                                                value="{{ $order->cgstin }}" required>
                                         </div>
 
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">STYLE REF</label>
-                                            <input type="text" class="form-control" name="styleref" required>
+                                            <input type="text" class="form-control" name="styleref"
+                                                value="{{ $order->cstyle_ref }}" required>
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">PO NUMBER</label>
-                                            <input type="text" class="form-control" name="pono" required>
+                                            <input type="text" class="form-control" name="pono"
+                                                value="{{ $order->ponumber }}" required>
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">PO COPY UPLOAD</label>

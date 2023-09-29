@@ -47279,3 +47279,26 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
 .closebtn {
     cursor: pointer;
 }
+
+.drop-menu {
+    width: 500px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+    border: 1px solid #C4C4C4;
+    border-radius: 20px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.floating-search {
+    position: absolute;
+    top: 50px;
+}

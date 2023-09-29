@@ -43,12 +43,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/make-order', [UserOrderController::class, 'makeUserOrder'])->name('userorder');
-    Route::put('/ordered', [UserOrderController::class, 'makeOrder'])->name('usermakeOrder');
-    Route::get('/orders', [UserOrderController::class, 'orders'])->name('orders');
     Route::post('/change-profile/{id}', [UserDashboardController::class, 'updateProfileImg']);
     Route::post('/assign/{id}', [UserOrderController::class, 'assign']);
     // Route::get('/task', [AdminDashboardController::class, 'sendTask'])->name('sendTask');
+    // ?Order routes
+    Route::get('/make-order', [UserOrderController::class, 'makeUserOrder'])->name('userorder');
+    Route::put('/ordered', [UserOrderController::class, 'makeOrder'])->name('usermakeOrder');
+    Route::get('/orders', [UserOrderController::class, 'orders'])->name('orders');
+    Route::get('/order-edit/{order_id}', [UserOrderController::class, 'orderEdit']);
 
     // ?Order Status updation routes
     Route::post('/m-done/{id}', [UserOrderController::class, 'measurement_done']);

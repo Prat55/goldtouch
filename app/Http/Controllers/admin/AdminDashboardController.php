@@ -21,7 +21,9 @@ class AdminDashboardController extends Controller
     protected function index()
     {
         $countOrder = Order::all();
-        return view('frontend.index', compact('countOrder'));
+        $pendingOrder = Order::where('status', '0');
+        $completedOrder = Order::where('status', '9');
+        return view('frontend.index', compact('countOrder', 'pendingOrder', 'completedOrder'));
     }
 
     protected function addTasks()

@@ -62,19 +62,19 @@ class UserOrderController extends Controller
             $order->save();
 
             $mailData = [
+                'orderId' => $random,
                 'title' => 'Order Placed Details',
                 'name' => "$request->cname",
                 'add' => "$request->cadd",
                 'gstin' => "$request->cgstin",
-                'styleref' => "$request->styleref",
+                'remark' => "$request->styleref",
                 'email' => "$request->email1" . ' ' . "$request->email2" . ' ' . "$request->email3" . ' ' . "$request->email4" . ' ' . "$request->email5",
                 'phone' =>  "$request->phone1" . ' ' . "$request->phone2" . ' ' . "$request->phone3" . ' ' . "$request->phone4" . ' ' . "$request->phone5",
             ];
 
             Mail::to('pratikdesai9900@gmail.com')->cc("$request->email1", "$request->email2", "$request->email3", "$request->email4", "$request->email5")->send(new OrdersMail($mailData));
         }
-
-        return redirect('/order')->with('success', 'Order placed successfully');
+        return redirect('/make-order')->with('success', 'Order placed successfully');
     }
 
     protected function customerOrder(Request $request)
@@ -241,5 +241,11 @@ class UserOrderController extends Controller
         } else {
             return back()->with('error', 'Something went wrong!');
         }
+    }
+
+    protected function orderEdit($order_id)
+    {
+        $order = Order::where('order_id', $order_id);
+        return view('frontend.orderedit', compact('order'));
     }
 }

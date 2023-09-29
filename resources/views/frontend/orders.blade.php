@@ -103,7 +103,7 @@
                             <tbody class="text-center">
                                 @forelse ($orders as $od)
                                     <tr>
-                                        <td>#{{ $od->order_id }}</td>
+                                        <td>#<a href="/order-edit/{{ $od->order_id }}">{{ $od->order_id }}</a></td>
                                         <td>{{ $od->cname }}</td>
                                         <td class="text-ov">{{ $od->cadd }}</td>
                                         <td class="text-ov">{{ $od->cgstin }}</td>
