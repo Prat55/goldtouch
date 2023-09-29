@@ -373,7 +373,6 @@
     <script src="{{ asset('user-assets/xhtml/vendor/moment/moment.min.js') }}"></script>
     <script src="{{ asset('user-assets/xhtml/js/styleSwitcher.js') }}"></script>
     <script src="{{ asset('user-assets/xhtml/vendor/fullcalendar/js/main.min.js') }}"></script>
-    <script src="{{ asset('user-assets/xhtml/js/plugins-init/fullcalendar-init.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
     </script>

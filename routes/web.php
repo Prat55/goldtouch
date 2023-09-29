@@ -60,6 +60,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/calender', [AdminDashboardController::class, 'calender'])->name('calender');
     Route::post('/dispatch/{id}', [UserOrderController::class, 'dispatch']);
     Route::get('/calender', [AdminDashboardController::class, 'calender'])->name('calender');
+    Route::post('/calender/event', [AdminDashboardController::class, 'calender_event'])->name('calendar.event');
 });
 
 //? Admin Routes

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Empdetail;
+use App\Models\Event;
 use App\Models\Order;
 use App\Models\Task;
 use App\Models\User;
@@ -101,7 +102,51 @@ class AdminDashboardController extends Controller
 
     protected function calender()
     {
-        return view('frontend.calender');
+        $tasks = array();
+        $events = Event::all();
+        foreach ($events as $ev) {
+            $tasks[] = [
+                'title' => $ev->title,
+                'start' => $ev->start_date,
+                'end' => $ev->end_date,
+            ];
+        }
+        return view('frontend.calender', ['tasks' => $tasks]);
+    }
+
+    protected function calender_event(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|max:198',
+            'start' => 'required|max:100',
+            'end' => 'required|max:100',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->messages(),
+            ]);
+        } else {
+            $events = new Event([
+                'title' => $request->input('title'),
+                'start_date' => $request->input('start'),
+                'end_date' => $request->input('end'),
+            ]);
+            $events->save();
+
+            if ($events) {
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Added Successfully',
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 400,
+                    'errors' => 'Something went wrong!',
+                ]);
+            }
+        }
     }
 
     protected function finished($id)
