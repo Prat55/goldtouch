@@ -81,9 +81,8 @@
 
                     $('#saveData').click(function() {
                         var title = $('#titleData').val();
-                        var start_date = arg.start;
-                        var end_date = arg.end;
-
+                        var start_date = moment(arg.start).format('YYYY-MM-DD');
+                        var end_date = moment(arg.end).format('YYYY-MM-DD');
                         console.log(start_date);
                         console.log(end_date);
 
