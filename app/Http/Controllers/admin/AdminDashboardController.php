@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\TaskAssignMail;
 use App\Models\Empdetail;
 use App\Models\Event;
 use App\Models\Order;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class AdminDashboardController extends Controller
@@ -24,7 +26,9 @@ class AdminDashboardController extends Controller
         $pendingOrder = Order::where('status', '0');
         $completedOrder = Order::where('status', '9');
         $tasks = Task::latest()->paginate(10);
-        return view('frontend.index', compact('countOrder', 'pendingOrder', 'completedOrder', 'tasks'));
+
+        $tasksInProcess = Task::all()->where('status', '1')->count();
+        return view('frontend.index', compact('countOrder', 'pendingOrder', 'completedOrder', 'tasks', 'tasksInProcess'));
     }
 
     protected function addTasks()
@@ -43,6 +47,16 @@ class AdminDashboardController extends Controller
             'due_date' => $request->due_date,
         ]);
         $tasks->save();
+
+        $mailData = [
+            'customer_name' =>  'Hello ' . $request->cusname,
+            'email' => $request->email,
+            'description' => $request->description,
+            'due_date' => $request->due_date,
+            'message' => 'Your task has been assigned',
+        ];
+
+        Mail::to($request->email)->send(new TaskAssignMail($mailData));
 
         if ($tasks) {
             return back()->with('success', 'Task created successfully');
