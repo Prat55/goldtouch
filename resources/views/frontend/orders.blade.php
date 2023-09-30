@@ -21,7 +21,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="order-user">
-                                    <i class="fas fa-user text-white bg-primary"></i>
+                                    <i class="fas fa-reorder text-white bg-primary"></i>
                                 </div>
 
                                 <div class="ms-4 customer">
@@ -38,7 +38,24 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="order-user">
-                                    <i class="fas fa-user text-white bg-primary"></i>
+                                    <i class="fas fa-clock text-white bg-primary"></i>
+                                </div>
+
+                                <div class="ms-4 customer">
+                                    <h2 class="mb-0  font-w600">{{ $pedingOrders }}</h2>
+                                    <p class="mb-0 font-w500">Pending Orders</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="order-user">
+                                    <i class="fas fa-check text-white bg-primary"></i>
                                 </div>
 
                                 <div class="ms-4 customer">

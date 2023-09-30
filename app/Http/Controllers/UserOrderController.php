@@ -48,9 +48,9 @@ class UserOrderController extends Controller
                 'order_id' => $random,
                 'cname' => $request->cname,
                 'mtaker1' => $request->mtaker1,
-                'mtakerDate1' => $request->mtaker1,
+                'mtakerDate1' => $request->mdatetime1,
                 'mtaker2' => $request->mtaker2,
-                'mtakerDate2' => $request->mtaker2,
+                'mtakerDate2' => $request->mdatetime2,
                 'ponumber' => $request->pono,
                 'poimg' => $imageName,
                 'u_id' => $random,
@@ -117,6 +117,7 @@ class UserOrderController extends Controller
     {
         $fabricStatus = Order::where('status', '9')->count();
         $aordersCount = Order::count();
+        $pedingOrders = Order::where('status', '1')->count();
 
         $orders = Order::latest();
         if (!empty($request->get('c'))) {
@@ -124,7 +125,7 @@ class UserOrderController extends Controller
         }
 
         $orders =  $orders->paginate(20);
-        return view('frontend.orders', compact('orders', 'fabricStatus', 'aordersCount'));
+        return view('frontend.orders', compact('orders', 'fabricStatus', 'aordersCount', 'pedingOrders'));
     }
 
     protected function assign(Request $request, $id)

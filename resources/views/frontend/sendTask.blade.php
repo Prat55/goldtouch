@@ -28,7 +28,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group m-1">
                                             <label for="description">Email</label>
-                                            <input class="form-control" type="text" name="email" id="email"
+                                            <input class="form-control" type="email" name="email" id="email"
                                                 required>
                                         </div>
                                     </div>
@@ -41,19 +41,9 @@
                                                 required>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group m-1">
-                                            <label for="status">Status</label>
-                                            <select name="status" id="status" class="form-control" required>
-                                                <option value="1">Under Process</option>
-                                                <option value="2">Success</option>
-                                                <option value="3">Cancelled</option>
-                                                <option value="4">Hold</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 d-flex align-items-center">
+
+                                    <input type="hidden" value="1" name="status" id="status">
+
                                     <div class="col-md-6">
                                         <div class="form-group m-1">
                                             <label for="due_date">Task Due Date</label>
@@ -61,9 +51,12 @@
                                                 required>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 d-flex">
-                                        <button type="submit" class="btn btn-sm btn-primary ms-5 mt-4">Add</button>
-                                    </div>
+                                </div>
+                                <div class="col-md-12 d-flex align-items-center">
+
+                                </div>
+                                <div class="col-md-6 d-flex">
+                                    <button type="submit" class="btn btn-sm btn-primary ms-2 mt-4 w-25">Add</button>
                                 </div>
                             </form>
                         </div>
@@ -139,17 +132,14 @@
                                                                 </form>
                                                                 <form action="/onhold/{{ $tk->id }}" method="POST">
                                                                     @csrf
-                                                                    <button type="submit"
-                                                                        class="dropdown-item text-black">
+                                                                    <button type="submit" class="dropdown-item text-black">
                                                                         Hold
                                                                     </button>
                                                                 </form>
                                                             @elseif ($tk->status == 2)
-                                                                <form action="/process/{{ $tk->id }}"
-                                                                    method="POST">
+                                                                <form action="/process/{{ $tk->id }}" method="POST">
                                                                     @csrf
-                                                                    <button type="submit"
-                                                                        class="dropdown-item text-black">
+                                                                    <button type="submit" class="dropdown-item text-black">
                                                                         On Process
                                                                     </button>
                                                                 </form>
