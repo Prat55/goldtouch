@@ -208,7 +208,7 @@
                                                     @foreach ($empDetails as $key => $emp)
                                                         @if ($emp->customer_id == $segment)
                                                             <tr>
-                                                                <td>{{ $key + 1 }}</td>
+                                                                <td>{{ $key +=   1 }}</td>
                                                                 <td>{{ $emp->tokenNo }}</td>
                                                                 <td>{{ $emp->sname }}</td>
                                                                 <td>{{ $emp->fullName }}</td>
@@ -419,6 +419,7 @@
                                 $('#sStatus').text(response.message);
                                 $('#eModal').modal('hide');
                                 $('#eModal .modal-body').find('input').val("");
+                                location.reload();
                             }
                         }
                     });

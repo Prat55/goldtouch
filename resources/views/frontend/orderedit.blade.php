@@ -56,16 +56,10 @@
                                             <input type="text" class="form-control" name="pono"
                                                 value="{{ $order->ponumber }}" required>
                                         </div>
-                                        @if ($order->poimg != null)
-                                            <div class="mb-3 col-md-6" id="poimage">
-                                                <img src="/poimg/{{ $order->poimg }}" alt="Purchase order number"
-                                                    width="400px" height="300px">
-                                            </div>
-                                        @endif
-                                        <div class="mb-3 col-md-6 {{ $order->poimg == null ? '' : 'd-none' }}">
+                                        <div class="mb-3 col-md-6">
                                             <label class="form-label">PO COPY UPLOAD</label>
                                             <input type="file" class="form-control" name="poimg" id="poimg">
-                                            <input type="text" value="{{ $order->poimg }}" name="oldpoimg">
+                                            <input type="hidden" value="{{ $order->poimg }}" name="oldpoimg">
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">MEASURMENT TAKER 1</label>
@@ -140,68 +134,7 @@
     <div class="content-body">
         <!-- row -->
         <div class="container-fluid">
-            <div class="mb-sm-4 d-flex flex-wrap align-items-center text-head ">
-                <h2 class="mb-3 me-auto">Orders</h2>
-                <div>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Orders</a></li>
-                    </ol>
-                </div>
-            </div>
             <div class="row">
-
-                <div class="col-xl-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="order-user">
-                                    <i class="fas fa-reorder text-white bg-primary"></i>
-                                </div>
-
-                                <div class="ms-4 customer">
-                                    <h2 class="mb-0  font-w600">{{ $aordersCount }}</h2>
-                                    <p class="mb-0 font-w500">Total Orders</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="order-user">
-                                    <i class="fas fa-clock text-white bg-primary"></i>
-                                </div>
-
-                                <div class="ms-4 customer">
-                                    <h2 class="mb-0  font-w600">{{ $pedingOrders }}</h2>
-                                    <p class="mb-0 font-w500">Pending Orders</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="order-user">
-                                    <i class="fas fa-check text-white bg-primary"></i>
-                                </div>
-
-                                <div class="ms-4 customer">
-                                    <h2 class="mb-0  font-w600">{{ $fabricStatus }}</h2>
-                                    <p class="mb-0 font-w500">Completed Orders</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="col-md-12 statusBox">
                     <div id="sStatus" class="status">
 
@@ -240,28 +173,24 @@
                             id="example5">
                             <thead>
                                 <tr class="text-center">
+                                    <th>Token No</th>
                                     <th>Employee Name</th>
                                     <th>Sname</th>
-                                    <th>Full Name</th>
-                                    <th>GSTIN No.</th>
-                                    <th>Emails</th>
-                                    <th>Phone</th>
+                                    <th>category</th>
+                                    <th>Set Order</th>
                                     <th>Order Status</th>
-                                    <th class="">Fabric Status</th>
                                     <th class="">Edits</th>
                                 </tr>
                             </thead>
 
                             <tbody class="text-center">
-                                @forelse ($orders as $od)
+                                @forelse ($employees as $od)
                                     <tr>
-                                        <td>#<a href="/order-edit/{{ $od->id }}">{{ $od->order_id }}</a></td>
-                                        <td>{{ $od->cname }}</td>
-                                        <td class="text-ov">{{ $od->cadd }}</td>
-                                        <td class="text-ov">{{ $od->cgstin }}</td>
-                                        <td>{{ $od->email }}</td>
-                                        <td>{{ $od->phone }}</td>
-
+                                        <td class="text-ov">{{ $od->tokenNo }}</td>
+                                        <td>{{ $od->fullName }}</td>
+                                        <td>{{ $od->sname }}</td>
+                                        <td>{{ $od->category }}</td>
+                                        <td>{{ $od->setOrder }}</td>
                                         <td>
                                             @if ($od->status == 2)
                                                 <span class="text-danger">On hold</span>
@@ -378,7 +307,7 @@
                                 @endforelse
                             </tbody>
                         </table>
-                        {{ $orders->links() }}
+                        {{ $employees->links() }}
                     </div>
                 </div>
             </div>

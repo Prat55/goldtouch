@@ -107,12 +107,9 @@
                                 <tr class="text-center">
                                     <th>Order ID</th>
                                     <th>Customer Name</th>
-                                    <th>Address</th>
                                     <th>GSTIN No.</th>
-                                    <th>Emails</th>
                                     <th>Phone</th>
                                     <th>Order Status</th>
-                                    <th class="">Fabric Status</th>
                                     <th class="">Edits</th>
                                 </tr>
                             </thead>
@@ -120,38 +117,14 @@
                             <tbody class="text-center">
                                 @forelse ($orders as $od)
                                     <tr>
-                                        <td>#<a href="/order-edit/{{ $od->id }}">{{ $od->order_id }}</a></td>
-                                        <td>{{ $od->cname }}</td>
-                                        <td class="text-ov">{{ $od->cadd }}</td>
-                                        <td class="text-ov">{{ $od->cgstin }}</td>
-                                        <td>{{ $od->email }}</td>
-                                        <td>{{ $od->phone }}</td>
-
                                         <td>
-                                            @if ($od->status == 2)
-                                                <span class="text-danger">On hold</span>
-                                            @elseif ($od->status == 1)
-                                                <span class="text-warning">Processing</span>
-                                            @elseif ($od->status == 3)
-                                                <span class="text-warning">Measurement Pending</span>
-                                            @elseif ($od->status == 4)
-                                                <span class="text-success">Measurement Done</span>
-                                            @elseif ($od->status == 5)
-                                                <span class="text-success">Processing Done</span>
-                                            @elseif ($od->status == 6)
-                                                <span class="text-warning">Dispatching Pending</span>
-                                            @elseif ($od->status == 7)
-                                                <span class="text-warning">Ready for dispatch payment pending</span>
-                                            @elseif ($od->status == 8)
-                                                <span class="text-success">Ready for dispatch</span>
-                                            @elseif ($od->status == 9)
-                                                <span class="text-success">Dispatched</span>
-                                            @elseif ($od->status == 10)
-                                                <span class="text-danger">Cancelled</span>
-                                            @else
-                                                <span class="text-warning">Pending</span>
-                                            @endif
+                                            <a href="/order-edit/{{ $od->id }}">
+                                                #{{ $od->order_id }}
+                                            </a>
                                         </td>
+                                        <td>{{ $od->cname }}</td>
+                                        <td class="text-ov">{{ $od->cgstin }}</td>
+                                        <td>{{ $od->phone }}</td>
                                         <td>
                                             @if ($od->fabrics_status == 1)
                                                 <span class="text-danger">Not Available</span>
@@ -186,8 +159,8 @@
                                                     </svg>
                                                 </div>
 
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    @if (Auth::user()->role == 2)
+                                                @if (Auth::user()->role == 2)
+                                                    <div class="dropdown-menu dropdown-menu-right">
                                                         <form action="/accept/{{ $od->id }}" method="POST">
                                                             @csrf
                                                             <button type="submit" class="dropdown-item text-black">
@@ -220,64 +193,8 @@
                                                                 </button>
                                                             </form>
                                                         @endif
-                                                    {{-- @else
-                                                        @if ($od->fabrics_status == 2)
-                                                            <form action="/m-done/{{ $od->id }}" method="POST">
-                                                                @csrf
-                                                                <button type="submit" class="dropdown-item text-black">
-                                                                    Measurement Done
-                                                                </button>
-                                                            </form>
-                                                            <form action="/m-pending/{{ $od->id }}" method="POST">
-                                                                @csrf
-                                                                <button type="submit" class="dropdown-item text-black">
-                                                                    Measurement Pending
-                                                                </button>
-                                                            </form>
-                                                            <form action="/p-done/{{ $od->id }}" method="POST">
-                                                                @csrf
-                                                                <button type="submit" class="dropdown-item text-black">
-                                                                    Processing Done
-                                                                </button>
-                                                            </form>
-                                                            <form action="/d-pending/{{ $od->id }}" method="POST">
-                                                                @csrf
-                                                                <button type="submit" class="dropdown-item text-black">
-                                                                    Dispatching Pending
-                                                                </button>
-                                                            </form>
-                                                            <form action="/p-pending/{{ $od->id }}" method="POST">
-                                                                @csrf
-                                                                <button type="submit" class="dropdown-item text-black">
-                                                                    Ready for dispatch payment pending
-                                                                </button>
-                                                            </form>
-                                                            <form action="/ready-dispatch/{{ $od->id }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                <button type="submit" class="dropdown-item text-black">
-                                                                    Ready for dispatch
-                                                                </button>
-                                                            </form>
-                                                            <form action="/dispatch/{{ $od->id }}" method="POST">
-                                                                @csrf
-                                                                <button type="submit" class="dropdown-item text-black">
-                                                                    Dispatched
-                                                                </button>
-                                                            </form>
-                                                        @elseif ($od->fabrics_status == 0)
-                                                            <span class="text-center">
-                                                                Waiting for fabric availability
-                                                            </span>
-                                                        @elseif ($od->fabrics_status == 1)
-                                                            <span class="text-center">
-                                                                Fabric is not available for this order
-                                                            </span>
-                                                        @elseif ($od->fabrics_status == 3)
-                                                            <span class="text-center">Order is on hold</span>
-                                                        @endif --}}
-                                                    @endif
-                                                </div>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\AssignOrderMail;
 use App\Mail\OrdersMail;
+use App\Models\Empdetail;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -250,7 +251,8 @@ class UserOrderController extends Controller
     protected function orderEdit($order_id)
     {
         $order = Order::findOrFail($order_id);
-        return view('frontend.orderedit', compact('order'));
+        $employees = Empdetail::paginate(10);
+        return view('frontend.orderedit', compact('order', 'employees'));
     }
 
     protected function orderUpdate(Request $request, $id)
