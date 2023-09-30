@@ -203,7 +203,7 @@
                                                                 </button>
                                                             </form>
                                                         @endif
-                                                    @else
+                                                    {{-- @else
                                                         @if ($od->fabrics_status == 2)
                                                             <form action="/m-done/{{ $od->id }}" method="POST">
                                                                 @csrf
@@ -258,7 +258,7 @@
                                                             </span>
                                                         @elseif ($od->fabrics_status == 3)
                                                             <span class="text-center">Order is on hold</span>
-                                                        @endif
+                                                        @endif --}}
                                                     @endif
                                                 </div>
                                             </div>
