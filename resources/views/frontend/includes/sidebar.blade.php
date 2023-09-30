@@ -36,7 +36,7 @@
             @if (Auth::user()->role == 2)
                 <li>
                     <a class="" href="{{ route('userinfo') }}" aria-expanded="false">
-                        <i class="fa fa-user-group"></i>
+                        <i class="fa fa-users"></i>
                         <span class="nav-text">User Info</span>
                     </a>
                 </li>

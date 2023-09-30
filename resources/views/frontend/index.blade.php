@@ -12,12 +12,10 @@
                         <li class="breadcrumb-item">
                             <a href="{{ route('dashboard') }}">Dashboard</a>
                         </li>
-                        <li class="breadcrumb-item active">
-                            <a href="{{ route('dashboard') }}">Dashboard</a>
-                        </li>
                     </ol>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-xl-3 col-sm-6">
                     <div class="card">
@@ -65,17 +63,64 @@
                     <div class="card">
                         <div class="card-body d-flex align-items-center justify-content-between">
                             <div class="card-data me-2">
-                                <h5>#</h5>
-                                <h2 class="fs-40 font-w600">75</h2>
+                                <h5>Tasks</h5>
+                                <h2 class="fs-40 font-w600">{{ $tasks->count() }}</h2>
                             </div>
                             <div>
-                                <span class="donut1"
-                                    data-peity='{ "fill": ["rgb(51, 62, 75,1)", "rgba(242, 246, 252)"]}'>3/1000</span>
+                                <span class="donut1" data-peity='{ "fill": ["rgb(51, 62, 75,1)", "rgba(242, 246, 252)"]}'>
+                                    {{ $tasks->count() }}/1000
+                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Recent Alloted Tasks</h3>
+                    </div>
+                    <div class="table-responsive fs-14">
+                        <table class="table display mb-4 dataTablesCard order-table shadow-hover  card-table"
+                            id="example5">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>Customer Name</th>
+                                    <th>Task Description</th>
+                                    <th>Status</th>
+                                    <th>Task Due Date</th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="text-center">
+                                @forelse ($tasks as $tk)
+                                    <tr>
+                                        <td>{{ $tk->customer_name }}</td>
+                                        <td>{{ $tk->description }}</td>
+                                        <td>
+                                            @if ($tk->status == 1)
+                                                <span class="text-warning">On Process</span>
+                                            @elseif ($tk->status == 2)
+                                                <span class="text-success">Finished</span>
+                                            @elseif ($tk->status == 3)
+                                                <span class="text-danger">Cancelled</span>
+                                            @elseif ($tk->status == 4)
+                                                <span class="text-warning">Hold</span>
+                                            @endif
+                                        </td>
+                                        <td>{{ $tk->due_date }}</td>
+                                    </tr>
+                                @empty
+                                    <td colspan="5" class="text-center">No tasks found!</td>
+                                @endforelse
+                            </tbody>
+                        </table>
+                        {{ $tasks->links() }}
+                    </div>
+                </div>
+            </div>
+
             {{-- <div class="col-md-4">
                 <div class="card">
                     <div class="card-header">
@@ -215,50 +260,6 @@
                     </div>
                 </div>
             </div> --}}
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        Recent Tasks
-                    </div>
-                    <div class="table-responsive fs-14">
-                        <table class="table display mb-4 dataTablesCard order-table shadow-hover  card-table"
-                            id="example5">
-                            <thead>
-                                <tr class="text-center">
-                                    <th>Customer Name</th>
-                                    <th>Task Description</th>
-                                    <th>Status</th>
-                                    <th>Task Due Date</th>
-                                </tr>
-                            </thead>
-
-                            <tbody class="text-center">
-                                @forelse ($tasks as $tk)
-                                    <tr>
-                                        <td>{{ $tk->customer_name }}</td>
-                                        <td>{{ $tk->description }}</td>
-                                        <td>
-                                            @if ($tk->status == 1)
-                                                <span class="text-warning">On Process</span>
-                                            @elseif ($tk->status == 2)
-                                                <span class="text-success">Finished</span>
-                                            @elseif ($tk->status == 3)
-                                                <span class="text-danger">Cancelled</span>
-                                            @elseif ($tk->status == 4)
-                                                <span class="text-warning">Hold</span>
-                                            @endif
-                                        </td>
-                                        <td>{{ $tk->due_date }}</td>
-                                    </tr>
-                                @empty
-                                    <td colspan="5" class="text-center">No tasks found!</td>
-                                @endforelse
-                            </tbody>
-                        </table>
-                        {{ $tasks->links() }}
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 @endsection

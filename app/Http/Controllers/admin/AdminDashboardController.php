@@ -37,6 +37,7 @@ class AdminDashboardController extends Controller
     {
         $tasks = new Task([
             'customer_name' => $request->cusname,
+            'email' => $request->email,
             'description' => $request->description,
             'status' => $request->status,
             'due_date' => $request->due_date,

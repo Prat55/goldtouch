@@ -22,10 +22,10 @@ class AdminAuthenticate
     {
         $user = Auth::user();
 
-        if ($user->role === 2) {
+        if ($user->role == 2) {
             return $next($request);
-        } else if ($user->role === 1) {
+        } else {
             abort(403);
-        }   
+        }
     }
 }

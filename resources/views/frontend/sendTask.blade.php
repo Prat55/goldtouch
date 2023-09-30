@@ -27,13 +27,20 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group m-1">
-                                            <label for="description">Task Description</label>
-                                            <input class="form-control" type="text" name="description" id="description"
+                                            <label for="description">Email</label>
+                                            <input class="form-control" type="text" name="email" id="email"
                                                 required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                    <div class="col-md-6">
+                                        <div class="form-group m-1">
+                                            <label for="description">Task Description</label>
+                                            <input class="form-control" type="text" name="description" id="description"
+                                                required>
+                                        </div>
+                                    </div>
                                     <div class="col-md-6">
                                         <div class="form-group m-1">
                                             <label for="status">Status</label>
@@ -45,6 +52,8 @@
                                             </select>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-md-12 d-flex align-items-center">
                                     <div class="col-md-6">
                                         <div class="form-group m-1">
                                             <label for="due_date">Task Due Date</label>
@@ -52,9 +61,10 @@
                                                 required>
                                         </div>
                                     </div>
+                                    <div class="col-md-6 d-flex">
+                                        <button type="submit" class="btn btn-sm btn-primary ms-5 mt-4">Add</button>
+                                    </div>
                                 </div>
-
-                                <input type="submit" value="Add" class="btn btn-sm btn-primary m-2">
                             </form>
                         </div>
 
@@ -129,14 +139,17 @@
                                                                 </form>
                                                                 <form action="/onhold/{{ $tk->id }}" method="POST">
                                                                     @csrf
-                                                                    <button type="submit" class="dropdown-item text-black">
+                                                                    <button type="submit"
+                                                                        class="dropdown-item text-black">
                                                                         Hold
                                                                     </button>
                                                                 </form>
                                                             @elseif ($tk->status == 2)
-                                                                <form action="/process/{{ $tk->id }}" method="POST">
+                                                                <form action="/process/{{ $tk->id }}"
+                                                                    method="POST">
                                                                     @csrf
-                                                                    <button type="submit" class="dropdown-item text-black">
+                                                                    <button type="submit"
+                                                                        class="dropdown-item text-black">
                                                                         On Process
                                                                     </button>
                                                                 </form>

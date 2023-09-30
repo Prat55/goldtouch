@@ -24,7 +24,8 @@ class UserDashboardController extends Controller
         $users1 = User::where('role', '1')->count();
         $users2 = User::where('role', '2')->count();
         $users =  $users->paginate(12);
-        return view('frontend.userinfo', compact('users', 'users1', 'users2'));
+        $admins =  $admins->paginate(12);
+        return view('frontend.userinfo', compact('users', 'users1', 'users2', 'admins'));
     }
 
     protected function empData(Request $request)

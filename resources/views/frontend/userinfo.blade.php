@@ -99,7 +99,6 @@
                                         <div class="modal-body">
                                             <form method="POST" action="{{ route('register') }}">
                                                 @csrf
-
                                                 <!-- Name -->
                                                 <div>
                                                     <x-input-label for="name" :value="__('Name')" />
@@ -155,53 +154,18 @@
                                                         {{ __('Add User') }}
                                                     </x-primary-button>
                                                 </div>
-                                                {{-- <div class="mt-4">
-                                                    <input type="hidden" name="color" value="{{ $color }}">
-                                                </div> --}}
                                             </form>
                                         </div>
-                                        {{-- <div class="modal-footer">
-                                            <button type="button" class="btn btn-sm btn-secondary"
-                                                data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-sm btn-primary">Add User</button>
-                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="modal fade" id="addUser" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                                            <span class="close closebtn" data-dismiss="modal" aria-label="Close"
-                                                aria-hidden="true">
-                                                &times;
-                                            </span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form method="POST" action="{{ route('register') }}">
-                                                @csrf
-
-                                            </form>
-                                        </div>
-                                        {{-- <div class="modal-footer">
-                                            <button type="button" class="btn btn-sm btn-secondary"
-                                                data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-sm btn-primary">Add User</button>
-                                        </div> --}}
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
 
                 {{-- * Users * --}}
                 <div class="row">
+                    <h2 class="text-left">Users</h2>
                     @forelse ($users as $user)
                         <!-- Modal -->
                         <div class="modal fade" id="removeUser" tabindex="-1" role="dialog"
@@ -313,7 +277,8 @@
 
                 {{-- * Admins * --}}
                 <div class="row">
-                    @forelse ($users as $user)
+                    <h2 class="text-left">Admins</h2>
+                    @forelse ($admins as $admin)
                         <!-- Modal -->
                         <div class="modal fade" id="removeUser" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -321,7 +286,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLongTitle">Remove
-                                            user</h5>
+                                            Admin</h5>
                                         <span class="close closebtn" data-dismiss="modal" aria-label="Close"
                                             aria-hidden="true">
                                             &times;
@@ -334,7 +299,7 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-sm btn-secondary"
                                             data-dismiss="modal">Cancel</button>
-                                        <form method="POST" action="/delete/{{ $user->id }}">
+                                        <form method="POST" action="/delete/{{ $admin->id }}">
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn btn-sm btn-danger">
@@ -351,7 +316,7 @@
                                 <div class="card-header border-0 pb-0">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h6 class="mb-0">
-                                            @if ($user->role == 2)
+                                            @if ($admin->role == 2)
                                                 <div class="badge p-2 px-3 rounded bg-success">
                                                     {{ __('Admin') }}
                                                 </div>
@@ -406,13 +371,13 @@
 
                                 <div class="card-body">
                                     <div class="avatar">
-                                        <div class="avatar2" style="background-color: {{ $user->color }};">
-                                            <h3 class="text-white">{{ $user->name[0] }}</h3 class="text-white">
+                                        <div class="avatar2" style="background-color: {{ $admin->color }};">
+                                            <h3 class="text-white">{{ $admin->name[0] }}</h3 class="text-white">
                                         </div>
                                     </div>
-                                    <h4>{{ $user->name }}</h4>
+                                    <h4>{{ $admin->name }}</h4>
 
-                                    <h4 class="mt-2">{{ $user->created_at }}</h4>
+                                    <h4 class="mt-2">{{ $admin->created_at }}</h4>
                                     <small></small>
                                 </div>
                             </div>
