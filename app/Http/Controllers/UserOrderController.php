@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 
 use Illuminate\Support\Facades\Validator;
@@ -46,8 +47,10 @@ class UserOrderController extends Controller
             $order = new Order([
                 'order_id' => $random,
                 'cname' => $request->cname,
-                'mtaker1' => $request->mtaker1 . ' ' . $request->mdatetime1,
-                'mtaker2' => $request->mtaker2 . ' ' . $request->mdatetime2,
+                'mtaker1' => $request->mtaker1,
+                'mtakerDate1' => $request->mtaker1,
+                'mtaker2' => $request->mtaker2,
+                'mtakerDate2' => $request->mtaker2,
                 'ponumber' => $request->pono,
                 'poimg' => $imageName,
                 'u_id' => $random,
@@ -245,7 +248,39 @@ class UserOrderController extends Controller
 
     protected function orderEdit($order_id)
     {
-        $order = Order::where('order_id', $order_id);
+        $order = Order::findOrFail($order_id);
         return view('frontend.orderedit', compact('order'));
+    }
+
+    protected function orderUpdate(Request $request, $id)
+    {
+        $orders = Order::findOrFail($id);
+
+        if ($request->hasFile("poimg")) {
+            if (file::exists("poimg/" . $orders->poimg)) {
+                File::delete("poimg/" . $orders->poimg);
+            }
+            $file = $request->file("poimg");
+            $imageName = time() . "_" . $file->getClientOriginalName();
+            $file->move(\public_path("/poimg"), $imageName);
+            $request['poimg'] = $imageName;
+        } elseif (!$request->hasfile("poimg")) {
+            $imageName = $request->oldpoimg;
+        }
+
+        $orders->update([
+            "poimg" => $imageName,
+            "ponumber" => $request->ponumber,
+            "mtaker1" => $request->mtaker1,
+            "mtakerDate1" => $request->mtakerDate1,
+            "mtaker2" => $request->mtaker2,
+            "mtakerDate2" => $request->mtakerDate2,
+        ]);
+
+        if ($orders) {
+            return back()->with('success', 'Order Updated Successfully');
+        } else {
+            return back()->with('error', 'Something went wrong!');
+        }
     }
 }

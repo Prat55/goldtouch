@@ -15,6 +15,7 @@ class UserDashboardController extends Controller
     protected function userinfo(Request $request)
     {
         $users = User::latest()->where('role', '1');
+        $admins = User::latest()->where('role', '2');
 
         if (!empty($request->get('name'))) {
             $orders = $users->where('name', 'like', '%' . $request->get('name') . '%');

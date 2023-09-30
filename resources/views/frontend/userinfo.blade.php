@@ -200,6 +200,118 @@
                     </div>
                 </div>
 
+                {{-- * Users * --}}
+                <div class="row">
+                    @forelse ($users as $user)
+                        <!-- Modal -->
+                        <div class="modal fade" id="removeUser" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Remove
+                                            user</h5>
+                                        <span class="close closebtn" data-dismiss="modal" aria-label="Close"
+                                            aria-hidden="true">
+                                            &times;
+                                        </span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4>Are you sure you want to remove this user</h4>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-sm btn-secondary"
+                                            data-dismiss="modal">Cancel</button>
+                                        <form method="POST" action="/delete/{{ $user->id }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-sm btn-danger">
+                                                Confirm
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-lg-4 col-sm-6">
+                            <div class="card text-center">
+                                <div class="card-header border-0 pb-0">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h6 class="mb-0">
+                                            @if ($user->role == 2)
+                                                <div class="badge p-2 px-3 rounded bg-success">
+                                                    {{ __('Admin') }}
+                                                </div>
+                                            @else
+                                                <div class="badge p-2 px-3 rounded bg-warning">
+                                                    {{ __('User') }}
+                                                </div>
+                                            @endif
+                                        </h6>
+                                    </div>
+                                    <div class="card-header-right">
+                                        <div class="btn-group card-option">
+                                            <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                                <i class="feather icon-more-vertical"></i>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-end">
+
+                                                {{-- <a href="#" class="dropdown-item" data-ajax-popup="true"
+                                                    data-size="md" data-title="{{ __('Edit') }}" data-url="">
+                                                    <i class="ti ti-pencil"></i>
+                                                    <span>{{ __('Edit') }}</span>
+                                                </a> --}}
+
+                                                <a href="#" class="dropdown-item text-danger bs-pass-para"
+                                                    data-toggle="modal" data-target="#removeUser">
+                                                    <i class="ti ti-trash"></i>
+                                                    <span>{{ __('Remove User') }}</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="text-end">
+                                    <div class="btn-group card-option">
+                                        <button type="button" class="btn " data-bs-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <i class="feather icon-more-vertical"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-end">
+
+                                            <a href="#" class="dropdown-item" data-ajax-popup="true"
+                                                data-size="md" data-title="{{ __('Reset Password') }}" data-url=""><i
+                                                    class="ti ti-edit"></i>
+                                                <span>{{ __('Reset Password') }}</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="card-body">
+                                    <div class="avatar">
+                                        <div class="avatar2" style="background-color: {{ $user->color }};">
+                                            <h3 class="text-white">{{ $user->name[0] }}</h3 class="text-white">
+                                        </div>
+                                    </div>
+                                    <h4>{{ $user->name }}</h4>
+
+                                    <h4 class="mt-2">{{ $user->created_at }}</h4>
+                                    <small></small>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        <h4 class="text-center">No users added</h4>
+                    @endforelse
+                </div>
+
+                {{-- * Admins * --}}
                 <div class="row">
                     @forelse ($users as $user)
                         <!-- Modal -->

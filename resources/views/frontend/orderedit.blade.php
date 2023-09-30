@@ -17,30 +17,33 @@
                     </ol>
                 </div>
             </div>
+            <div class="col-md-4 warningBox2">
+                @include('frontend.message')
+            </div>
             <!-- row -->
             <div class="row">
                 <div class="col-xl-12 col-lg-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="basic-form">
-                                <form action="" method="POST" enctype="multipart/form-data">
+                                <form action="/order-update/{{ $order->id }}" method="POST"
+                                    enctype="multipart/form-data">
                                     @csrf
-                                    @method('put')
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">CUSTOMER NAME</label>
                                             <input type="text" class="form-control" name="cname"
-                                                value="{{ $order->cname }}" required>
+                                                value="{{ $order->cname }}" readonly>
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">CUSTOMER ADD</label>
                                             <input type="text" class="form-control" name="cadd"
-                                                value="{{ $order->cadd }}" required>
+                                                value="{{ $order->cadd }}" readonly>
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">CUSTOMER GSTIN</label>
                                             <input type="text" class="form-control" name="cgstin"
-                                                value="{{ $order->cgstin }}" required>
+                                                value="{{ $order->cgstin }}" readonly>
                                         </div>
 
                                         <div class="mb-3 col-md-6">
@@ -53,9 +56,16 @@
                                             <input type="text" class="form-control" name="pono"
                                                 value="{{ $order->ponumber }}" required>
                                         </div>
-                                        <div class="mb-3 col-md-6">
+                                        @if ($order->poimg != null)
+                                            <div class="mb-3 col-md-6" id="poimage">
+                                                <img src="/poimg/{{ $order->poimg }}" alt="Purchase order number"
+                                                    width="400px" height="300px">
+                                            </div>
+                                        @endif
+                                        <div class="mb-3 col-md-6 {{ $order->poimg == null ? '' : 'd-none' }}">
                                             <label class="form-label">PO COPY UPLOAD</label>
-                                            <input type="file" class="form-control" name="poimg" required>
+                                            <input type="file" class="form-control" name="poimg" id="poimg">
+                                            <input type="text" value="{{ $order->poimg }}" name="oldpoimg">
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">MEASURMENT TAKER 1</label>
@@ -64,28 +74,30 @@
                                                     <!-- Text input with 70% width -->
                                                     <input type="text" name="mtaker1" class="form-control"
                                                         style="width: 100%" placeholder="Enter measurement taker name"
-                                                        required />
+                                                        value="{{ $order->mtaker1 }}" required />
                                                 </div>
                                                 <div class="col-3">
                                                     <!-- Date-time input with 30% width -->
-                                                    <input type="date" name="mdatetime1" class="form-control"
+                                                    <input type="date" name="mtakerDate1"
+                                                        value="{{ $order->mtakerDate1 }}" class="form-control"
                                                         style="width: 100%" required />
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">MEASURMENT TAKER 2</label>
                                             <div class="col-md-12 d-flex justify-content-between">
                                                 <div class="col-8">
                                                     <!-- Text input with 70% width -->
-                                                    <input type="text" name="mtaker2" class="form-control"
-                                                        style="width: 100%"
+                                                    <input type="text" name="mtakerDate2" class="form-control"
+                                                        style="width: 100%" value="{{ $order->mtaker2 }}"
                                                         placeholder="Enter measurement taker name (optional)" />
                                                 </div>
                                                 <div class="col-3">
                                                     <!-- Date-time input with 30% width -->
                                                     <input type="date" name="mdatetime2" class="form-control"
-                                                        style="width: 100%" />
+                                                        style="width: 100%" value="{{ $order->mtakerDate2 }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -95,19 +107,10 @@
                                             <div class="d-flex align-items-center">
                                                 <div class="col-md-9">
                                                     <input type="email" class="form-control mt-1"
-                                                        placeholder="Enter Email Id 1" name="email1" required>
-                                                </div>
-                                                <div class="col-md-2 ms-5">
-                                                    <button id="addInput" class="btn btn-sm btn-primary">Add</button>
+                                                        placeholder="Enter Email Id 1" name="email1"
+                                                        value="{{ $order->email }}" readonly>
                                                 </div>
                                             </div>
-                                            <div class="d-flex align-items-center">
-                                                <div id="inputContainer" class="col-md-12">
-                                                    <!-- Input boxes will be appended here -->
-                                                </div>
-
-                                            </div>
-
                                         </div>
 
                                         <div class="mb-3 col-md-6">
@@ -115,21 +118,14 @@
                                             <div class="d-flex align-items-center">
                                                 <div class="col-md-9">
                                                     <input type="text" class="form-control"
-                                                        placeholder="Enter Phone Number 1" name="phone1" required>
-                                                </div>
-                                                <div class="col-md-2 ms-5">
-                                                    <button id="addInput1" class="btn btn-sm btn-primary">Add</button>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex align-items-center">
-                                                <div id="inputContainer1" class="col-md-12">
-                                                    <!-- Input boxes will be appended here -->
+                                                        placeholder="Enter Phone Number 1" name="phone1"
+                                                        value="{{ $order->phone }}" readonly>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="mb-3 col-md-6">
-                                            <button type="submit" class="btn btn-sm btn-primary">Order</button>
+                                            <button type="submit" class="btn btn-sm btn-primary">Update</button>
                                         </div>
                                     </div>
                                 </form>
@@ -143,108 +139,10 @@
 @endsection
 
 @section('customJs')
-
     <script>
-        $(document).ready(function() {
-            var maxInputBoxes = 4; // Maximum number of input boxes allowed
-            var inputCount = 0; // Current input box count
-            var num = 2;
-
-            function addInputBox() {
-                if (inputCount < maxInputBoxes) {
-                    // Create a new input element
-                    var inputElement = $("<div>")
-                        .addClass("input-container")
-                        .append(
-                            $("<input>").attr({
-                                type: "email",
-                                name: "email" + num, // Incrementing name
-                                class: "input-box form-control mt-2",
-                                placeholder: "Enter Email Id " + num + " (optional)",
-                            })
-                        )
-                        .append(
-
-                            $("<button>").text("Remove").attr({
-                                class: "btn btn-sm btn-danger remove-button mt-2",
-                            })
-                        )
-
-                    // Append the input element to the container
-                    $("#inputContainer").append(inputElement);
-
-                    // Increment the input count
-                    inputCount++;
-                    num++;
-                    // Attach a click event handler to the Remove button
-                    $(".remove-button").click(function() {
-                        $(this).closest(".input-container").remove();
-                        inputCount--;
-                        num--;
-                    });
-                } else {
-                    alert("You can add only 5 email ids at once");
-                }
-            }
-
-            // Initial call to addInputBox function
-            addInputBox();
-
-            $("#addInput").click(function() {
-                addInputBox();
-            });
-        });
-
-        $(document).ready(function() {
-            var maxInputBoxes = 4; // Maximum number of input boxes allowed
-            var inputCount = 0; // Current input box count
-            var num = 2;
-
-            function addInputBox() {
-                if (inputCount < maxInputBoxes) {
-                    // Create a new input element
-                    var inputElement = $("<div>")
-                        .addClass("input-container1")
-                        .append(
-                            $("<input>").attr({
-                                type: "number",
-                                name: "phone" + num, // Incrementing name
-                                class: "input-box form-control mt-2",
-                                placeholder: "Enter Phone Number " + num + " (optional)",
-                            })
-                        )
-                        .append(
-
-                            $("<button>").text("Remove").attr({
-                                class: "btn btn-sm btn-danger remove-button1 mt-2",
-                            })
-                        )
-
-                    // Append the input element to the container
-                    $("#inputContainer1").append(inputElement);
-
-                    // Increment the input count
-                    inputCount++;
-                    num++;
-
-                    // Attach a click event handler to the Remove button
-                    $(".remove-button1").click(function() {
-                        $(this).closest(".input-container1").remove();
-                        inputCount--;
-                        num--;
-                    });
-                } else {
-                    alert("You can add only 5 phone numbers at once");
-                }
-            }
-
-            // Initial call to addInputBox function
-            addInputBox();
-
-            $("#addInput1").click(function() {
-                addInputBox();
-            });
+        $('#poimage').click(function(e) {
+            e.preventDefault();
+            $('#poimg').click();
         });
     </script>
-
 @endsection

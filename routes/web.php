@@ -50,7 +50,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/make-order', [UserOrderController::class, 'makeUserOrder'])->name('userorder');
     Route::put('/ordered', [UserOrderController::class, 'makeOrder'])->name('usermakeOrder');
     Route::get('/orders', [UserOrderController::class, 'orders'])->name('orders');
-    Route::get('/order-edit/{order_id}', [UserOrderController::class, 'orderEdit']);
+    Route::get('/order-edit/{id}', [UserOrderController::class, 'orderEdit']);
+    Route::post('/order-update/{id}', [UserOrderController::class, 'orderUpdate']);
 
     // ?Order Status updation routes
     Route::post('/m-done/{id}', [UserOrderController::class, 'measurement_done']);
@@ -67,7 +68,7 @@ Route::middleware('auth')->group(function () {
 
 //? Admin Routes
 Route::middleware('admin.auth')->group(function () {
-    Route::get('/user-info', [UserDashboardController::class, 'userinfo'])->name('userinfo');
+    Route::get('/users', [UserDashboardController::class, 'userinfo'])->name('userinfo');
     Route::post('/send-mail/{id}', [RouteSignedController::class, 'sendMailRoute']);
     // Route::get('/orders', [UserOrderController::class, 'orders'])->name('orders');
     Route::delete('delete/{id}', [AdminDashboardController::class, 'destroy']);

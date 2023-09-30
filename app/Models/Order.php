@@ -25,6 +25,8 @@ class Order extends Model
         'poimg',
         'fabrics_status',
         'status',
+        'mtakerDate1',
+        'mtakerDate2',
     ];
 
     protected function uid()

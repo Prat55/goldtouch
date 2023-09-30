@@ -76,7 +76,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            {{-- <div class="col-md-4">
                 <div class="card">
                     <div class="card-header">
                         <div class="float-end">
@@ -212,6 +212,50 @@
 
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div> --}}
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Recent Tasks
+                    </div>
+                    <div class="table-responsive fs-14">
+                        <table class="table display mb-4 dataTablesCard order-table shadow-hover  card-table"
+                            id="example5">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>Customer Name</th>
+                                    <th>Task Description</th>
+                                    <th>Status</th>
+                                    <th>Task Due Date</th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="text-center">
+                                @forelse ($tasks as $tk)
+                                    <tr>
+                                        <td>{{ $tk->customer_name }}</td>
+                                        <td>{{ $tk->description }}</td>
+                                        <td>
+                                            @if ($tk->status == 1)
+                                                <span class="text-warning">On Process</span>
+                                            @elseif ($tk->status == 2)
+                                                <span class="text-success">Finished</span>
+                                            @elseif ($tk->status == 3)
+                                                <span class="text-danger">Cancelled</span>
+                                            @elseif ($tk->status == 4)
+                                                <span class="text-warning">Hold</span>
+                                            @endif
+                                        </td>
+                                        <td>{{ $tk->due_date }}</td>
+                                    </tr>
+                                @empty
+                                    <td colspan="5" class="text-center">No tasks found!</td>
+                                @endforelse
+                            </tbody>
+                        </table>
+                        {{ $tasks->links() }}
                     </div>
                 </div>
             </div>

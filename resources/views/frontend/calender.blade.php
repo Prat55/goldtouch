@@ -32,7 +32,7 @@
                             </div>
                             <div class="modal-body">
                                 <ul id="errstatus"></ul>
-                                <input type="text" name="title" id="titleData" class="form-control" required>
+                                <input type="text" name="title" id="titleData" class="form-control" required autofocus>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default waves-effect" data-bs-dismiss="modal">
@@ -115,6 +115,7 @@
                                     $('#saveData').html('Create event');
                                     $('#title').modal('hide');
                                     $('#title .modal-body').find('input').val("");
+                                    location.reload(true);
                                 }
                             }
                         });

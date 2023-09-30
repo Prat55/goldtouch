@@ -34070,7 +34070,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
 .fc-theme-standard .fc-scrollgrid.fc-scrollgrid-liquid,
 .fc-scrollgrid,
 table {
-    border-color: #ebedf3;
+    border-color: #000000;
 }
 
 .fc-daygrid-dot-event {
@@ -47301,4 +47301,14 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
 .floating-search {
     position: absolute;
     top: 50px;
+}
+
+.visible-hidden {
+    visibility: hidden !important;
+}
+
+#poimage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

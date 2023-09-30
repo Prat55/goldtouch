@@ -23,7 +23,8 @@ class AdminDashboardController extends Controller
         $countOrder = Order::all();
         $pendingOrder = Order::where('status', '0');
         $completedOrder = Order::where('status', '9');
-        return view('frontend.index', compact('countOrder', 'pendingOrder', 'completedOrder'));
+        $tasks = Task::latest()->paginate(10);
+        return view('frontend.index', compact('countOrder', 'pendingOrder', 'completedOrder', 'tasks'));
     }
 
     protected function addTasks()
