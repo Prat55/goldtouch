@@ -11,30 +11,29 @@
                         <div class="col-md-12">
                             <h2 class="text-center">Task Manager</h2>
                             <div class="col-md-12 position-relative">
-                                <div class="col-md-4 warningBox1">
+                                <div class="col-md-4 warningBox2">
                                     @include('frontend.message')
                                 </div>
                             </div>
                             <form action="add-task" method="POST">
                                 @csrf
                                 <div class="col-md-12 d-flex justify-content-center align-items-center">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group m-1">
-                                            <label for="cusname">Name</label>
-                                            <input class="form-control" type="text" name="cusname" id="cusname"
-                                                required>
+                                            <label for="cusname">Name of user</label>
+                                            {{-- <input class="form-control" type="text" name="cusname" id="cusname"
+                                                required> --}}
+                                            <select class="form-control" name="cusname" id="cusname" required>
+                                                <option>select user</option>
+                                                @foreach ($users as $user)
+                                                    <option value="{{ $user->id }}">
+                                                        {{ $user->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group m-1">
-                                            <label for="description">Email</label>
-                                            <input class="form-control" type="email" name="email" id="email"
-                                                required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 d-flex justify-content-center align-items-center">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group m-1">
                                             <label for="description">Task Description</label>
                                             <input class="form-control" type="text" name="description" id="description"
@@ -44,13 +43,18 @@
 
                                     <input type="hidden" value="1" name="status" id="status">
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group m-1">
                                             <label for="due_date">Task Due Date</label>
                                             <input class="form-control" type="date" name="due_date" id="due_date"
                                                 required>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-md-12 d-flex justify-content-center align-items-center">
+
+
+
                                 </div>
                                 <div class="col-md-12 d-flex align-items-center">
 
@@ -67,7 +71,7 @@
                                     id="example5">
                                     <thead>
                                         <tr class="text-center">
-                                            <th>Customer Name</th>
+                                            <th>User Name</th>
                                             <th>Task Description</th>
                                             <th>Status</th>
                                             <th>Task Due Date</th>
@@ -146,15 +150,13 @@
                                                                 <form action="/cancelled/{{ $tk->id }}"
                                                                     method="POST">
                                                                     @csrf
-                                                                    <button type="submit"
-                                                                        class="dropdown-item text-black">
+                                                                    <button type="submit" class="dropdown-item text-black">
                                                                         Cancelled
                                                                     </button>
                                                                 </form>
                                                                 <form action="/onhold/{{ $tk->id }}" method="POST">
                                                                     @csrf
-                                                                    <button type="submit"
-                                                                        class="dropdown-item text-black">
+                                                                    <button type="submit" class="dropdown-item text-black">
                                                                         Hold
                                                                     </button>
                                                                 </form>

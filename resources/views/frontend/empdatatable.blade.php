@@ -31,19 +31,54 @@
                     <div class="row no-gutters">
                         <div class="col-xl-12">
                             <div class="auth-form">
-                                <center>
+                                <center class="position-relative">
                                     <h3>Gold Touch</h3>
                                     <h4 class="text-danger">Enter Employees List</h4>
+                                    <div class="col-md-4 warningBox2">
+                                        @include('frontend.message')
+                                    </div>
                                 </center>
                                 <div class="container">
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-sm btn-primary mb-2 ms-4" data-toggle="modal"
-                                        data-target="#eModal">
-                                        Add
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-primary mb-2 reload">
+                                    <div class="row">
+                                        <div class="col-md-12 d-flex justify-content-between">
+                                            <div class="col-md-6">
+                                                <button type="button" class="btn btn-sm btn-primary mb-2 ms-4"
+                                                    data-toggle="modal" data-target="#eModal">
+                                                    Add
+                                                </button>
+                                            </div>
+
+                                            <div class="col-md-6 d-flex justify-content-end">
+                                                <form action="/import/excel" method="post"
+                                                    enctype="multipart/form-data">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <span class="text-danger me-3" id="result"></span>
+
+                                                    <button type="button"
+                                                        class="btn btn-sm btn-primary mb-2 me-4 exceluploadbtn">
+                                                        <i class="bi bi-file-earmark-excel-fill"></i>
+                                                    </button>
+
+                                                    <input type="hidden" name="cusid" id="cusid"
+                                                        value="{{ $segment }}">
+
+                                                    <button type="submit"
+                                                        class="btn btn-sm btn-primary mb-2 me-4 d-none addButton">
+                                                        <i class="fa fa-upload"></i>
+                                                    </button>
+
+                                                    <div class="d-none">
+                                                        <input type="file" name="excel" id="excel">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{-- <button type="button" class="btn btn-sm btn-primary mb-2 reload">
                                         Refresh
-                                    </button>
+                                    </button> --}}
                                     {{-- <a href="" class="btn btn-sm btn-secondary mb-2">Refresh</a> --}}
 
                                     <!-- Modal -->
@@ -208,7 +243,7 @@
                                                     @foreach ($empDetails as $key => $emp)
                                                         @if ($emp->customer_id == $segment)
                                                             <tr>
-                                                                <td>{{ $key +=   1 }}</td>
+                                                                <td>{{ $key += 1 }}</td>
                                                                 <td>{{ $emp->tokenNo }}</td>
                                                                 <td>{{ $emp->sname }}</td>
                                                                 <td>{{ $emp->fullName }}</td>
@@ -426,8 +461,34 @@
                 });
             });
 
-            $(document).on('click', '.reload', function(e) {
-                location.reload();
+            $('.exceluploadbtn').click(function(e) {
+                e.preventDefault();
+                $('#excel').click();
+            });
+
+            $(document).ready(function() {
+                const fileInput = $("#excel");
+                const resultDiv = $("#result");
+
+                fileInput.on("change", function() {
+                    const selectedFile = fileInput[0].files[0];
+
+                    if (selectedFile) {
+                        const allowedExtensions = ["xlsx", "xlx", "xls",
+                            "csv"
+                        ]; // Define your allowed extensions here.
+                        const fileExtension = selectedFile.name.split(".").pop().toLowerCase();
+
+                        if (allowedExtensions.includes(fileExtension)) {
+                            $('.exceluploadbtn').addClass('d-none');
+                            $('.addButton').removeClass('d-none');
+                        } else {
+                            resultDiv.text("Only excel file is allowed.");
+                        }
+                    } else {
+                        resultDiv.text("No file selected.");
+                    }
+                });
             });
         </script>
 </body>

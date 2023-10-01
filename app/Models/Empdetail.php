@@ -11,6 +11,8 @@ class Empdetail extends Model
     protected $fillable = [
         'id',
         'sname',
+        'tokenNo',
+        'customer_id',
         'fullName',
         'category',
         'setOrder',

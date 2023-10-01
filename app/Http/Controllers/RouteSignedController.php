@@ -37,7 +37,6 @@ class RouteSignedController extends Controller
         }
     }
 
-
     protected function edit($id)
     {
         $employee = Empdetail::find($id);
@@ -105,5 +104,11 @@ class RouteSignedController extends Controller
         $emp->delete();
 
         return back()->with('success', 'Employee deleted successfully');
+    }
+
+    // ? Excel data insert function
+    protected function exports(Request $request)
+    {
+
     }
 }

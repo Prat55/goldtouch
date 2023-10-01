@@ -248,10 +248,17 @@ class UserOrderController extends Controller
         }
     }
 
-    protected function orderEdit($order_id)
+    protected function orderEdit(Request $request, $order_id)
     {
         $order = Order::findOrFail($order_id);
-        $employees = Empdetail::paginate(10);
+
+        $employees = Empdetail::latest();
+        if (!empty($request->get('s'))) {
+            $employees = $employees->where('fullName', 'like', '%' . $request->get('s') . '%');
+        }
+
+        $employees =  $employees->paginate(20);
+        // $employees = Empdetail::paginate(10);
         return view('frontend.orderedit', compact('order', 'employees'));
     }
 
@@ -273,7 +280,7 @@ class UserOrderController extends Controller
 
         $orders->update([
             "poimg" => $imageName,
-            "ponumber" => $request->ponumber,
+            "ponumber" => $request->pono,
             "mtaker1" => $request->mtaker1,
             "mtakerDate1" => $request->mtakerDate1,
             "mtaker2" => $request->mtaker2,

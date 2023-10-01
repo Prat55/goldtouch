@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\AdminDashboardController;
+use App\Http\Controllers\CsvImportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RouteSignedController;
 use App\Http\Controllers\UserDashboardController;
@@ -34,6 +35,7 @@ Route::post('/submited', [UserDashboardController::class, 'storeEmpData'])->name
 Route::delete('/delete-empdetails/{id}', [RouteSignedController::class, 'delete']);
 Route::get('/edit-emp/{id}', [RouteSignedController::class, 'edit']);
 Route::put('/update-emp/{id}', [RouteSignedController::class, 'update']);
+Route::put('/import/excel', [CsvImportController::class, 'import']);
 
 //? Dashboard route
 Route::get('/dashboard', [AdminDashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');

@@ -34,14 +34,18 @@ class AdminDashboardController extends Controller
     protected function addTasks()
     {
         $tasks = Task::latest()->paginate(10);
-        return view('frontend.sendTask', compact('tasks'));
+        $users = User::all();
+        return view('frontend.sendTask', compact('tasks', 'users'));
     }
 
     protected function addTask(Request $request)
     {
+        $userTask = User::findOrFail($request->cusname);
+
+
         $tasks = new Task([
-            'customer_name' => $request->cusname,
-            'email' => $request->email,
+            'userId' => $request->cusname,
+            'email' => $userTask->email,
             'description' => $request->description,
             'status' => $request->status,
             'due_date' => $request->due_date,
@@ -49,14 +53,14 @@ class AdminDashboardController extends Controller
         $tasks->save();
 
         $mailData = [
-            'customer_name' =>  'Hello ' . $request->cusname,
-            'email' => $request->email,
+            'userId' =>  'Hello ' . $userTask->name,
+            'email' => $userTask->email,
             'description' => $request->description,
             'due_date' => $request->due_date,
             'message' => 'Your task has been assigned',
         ];
 
-        Mail::to($request->email)->send(new TaskAssignMail($mailData));
+        Mail::to($userTask->email)->send(new TaskAssignMail($mailData));
 
         if ($tasks) {
             return back()->with('success', 'Task created successfully');

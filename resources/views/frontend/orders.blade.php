@@ -88,7 +88,6 @@
                                     <button type="submit" class="btn btn-sm input-group-text">
                                         <i class="flaticon-381-search-2"></i>
                                     </button>
-
                                 </div>
                             </form>
                         </div>
@@ -122,9 +121,10 @@
                                                 #{{ $od->order_id }}
                                             </a>
                                         </td>
-                                        <td>{{ $od->cname }}</td>
-                                        <td class="text-ov">{{ $od->cgstin }}</td>
-                                        <td>{{ $od->phone }}</td>
+                                        <td><a href="/order-edit/{{ $od->id }}">{{ $od->cname }}</a></td>
+                                        <td class="text-ov"><a
+                                                href="/order-edit/{{ $od->id }}">{{ $od->cgstin }}</a></td>
+                                        <td><a href="/order-edit/{{ $od->id }}">{{ $od->phone }}</a></td>
                                         <td>
                                             @if ($od->fabrics_status == 1)
                                                 <span class="text-danger">Not Available</span>
