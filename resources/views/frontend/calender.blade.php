@@ -32,7 +32,12 @@
                             </div>
                             <div class="modal-body">
                                 <ul id="errstatus"></ul>
-                                <input type="text" name="title" id="titleData" class="form-control" required autofocus>
+                                <input type="text" name="title" id="titleData" class="form-control"
+                                    placeholder="Enter Title of the event" required autofocus>
+                                <input type="text" name="assignName1" id="assignName1" class="form-control mt-2"
+                                    placeholder="Enter Name 1" required>
+                                <input type="text" name="assignName2" id="assignName2" class="form-control mt-2"
+                                    placeholder="Enter Name 2" required>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default waves-effect" data-bs-dismiss="modal">
@@ -82,18 +87,22 @@
 
                     $('#saveData').click(function() {
                         var title = $('#titleData').val();
+                        var assign1 = $('#assignName1').val();
+                        var assign2 = $('#assignName2').val();
                         var start_date = moment(arg.start).format('YYYY-MM-DD');
                         var end_date = moment(arg.end).format('YYYY-MM-DD');
-                        console.log(start_date);
-                        console.log(end_date);
+                        // console.log(start_date);
+                        // console.log(end_date);
 
-                        $('#saveData').html('Creating...');
+                        $('#saveData').attr('disabled', true).html('Creating...');
 
                         $.ajax({
                             type: "post",
                             url: "{{ route('calendar.event') }}",
                             data: {
                                 title,
+                                assign1,
+                                assign2,
                                 start_date,
                                 end_date
                             },
@@ -107,12 +116,14 @@
                                         $('#errstatus').append('<li>' + err_values +
                                             '</li>');
                                     });
-                                    $('#saveData').html('Try Again');
+                                    $('#saveData').attr('disabled', false).html(
+                                        'Try Again');
                                 } else {
                                     $('#errstatus').html("");
                                     $('#sStatus').addClass('alert alert-success');
                                     $('#sStatus').text(response.message);
-                                    $('#saveData').html('Create event');
+                                    $('#saveData').attr(disabled, false).html(
+                                        'Create event');
                                     $('#title').modal('hide');
                                     $('#title .modal-body').find('input').val("");
                                     location.reload(true);
@@ -123,11 +134,18 @@
                     calendar.unselect();
                 },
                 editable: true,
-                droppable: true,
-                // weekNumbers: true,
-                // navLinks: true, // can click day/week names to navigate views
-                // editable: true,
-                // selectable: true,
+                droppable: true, // this allows things to be dropped onto the calendar
+                drop: function(arg) {
+                    // is the "remove after drop" checkbox checked?
+                    if (document.getElementById("drop-remove").checked) {
+                        // if so, remove the element from the "Draggable Events" list
+                        arg.draggedEl.parentNode.removeChild(arg.draggedEl);
+                    }
+                },
+                weekNumbers: true,
+                navLinks: true, // can click day/week names to navigate views
+                editable: true,
+                selectable: true,
                 nowIndicator: true,
 
             });
@@ -140,8 +158,8 @@
             }, 1000);
         });
 
-        $('.btn-modal-close').click(function() {
-            $('#title').modal('hide');
-        });
+        // $('.btn-modal-close').click(function() {
+        //     $('#title').modal('hide');
+        // });
     </script>
 @endsection
