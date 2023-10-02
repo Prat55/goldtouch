@@ -150,7 +150,7 @@
                                     id="example5">
                                     <thead>
                                         <tr class="text-center">
-                                            <th>Customer Name</th>
+                                            <th>User Name</th>
                                             <th>Task Description</th>
                                             <th>Status</th>
                                             <th>Task Due Date</th>
@@ -159,7 +159,7 @@
 
                                     <tbody class="text-center">
                                         @forelse ($tasks as $tk)
-                                            @if (Auth::user()->id == $tk->userId)
+                                            @if (Auth::user()->id == $tk->userId && $tk->status == 1)
                                                 <tr>
                                                     <td>{{ $tk->user->name }}</td>
                                                     <td>{{ $tk->description }}</td>
@@ -190,18 +190,23 @@
                     <div class="col-xl-4 col-lg-6">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Tasks Progress Chart</h4>
+                                <h4 class="card-title">Orders Chart</h4>
                             </div>
                             <div class="card-body">
-                                <div id="morris_donught1" class="morris_chart_height"></div>
-
-                                <input type="hidden" name="pendingorder" id="pendingorder"
-                                    value="{{ $pendingOrder->count() }}">
-                                <input type="hidden" name="completedOrder" id="completedOrder"
-                                    value="{{ $completedOrder->count() }}">
-
-                                <input type="hidden" name="completedOrder" id="completedOrder"
-                                    value="{{ $onhold->count() }}">
+                                <div class="col-xl-2 col-sm-4 col-6 mt-4 mt-md-0">
+                                    <div class=""><span class="donut"
+                                            data-peity="{ &quot;fill&quot;: [&quot;rgb(33, 111, 237)&quot;, &quot;rgba(33, 111, 237, .5)&quot;]}"
+                                            style="display: none;">8/8</span><svg class="peity" height="100"
+                                            width="100">
+                                            <path
+                                                d="M 50 0 A 50 50 0 1 1 14.64466094067263 85.35533905932738 L 32.32233047033631 67.67766952966369 A 25 25 0 1 0 50 25"
+                                                data-value="5" fill="rgb(33, 111, 237)"></path>
+                                            <path
+                                                d="M 14.64466094067263 85.35533905932738 A 50 50 0 0 1 49.99999999999999 0 L 49.99999999999999 25 A 25 25 0 0 0 32.32233047033631 67.67766952966369"
+                                                data-value="3" fill="rgba(33, 111, 237, .5)"></path>
+                                        </svg>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -235,28 +240,6 @@
                 redraw: true,
                 colors: ['rgb(255, 92, 0)', '#38e25d', '#943eff'],
                 responsive: true,
-
-            });
-        }
-
-        let donutChart1 = function() {
-            Morris.Donut({
-                element: 'morris_donught1',
-                data: [{
-                    label: "\xa0 \xa0 On process \xa0 \xa0",
-                    value: 0,
-
-                }, {
-                    label: "\xa0 \xa0 Completed \xa0 \xa0",
-                    value: 0
-                }, {
-                    label: "\xa0 \xa0 On Hold \xa0 \xa0",
-                    value: 0
-                }],
-                resize: true,
-                redraw: true,
-                colors: ['rgb(255, 92, 0)', '#38e25d', '#943eff'],
-                //responsive:true,
 
             });
         }

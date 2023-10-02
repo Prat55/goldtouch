@@ -82,7 +82,7 @@
                                     <tbody class="text-center">
                                         @forelse ($tasks as $tk)
                                             <tr>
-                                                <td>{{ $tk->customer_name }}</td>
+                                                <td>{{ $tk->user->name }}</td>
                                                 <td>{{ $tk->description }}</td>
                                                 <td>
                                                     @if ($tk->status == 1)
