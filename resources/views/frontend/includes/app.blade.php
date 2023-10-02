@@ -27,6 +27,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="{{ 'user-assets/xhtml/vendor/chartist/css/chartist.min.css' }}">
+    <link href="{{ 'user-assets/xhtml/vendor/jquery-nice-select/css/nice-select.css' }}" rel="stylesheet">
 </head>
 
 <body>
@@ -281,6 +284,10 @@
     <script src="{{ asset('user-assets/xhtml/vendor/dotted-map/js/smallimap.js') }}"></script>
     <script src="{{ asset('user-assets/xhtml/js/dashboard/dotted-map-init.js') }}"></script>
 
+    <script src="{{ 'user-assets/xhtml/vendor/chartist/js/chartist.min.js' }}"></script>
+    <script src="{{ 'user-assets/xhtml/vendor/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js' }}"></script>
+    <script src="{{ 'user-assets/xhtml/js/plugins-init/chartist-init.js' }}"></script>
+
     <script src="{{ asset('user-assets/xhtml/js/custom.min.js') }}"></script>
     <script src="{{ asset('user-assets/xhtml/js/deznav-init.js') }}"></script>
     <script src="{{ asset('user-assets/xhtml/js/demo.js') }}"></script>
@@ -302,6 +309,10 @@
             }
         });
     </script>
+
+    <!-- Chart Chartist plugin files -->
+
+
     <script>
         $('.search-btn').click(function() {
             $('.search-area').toggleClass("d-none");

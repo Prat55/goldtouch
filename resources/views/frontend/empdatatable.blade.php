@@ -23,7 +23,7 @@
 </head>
 
 <body class="vh-100">
-    <div class="authincation h-100">
+    <div class="authincation">
         <div class="container h-100">
             <div class="row justify-content-center h-100 align-items-center">
                 <div class="col-md-12">
@@ -245,7 +245,7 @@
                                                             <tr>
                                                                 <td>{{ $key += 1 }}</td>
                                                                 <td>{{ $emp->tokenNo }}</td>
-                                                                <td>{{ $emp->sname }}</td>
+                                                                <td>{{ $key += 1 }}</td>
                                                                 <td>{{ $emp->fullName }}</td>
                                                                 <td> {{ $emp->category }} </td>
                                                                 <td> {{ $emp->setOrder }} </td>
