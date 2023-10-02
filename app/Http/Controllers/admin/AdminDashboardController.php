@@ -15,20 +15,21 @@ use Illuminate\Support\Facades\Validator;
 
 class AdminDashboardController extends Controller
 {
-    protected function order()
-    {
-        return view('frontend.order');
-    }
-
     protected function index()
     {
         $countOrder = Order::all();
         $pendingOrder = Order::where('status', '0');
+        $onhold = Order::where('fabrics_status', '3');
         $completedOrder = Order::where('status', '9');
         $tasks = Task::latest()->paginate(10);
-
         $tasksInProcess = Task::all()->where('status', '1')->count();
-        return view('frontend.index', compact('countOrder', 'pendingOrder', 'completedOrder', 'tasks', 'tasksInProcess'));
+
+        return view('frontend.index', compact('countOrder', 'pendingOrder', 'completedOrder', 'tasks', 'tasksInProcess', 'onhold'));
+    }
+
+    protected function order()
+    {
+        return view('frontend.order');
     }
 
     protected function addTasks()

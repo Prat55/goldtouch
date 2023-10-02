@@ -47307,7 +47307,7 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
     visibility: hidden !important;
 }
 
-#poimage{
+#poimage {
     display: flex;
     justify-content: center;
     align-items: center;

@@ -288,6 +288,10 @@
     <script src="{{ 'user-assets/xhtml/vendor/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js' }}"></script>
     <script src="{{ 'user-assets/xhtml/js/plugins-init/chartist-init.js' }}"></script>
 
+    <script src="{{ 'user-assets/xhtml/vendor/raphael/raphael.min.js' }}"></script>
+    <script src="{{ 'user-assets/xhtml/vendor/morris/morris.min.js' }}"></script>
+    <script src="{{ 'user-assets/xhtml/js/plugins-init/morris-init.js' }}"></script>
+
     <script src="{{ asset('user-assets/xhtml/js/custom.min.js') }}"></script>
     <script src="{{ asset('user-assets/xhtml/js/deznav-init.js') }}"></script>
     <script src="{{ asset('user-assets/xhtml/js/demo.js') }}"></script>
@@ -302,6 +306,8 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+
     <script>
         $.ajaxSetup({
             headers: {
