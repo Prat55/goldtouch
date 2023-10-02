@@ -128,12 +128,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="content-body">
-        <!-- row -->
-        <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
                     <h3 class="text-center">Employee Details</h3>
