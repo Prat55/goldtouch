@@ -140,7 +140,7 @@
                         </div>
                     </div>
                 @else
-                    <div class="col-md-8 col-lg-6">
+                    <div class="col-md-8 col-lg-8">
                         <div class="card">
                             <div class="card-header">
                                 <h3>Recent Alloted Tasks</h3>
@@ -206,7 +206,6 @@
                         </div>
                     </div>
                 @endif
-
             </div>
         </div>
     </div>
