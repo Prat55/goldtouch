@@ -122,7 +122,7 @@
                                     $('#errstatus').html("");
                                     $('#sStatus').addClass('alert alert-success');
                                     $('#sStatus').text(response.message);
-                                    $('#saveData').attr(disabled, false).html(
+                                    $('#saveData').attr('disabled', false).html(
                                         'Create event');
                                     $('#title').modal('hide');
                                     $('#title .modal-body').find('input').val("");

@@ -78,7 +78,7 @@ function addSwitcher() {
         //     setCookie("logo_src2", "images/logo-text.png");
         // }
 
-        localStorage.setItem("version", this.value);
+        localStorage.getItem("version", this.value);
     });
 
     //change the sidebar position controller

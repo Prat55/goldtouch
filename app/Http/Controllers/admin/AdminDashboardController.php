@@ -17,6 +17,7 @@ class AdminDashboardController extends Controller
 {
     protected function index()
     {
+        $orders = Order::latest()->paginate(10);
         $countOrder = Order::all();
         $pendingOrder = Order::where('status', '0');
         $onhold = Order::where('fabrics_status', '3');
@@ -24,7 +25,7 @@ class AdminDashboardController extends Controller
         $tasks = Task::latest()->paginate(10);
         $tasksInProcess = Task::all()->where('status', '1')->count();
 
-        return view('frontend.index', compact('countOrder', 'pendingOrder', 'completedOrder', 'tasks', 'tasksInProcess', 'onhold'));
+        return view('frontend.index', compact('countOrder', 'pendingOrder', 'completedOrder', 'tasks', 'tasksInProcess', 'onhold', 'orders'));
     }
 
     protected function order()
