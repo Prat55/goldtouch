@@ -46,11 +46,11 @@
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">PO NUMBER</label>
-                                            <input type="text" class="form-control" name="pono" required>
+                                            <input type="text" class="form-control" name="pono">
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">PO COPY UPLOAD</label>
-                                            <input type="file" class="form-control" name="poimg" required>
+                                            <input type="file" class="form-control" name="poimg">
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">MEASURMENT TAKER 1</label>
@@ -58,13 +58,12 @@
                                                 <div class="col-8">
                                                     <!-- Text input with 70% width -->
                                                     <input type="text" name="mtaker1" class="form-control"
-                                                        style="width: 100%" placeholder="Enter measurement taker name"
-                                                        required />
+                                                        style="width: 100%" placeholder="Enter measurement taker name" />
                                                 </div>
                                                 <div class="col-3">
                                                     <!-- Date-time input with 30% width -->
                                                     <input type="date" name="mdatetime1" class="form-control"
-                                                        style="width: 100%" required />
+                                                        style="width: 100%" />
                                                 </div>
                                             </div>
                                         </div>

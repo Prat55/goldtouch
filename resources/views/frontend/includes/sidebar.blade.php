@@ -46,14 +46,15 @@
                         <span class="nav-text">Send Notification</span>
                     </a>
                 </li>
-            @else
-                <li>
-                    <a class="" href="{{ route('userorder') }}" aria-expanded="false">
-                        <i class="flaticon-067-plus"></i>
-                        <span class="nav-text">Order</span>
-                    </a>
-                </li>
             @endif
+
+            <li>
+                <a class="" href="{{ route('userorder') }}" aria-expanded="false">
+                    <i class="flaticon-067-plus"></i>
+                    <span class="nav-text">Order</span>
+                </a>
+            </li>
+
             <li>
                 <a class="" href="{{ route('calender') }}" aria-expanded="false">
                     <i class="fa-solid fa-calendar-days"></i>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\TaskAssignMail;
 use App\Models\Empdetail;
 use App\Models\Event;
+use App\Models\Notification;
 use App\Models\Order;
 use App\Models\Task;
 use App\Models\User;
@@ -24,8 +25,9 @@ class AdminDashboardController extends Controller
         $completedOrder = Order::where('status', '9');
         $tasks = Task::latest()->paginate(10);
         $tasksInProcess = Task::all()->where('status', '1')->count();
+        $notification = Notification::all();
 
-        return view('frontend.index', compact('countOrder', 'pendingOrder', 'completedOrder', 'tasks', 'tasksInProcess', 'onhold', 'orders'));
+        return view('frontend.index', compact('countOrder', 'pendingOrder', 'completedOrder', 'tasks', 'tasksInProcess', 'onhold', 'orders', 'notification'));
     }
 
     protected function order()
@@ -37,7 +39,8 @@ class AdminDashboardController extends Controller
     {
         $tasks = Task::latest()->paginate(10);
         $users = User::all();
-        return view('frontend.sendTask', compact('tasks', 'users'));
+        $notification = Notification::all();
+        return view('frontend.sendTask', compact('tasks', 'users', 'notification'));
     }
 
     protected function addTask(Request $request)
@@ -54,8 +57,15 @@ class AdminDashboardController extends Controller
         ]);
         $tasks->save();
 
+        $notification = new Notification([
+            'notification_title' => "task assigned for " . $userTask->email,
+            'notification_type' => "task",
+            'status' => '1',
+        ]);
+        $notification->save();
+
         $mailData = [
-            'userId' =>  'Hello ' . $userTask->name,
+            'customer_name' =>  'Hello ' . $userTask->name,
             'email' => $userTask->email,
             'description' => $request->description,
             'due_date' => $request->due_date,
@@ -128,6 +138,7 @@ class AdminDashboardController extends Controller
     {
         $tasks = array();
         $events = Event::all();
+        $notification = Notification::all();
         foreach ($events as $ev) {
             $tasks[] = [
                 'title' => $ev->title . ' assign to:' . $ev->assignName1 . ',' . $ev->assignName2,
@@ -135,7 +146,7 @@ class AdminDashboardController extends Controller
                 'end' => $ev->end_date,
             ];
         }
-        return view('frontend.calender', ['tasks' => $tasks]);
+        return view('frontend.calender', ['tasks' => $tasks], compact('notification'));
     }
 
     protected function calender_event(Request $request)
@@ -162,6 +173,13 @@ class AdminDashboardController extends Controller
                 'end_date' => $request->input('end_date'),
             ]);
             $events->save();
+
+            $notification = new Notification([
+                'notification_title' => "Event is created for " . $request->input('title'),
+                'notification_type' => "event",
+                'status' => '1',
+            ]);
+            $notification->save();
 
             if ($events) {
                 return response()->json([

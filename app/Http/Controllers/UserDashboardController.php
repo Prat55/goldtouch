@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Empdetail;
+use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +17,8 @@ class UserDashboardController extends Controller
     {
         $users = User::latest()->where('role', '1');
         $admins = User::latest()->where('role', '2');
+        $notification = Notification::all();
+
 
         if (!empty($request->get('name'))) {
             $orders = $users->where('name', 'like', '%' . $request->get('name') . '%');
@@ -25,7 +28,7 @@ class UserDashboardController extends Controller
         $users2 = User::where('role', '2')->count();
         $users =  $users->paginate(12);
         $admins =  $admins->paginate(12);
-        return view('frontend.userinfo', compact('users', 'users1', 'users2', 'admins'));
+        return view('frontend.userinfo', compact('users', 'users1', 'users2', 'admins', 'notification'));
     }
 
     protected function empData(Request $request)

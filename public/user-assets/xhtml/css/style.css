@@ -16190,7 +16190,19 @@ svg.pulse-svg .third-circle {
     border-top: 0.0625rem solid #c8c8c8;
 }
 
+.notification_dropdown .dropdown-menu-end .hide-notification {
+    display: block;
+    padding: 0.9375rem 1.875rem 0;
+    text-align: center;
+    color: var(--primary);
+    border-top: 0.0625rem solid #c8c8c8;
+}
+
 .notification_dropdown .dropdown-menu-end .all-notification i {
+    margin-left: 0.625rem;
+}
+
+.notification_dropdown .dropdown-menu-end .hide-notification i {
     margin-left: 0.625rem;
 }
 
@@ -29312,6 +29324,10 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     border-color: #2e2e42;
 }
 
+[data-theme-version="dark"] .notification_dropdown .dropdown-menu-right .hide-notification {
+    border-color: #2e2e42;
+}
+
 [data-theme-version="dark"] #user-activity .nav-tabs .nav-link {
     border-color: #2e2e42;
 }
@@ -29792,6 +29808,10 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 }
 
 [data-theme-version="dark"] .all-notification {
+    border-top: 0.0625rem solid #2e2e42 !important;
+}
+
+[data-theme-version="dark"] .hide-notification {
     border-top: 0.0625rem solid #2e2e42 !important;
 }
 
@@ -46408,6 +46428,10 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
     border-color: #2e2e42;
 }
 
+[data-theme-version="dark"] .notification_dropdown .dropdown-menu-right .hide-notification {
+    border-color: #2e2e42;
+}
+
 [data-theme-version="dark"] #user-activity .nav-tabs .nav-link {
     border-color: #2e2e42;
 }
@@ -46891,6 +46915,10 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
     border-top: 0.0625rem solid #2e2e42 !important;
 }
 
+[data-theme-version="dark"] .hide-notification {
+    border-top: 0.0625rem solid #2e2e42 !important;
+}
+
 [data-theme-version="dark"] .form-check .form-check-input {
     border-color: #2e2e42;
 }
@@ -47311,4 +47339,9 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.notification {
+    color: #7c7c7c !important;
+    opacity: 0.5;
 }

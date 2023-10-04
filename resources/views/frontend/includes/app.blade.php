@@ -141,37 +141,63 @@
                                             d="M26.3532 19.74C24.877 17.8785 22.3996 14.2195 22.3996 10.64C22.3996 7.09073 20.1193 3.89758 16.7996 2.72382C16.7593 1.21406 15.5183 0 14.0007 0C12.482 0 11.2422 1.21406 11.2018 2.72382C7.88101 3.89758 5.6007 7.09073 5.6007 10.64C5.6007 14.2207 3.1244 17.8785 1.64712 19.74C1.15433 20.3616 1.00197 21.1825 1.24058 21.9363C1.47354 22.6721 2.05367 23.2422 2.79288 23.4595C4.08761 23.8415 6.20997 24.2715 9.44682 24.491C10.8479 24.5851 12.3543 24.64 14.0008 24.64C15.646 24.64 17.1525 24.5851 18.5535 24.491C21.7915 24.2715 23.9128 23.8415 25.2086 23.4595C25.9478 23.2422 26.5268 22.6722 26.7598 21.9363C26.9983 21.1825 26.8449 20.3616 26.3532 19.74Z"
                                             fill="#737B8B"></path>
                                     </svg>
-                                    <span class="badge light text-white bg-primary rounded-circle">1</span>
+                                    <span class="badge light text-white bg-primary rounded-circle">
+                                        {{ $notification->count() }}
+                                    </span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
                                     <div id="DZ_W_Notification1" class="widget-media dz-scroll p-3"
                                         style="min-height: auto; max-height: 380px;">
                                         <ul class="timeline">
-                                            @if (Auth::user()->role === 2)
+                                            @forelse ($notification as $nf)
                                                 <li>
                                                     <div class="timeline-panel">
-                                                        <div class="media me-2 media-success">
-                                                            <i class="fa fa-home"></i>
+                                                        <div
+                                                            class="media me-2 @if ($nf->notification_type == 'order') media-success
+                                                                @elseif ($nf->notification_type == 'task')
+                                                                    media-warning
+                                                                @elseif($nf->notification_type == 'event')
+                                                                    media-warning @endif">
+                                                            @if ($nf->notification_type == 'order')
+                                                                <i class="fa fa-clock"></i>
+                                                            @elseif ($nf->notification_type == 'task')
+                                                                <i class="fa fa-tasks"></i>
+                                                            @elseif($nf->notification_type == 'event')
+                                                                <i class="fa fa-images"></i>
+                                                            @endif
+                                                            {{-- <i class="fa fa-home"></i> --}}
                                                         </div>
                                                         <div class="media-body">
-                                                            <h6 class="mb-1">Reminder : Due date of #095986 is near!
+
+                                                            <h6 class="mb-1">
+                                                                @if ($nf->notification_type == 'order')
+                                                                    Order
+                                                                @elseif ($nf->notification_type == 'task')
+                                                                    Task
+                                                                @elseif($nf->notification_type == 'event')
+                                                                    Event
+                                                                @endif
+                                                                : {{ $nf->notification_title }}
                                                             </h6>
-                                                            <small class="d-block">29 July 2020 - 02:26 PM</small>
+
+                                                            <small class="d-block">{{ $nf->created_at }}</small>
+                                                        </div>
+
+                                                    </div>
+                                                </li>
+                                            @empty
+                                                <li>
+                                                    <div class="timeline-panel">
+                                                        <div class="media-body">
+                                                            <h6 class="text-center notification">
+                                                                No notifications found!
+                                                            </h6>
                                                         </div>
                                                     </div>
                                                 </li>
-                                            @else
-                                                <li>
-                                                    <div class="text-center">
-                                                        <h4 class="">No notifications</h4>
-                                                    </div>
-                                                </li>
-                                            @endif
-
+                                            @endforelse
                                         </ul>
                                     </div>
-                                    <a class="all-notification" href="javascript:void(0);">See all notifications <i
-                                            class="ti-arrow-end"></i></a>
                                 </div>
                             </li>
                             <li class="nav-item dropdown header-profile">
@@ -322,6 +348,27 @@
     <script>
         $('.search-btn').click(function() {
             $('.search-area').toggleClass("d-none");
+        });
+    </script>
+
+    <script>
+        var styles = {
+            "max-height": "800px",
+        };
+        // $('.widget-media').css("max-height", "380px");
+
+        $('.all-notification').click(function(e) {
+            e.preventDefault();
+            $('.widget-media').css(styles);
+            $('.hide-notification').removeClass("d-none");
+            $('.all-notification').addClass("d-none");
+        });
+
+        $('.hide-notification').click(function(e) {
+            e.preventDefault();
+            $('.widget-media').css("max-height", "380px");
+            $('.hide-notification').addClass("d-none");
+            $('.all-notification').removeClass("d-none");
         });
     </script>
     @yield('customJs')

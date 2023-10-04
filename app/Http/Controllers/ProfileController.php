@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Notification;
 use App\Models\Order;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,10 +20,11 @@ class ProfileController extends Controller
     {
         $uordersCount = Order::where('u_id', Auth::user()->id)->count();
         $aordersCount = Order::count();
+        $notification = Notification::all();
 
         return view('frontend.profile.profile', [
             'user' => $request->user(),
-        ], compact('uordersCount', 'aordersCount'));
+        ], compact('uordersCount', 'aordersCount', 'notification'));
     }
 
     /**
