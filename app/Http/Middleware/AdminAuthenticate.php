@@ -22,12 +22,10 @@ class AdminAuthenticate
     {
         $user = Auth::user();
 
-        if ($user->role == 2) {
+        if (Auth::check() && $user->role == 2) {
             return $next($request);
-        } else if (!Auth::check()) {
-            return redirect('/');
         } else {
-            abort(403);
+            abort(404);
         }
     }
 }
