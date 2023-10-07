@@ -25,7 +25,7 @@ class AdminAuthenticate
         if (Auth::check() && $user->role == 2) {
             return $next($request);
         } else {
-            abort(404);
+            return back();
         }
     }
 }

@@ -26,8 +26,9 @@ class AdminDashboardController extends Controller
         $tasks = Task::latest()->paginate(10);
         $tasksInProcess = Task::all()->where('status', '1')->count();
         $notification = Notification::all();
+        $notificationCount = Notification::where('status', '1')->count();
 
-        return view('frontend.index', compact('countOrder', 'pendingOrder', 'completedOrder', 'tasks', 'tasksInProcess', 'onhold', 'orders', 'notification'));
+        return view('frontend.index', compact('countOrder', 'pendingOrder', 'completedOrder', 'tasks', 'tasksInProcess', 'onhold', 'orders', 'notification', 'notificationCount'));
     }
 
     protected function order()
@@ -40,7 +41,8 @@ class AdminDashboardController extends Controller
         $tasks = Task::latest()->paginate(10);
         $users = User::all();
         $notification = Notification::all();
-        return view('frontend.sendTask', compact('tasks', 'users', 'notification'));
+        $notificationCount = Notification::where('status', '1')->count();
+        return view('frontend.sendTask', compact('tasks', 'users', 'notification', 'notificationCount'));
     }
 
     protected function addTask(Request $request)
@@ -139,6 +141,8 @@ class AdminDashboardController extends Controller
         $tasks = array();
         $events = Event::all();
         $notification = Notification::all();
+        $notificationCount = Notification::where('status', '1')->count();
+
         foreach ($events as $ev) {
             $tasks[] = [
                 'title' => $ev->title . ' assign to:' . $ev->assignName1 . ',' . $ev->assignName2,
@@ -146,7 +150,7 @@ class AdminDashboardController extends Controller
                 'end' => $ev->end_date,
             ];
         }
-        return view('frontend.calender', ['tasks' => $tasks], compact('notification'));
+        return view('frontend.calender', ['tasks' => $tasks], compact('notification', 'notificationCount'));
     }
 
     protected function calender_event(Request $request)
@@ -249,5 +253,16 @@ class AdminDashboardController extends Controller
         } else {
             return back()->with('error', 'Something went wrong!');
         }
+    }
+
+    protected function check_notifications()
+    {
+        $notifications = Notification::all();
+
+        foreach ($notifications as $notification) {
+            $notification->status = 2;
+        }
+
+        return back();
     }
 }

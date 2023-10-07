@@ -43,7 +43,7 @@
                                     <div class="row">
                                         <div class="col-md-12 d-flex justify-content-between">
                                             <div class="col-md-6">
-                                                <button type="button" class="btn btn-sm btn-primary mb-2 ms-4"
+                                                <button type="button" class="mb-2 btn btn-sm btn-primary ms-4"
                                                     data-toggle="modal" data-target="#eModal">
                                                     Add
                                                 </button>
@@ -57,7 +57,7 @@
                                                     <span class="text-danger me-3" id="result"></span>
 
                                                     <button type="button"
-                                                        class="btn btn-sm btn-primary mb-2 me-4 exceluploadbtn">
+                                                        class="mb-2 btn btn-sm btn-primary me-4 exceluploadbtn">
                                                         <i class="bi bi-file-earmark-excel-fill"></i>
                                                     </button>
 
@@ -65,7 +65,7 @@
                                                         value="{{ $segment }}">
 
                                                     <button type="submit"
-                                                        class="btn btn-sm btn-primary mb-2 me-4 d-none addButton">
+                                                        class="mb-2 btn btn-sm btn-primary me-4 d-none addButton">
                                                         <i class="fa fa-upload"></i>
                                                     </button>
 
@@ -76,10 +76,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- <button type="button" class="btn btn-sm btn-primary mb-2 reload">
+                                    {{-- <button type="button" class="mb-2 btn btn-sm btn-primary reload">
                                         Refresh
                                     </button> --}}
-                                    {{-- <a href="" class="btn btn-sm btn-secondary mb-2">Refresh</a> --}}
+                                    {{-- <a href="" class="mb-2 btn btn-sm btn-secondary">Refresh</a> --}}
 
                                     <!-- Modal -->
                                     <div class="modal fade" id="eModal" tabindex="-1" role="dialog"
@@ -122,9 +122,9 @@
                                                     <label for="" class="mt-1">Set Order</label>
                                                     <input type="number" name="setOrder" id="setOrder"
                                                         class="form-control ">
-                                                    <input type="text" value="MEASURMENT PENDING" id="status"
-                                                        name="status" class="form-control mt-2">
-                                                    {{-- <select name="status" id="status" class="form-control mt-2">
+                                                    <input type="text" value="MP" id="status"
+                                                        name="status" class="mt-2 form-control">
+                                                    {{-- <select name="status" id="status" class="mt-2 form-control">
                                                         <option value="MEASURMENT DONE">MEASURMENT DONE</option>
                                                         <option value="MEASURMENT PENDING">MEASURMENT PENDING
                                                         </option>
@@ -192,8 +192,8 @@
                                                     <input type="number" name="setOrder" id="esetOrder"
                                                         class="form-control">
                                                     <input type="text" value="MEASURMENT PENDING" id="estatus"
-                                                        name="status" class="form-control mt-2" readonly>
-                                                    {{-- <select name="status" id="estatus" class="form-control mt-2">
+                                                        name="status" class="mt-2 form-control" readonly>
+                                                    {{-- <select name="status" id="estatus" class="mt-2 form-control">
                                                         <option value="MEASURMENT DONE">MEASURMENT DONE</option>
                                                         <option value="MEASURMENT PENDING">MEASURMENT PENDING
                                                         </option>
@@ -224,7 +224,7 @@
 
                                         </div>
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-bordered text-center">
+                                            <table class="table text-center table-striped table-bordered">
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">Sr No.</th>
@@ -252,12 +252,12 @@
                                                                 <td> {{ $emp->status }} </td>
                                                                 <td></td>
                                                                 <td class="d-flex align-items-center">
-                                                                    <button class="edit btn mb-2"
+                                                                    <button class="mb-2 edit btn"
                                                                         value="{{ $emp->id }}">
                                                                         <i class="fa-solid fa-pen-to-square"
                                                                             style="color: rgb(64, 111, 212)"></i>
                                                                     </button>
-                                                                    <button type="button" class="btn mb-2"
+                                                                    <button type="button" class="mb-2 btn"
                                                                         data-toggle="modal" data-target="#dModal">
                                                                         <i class="fa-regular fa-trash-can"
                                                                             style="color: rgb(216, 52, 52)"></i>

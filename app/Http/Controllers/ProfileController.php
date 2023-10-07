@@ -21,10 +21,11 @@ class ProfileController extends Controller
         $uordersCount = Order::where('u_id', Auth::user()->id)->count();
         $aordersCount = Order::count();
         $notification = Notification::all();
+        $notificationCount = Notification::where('status', '1')->count();
 
         return view('frontend.profile.profile', [
             'user' => $request->user(),
-        ], compact('uordersCount', 'aordersCount', 'notification'));
+        ], compact('uordersCount', 'aordersCount', 'notification', 'notificationCount'));
     }
 
     /**

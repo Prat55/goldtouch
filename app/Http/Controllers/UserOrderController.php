@@ -20,13 +20,15 @@ class UserOrderController extends Controller
     protected function order()
     {
         $notification = Notification::all();
-        return view('frontend.customerOrder', compact('notification'));
+        $notificationCount = Notification::where('status', '1')->count();
+        return view('frontend.customerOrder', compact('notification', 'notificationCount'));
     }
 
     protected function makeUserOrder()
     {
         $notification = Notification::all();
-        return view('frontend.order', compact('notification'));
+        $notificationCount = Notification::where('status', '1')->count();
+        return view('frontend.order', compact('notification', 'notificationCount'));
     }
 
     protected function random()
@@ -135,6 +137,7 @@ class UserOrderController extends Controller
         $aordersCount = Order::count();
         $pedingOrders = Order::where('status', '1')->count();
         $notification = Notification::all();
+        $notificationCount = Notification::where('status', '1')->count();
 
         $orders = Order::latest();
         if (!empty($request->get('c'))) {
@@ -142,7 +145,7 @@ class UserOrderController extends Controller
         }
 
         $orders =  $orders->paginate(20);
-        return view('frontend.orders', compact('orders', 'fabricStatus', 'aordersCount', 'pedingOrders', 'notification'));
+        return view('frontend.orders', compact('orders', 'fabricStatus', 'aordersCount', 'pedingOrders', 'notification', 'notificationCount'));
     }
 
     protected function assign(Request $request, $id)
@@ -168,13 +171,13 @@ class UserOrderController extends Controller
 
     protected function measurement_pending($id)
     {
-        $order = Order::findOrFail($id);
+        $emp = Empdetail::findOrFail($id);
 
-        if ($order) {
-            $order->status = 3;
-            $order->update();
+        if ($emp) {
+            $emp->status = "MP";
+            $emp->update();
 
-            return back()->with('success', 'Order status updated successfully to Measurement Pending');
+            return back()->with('success', 'Employee status updated successfully to Measurement Pending');
         } else {
             return back()->with('error', 'Something went wrong!');
         }
@@ -182,13 +185,15 @@ class UserOrderController extends Controller
 
     protected function measurement_done($id)
     {
-        $order = Order::findOrFail($id);
+        $emp = Empdetail::findOrFail($id);
 
-        if ($order) {
-            $order->status = 4;
-            $order->update();
+        if ($emp) {
+            // $order->status = 4;
+            // $order->update();
+            $emp->status = "MD";
+            $emp->update();
 
-            return back()->with('success', 'Order status updated successfully to Measurement Done');
+            return back()->with('success', 'Employee status updated successfully to Measurement Done');
         } else {
             return back()->with('error', 'Something went wrong!');
         }
@@ -238,13 +243,13 @@ class UserOrderController extends Controller
 
     protected function ready_dispatch($id)
     {
-        $order = Order::findOrFail($id);
+        $emp = Empdetail::findOrFail($id);
 
-        if ($order) {
-            $order->status = 8;
-            $order->update();
+        if ($emp) {
+            $emp->status = "RD";
+            $emp->update();
 
-            return back()->with('success', 'Order status updated successfully to Ready for Dispatch');
+            return back()->with('success', 'Employee status updated successfully to Ready for Dispatch');
         } else {
             return back()->with('error', 'Something went wrong!');
         }
@@ -268,6 +273,7 @@ class UserOrderController extends Controller
     {
         $order = Order::findOrFail($order_id);
         $notification = Notification::all();
+        $notificationCount = Notification::where('status', '1')->count();
 
         $employees = Empdetail::latest();
         if (!empty($request->get('s'))) {
@@ -276,7 +282,7 @@ class UserOrderController extends Controller
 
         $employees =  $employees->paginate(20);
         // $employees = Empdetail::paginate(10);
-        return view('frontend.orderedit', compact('order', 'employees', 'notification'));
+        return view('frontend.orderedit', compact('order', 'employees', 'notification', 'notificationCount'));
     }
 
     protected function orderUpdate(Request $request, $id)

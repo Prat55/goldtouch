@@ -5,7 +5,7 @@
     <div class="content-body">
         <!-- row -->
         <div class="container-fluid">
-            <div class="mb-sm-4 d-flex flex-wrap align-items-center text-head">
+            <div class="flex-wrap mb-sm-4 d-flex align-items-center text-head">
                 <h2 class="mb-3 me-auto">Dashboard</h2>
                 <div>
                     <ol class="breadcrumb">
@@ -79,8 +79,7 @@
 
                 <div class="col-xl-12">
                     <div class="table-responsive fs-14">
-                        <table class="table display mb-4 dataTablesCard order-table shadow-hover  card-table"
-                            id="example5">
+                        <table class="table mb-4 display dataTablesCard order-table shadow-hover card-table" id="example5">
                             <thead>
                                 <tr class="text-center">
                                     <th>Order ID</th>
@@ -142,19 +141,19 @@
                                                     <div class="dropdown-menu dropdown-menu-right">
                                                         <form action="/accept/{{ $od->id }}" method="POST">
                                                             @csrf
-                                                            <button type="submit" class="dropdown-item text-black">
+                                                            <button type="submit" class="text-black dropdown-item">
                                                                 Available
                                                             </button>
                                                         </form>
                                                         <form action="/reject/{{ $od->id }}" method="POST">
                                                             @csrf
-                                                            <button type="submit" class="dropdown-item text-black">
+                                                            <button type="submit" class="text-black dropdown-item">
                                                                 Not Available
                                                             </button>
                                                         </form>
                                                         <form action="/hold/{{ $od->id }}" method="POST">
                                                             @csrf
-                                                            <button type="submit" class="dropdown-item text-black">
+                                                            <button type="submit" class="text-black dropdown-item">
                                                                 Hold
                                                             </button>
                                                         </form>
@@ -167,7 +166,7 @@
                                                         @if ($od->fabrics_status == 2)
                                                             <form action="/send-mail/{{ $od->id }}" method="post">
                                                                 @csrf
-                                                                <button type="submit" class="dropdown-item text-black">
+                                                                <button type="submit" class="text-black dropdown-item">
                                                                     Send Mail
                                                                 </button>
                                                             </form>
@@ -184,7 +183,6 @@
                                 @endforelse
                             </tbody>
                         </table>
-                        {{ $orders->links() }}
                     </div>
                 </div>
 
@@ -195,7 +193,7 @@
                                 <h3>Recent Alloted Tasks</h3>
                             </div>
                             <div class="table-responsive fs-14">
-                                <table class="table display mb-4 dataTablesCard order-table shadow-hover  card-table"
+                                <table class="table mb-4 display dataTablesCard order-table shadow-hover card-table"
                                     id="example5">
                                     <thead>
                                         <tr class="text-center">
@@ -257,7 +255,7 @@
                                 <h3>Recent Alloted Tasks</h3>
                             </div>
                             <div class="table-responsive fs-14">
-                                <table class="table display mb-4 dataTablesCard order-table shadow-hover  card-table"
+                                <table class="table mb-4 display dataTablesCard order-table shadow-hover card-table"
                                     id="example5">
                                     <thead>
                                         <tr class="text-center">
@@ -304,7 +302,7 @@
                                 <h4 class="card-title">Orders Chart</h4>
                             </div>
                             <div class="card-body">
-                                <div class="col-xl-2 col-sm-4 col-6 mt-4 mt-md-0">
+                                <div class="mt-4 col-xl-2 col-sm-4 col-6 mt-md-0">
                                     <div class=""><span class="donut"
                                             data-peity="{ &quot;fill&quot;: [&quot;rgb(33, 111, 237)&quot;, &quot;rgba(33, 111, 237, .5)&quot;]}"
                                             style="display: none;">8/8</span><svg class="peity" height="100"

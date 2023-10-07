@@ -4,7 +4,7 @@
 @section('content')
     <div class="content-body">
         <div class="container-fluid">
-            <div class="mb-sm-4 d-flex flex-wrap align-items-center text-head">
+            <div class="flex-wrap mb-sm-4 d-flex align-items-center text-head">
                 <h2 class="mb-3 me-auto">Order</h2>
                 <div>
                     <ol class="breadcrumb">
@@ -100,7 +100,7 @@
                                             <label class="form-label">Email</label>
                                             <div class="d-flex align-items-center">
                                                 <div class="col-md-9">
-                                                    <input type="email" class="form-control mt-1"
+                                                    <input type="email" class="mt-1 form-control"
                                                         placeholder="Enter Email Id 1" name="email1"
                                                         value="{{ $order->email }}" readonly>
                                                 </div>
@@ -139,13 +139,9 @@
                     </div>
                 </div>
 
-                <div class="col-md-4 warningBox">
-                    @include('frontend.message')
-                </div>
-
                 <div class="col-xl-12">
-                    <div class="d-flex flex-wrap">
-                        <div class="table-search mb-3 pe-3">
+                    <div class="flex-wrap d-flex">
+                        <div class="mb-3 table-search pe-3">
                             <form action="" method="get">
                                 <div class="input-group search-area">
                                     <input type="text" name="s" class="form-control"
@@ -159,7 +155,7 @@
                             </form>
                         </div>
 
-                        <a onclick="history.back()" class="btn btn-warning mb-3">
+                        <a onclick="history.back()" class="mb-3 btn btn-warning">
                             <i class="fas fa-redo-alt"></i>
                         </a>
                     </div>
@@ -167,7 +163,7 @@
 
                 <div class="col-xl-12">
                     <div class="table-responsive fs-14">
-                        <table class="table display mb-4 dataTablesCard order-table shadow-hover  card-table"
+                        <table class="table mb-4 display dataTablesCard order-table shadow-hover card-table"
                             id="example5">
                             <thead>
                                 <tr class="text-center">
@@ -191,28 +187,12 @@
                                             <td>{{ $od->category }}</td>
                                             <td>{{ $od->setOrder }}</td>
                                             <td>
-                                                @if ($od->status == 2)
-                                                    <span class="text-danger">On hold</span>
-                                                @elseif ($od->status == 1)
-                                                    <span class="text-warning">Processing</span>
-                                                @elseif ($od->status == 3)
+                                                @if ($od->status == 'MP')
                                                     <span class="text-warning">Measurement Pending</span>
-                                                @elseif ($od->status == 4)
+                                                @elseif ($od->status == 'MD')
                                                     <span class="text-success">Measurement Done</span>
-                                                @elseif ($od->status == 5)
-                                                    <span class="text-success">Processing Done</span>
-                                                @elseif ($od->status == 6)
-                                                    <span class="text-warning">Dispatching Pending</span>
-                                                @elseif ($od->status == 7)
-                                                    <span class="text-warning">Ready for dispatch payment pending</span>
-                                                @elseif ($od->status == 8)
+                                                @elseif ($od->status == 'RD')
                                                     <span class="text-success">Ready for dispatch</span>
-                                                @elseif ($od->status == 9)
-                                                    <span class="text-success">Dispatched</span>
-                                                @elseif ($od->status == 10)
-                                                    <span class="text-danger">Cancelled</span>
-                                                @else
-                                                    <span class="text-warning">Pending</span>
                                                 @endif
                                             </td>
 
@@ -240,48 +220,24 @@
                                                     </div>
 
                                                     <div class="dropdown-menu dropdown-menu-right">
-                                                        @if ($od->fabrics_status == 2)
+                                                        @if ($order->fabrics_status == 2)
                                                             <form action="/m-done/{{ $od->id }}" method="POST">
                                                                 @csrf
-                                                                <button type="submit" class="dropdown-item text-black">
+                                                                <button type="submit" class="text-black dropdown-item">
                                                                     Measurement Done
                                                                 </button>
                                                             </form>
                                                             <form action="/m-pending/{{ $od->id }}" method="POST">
                                                                 @csrf
-                                                                <button type="submit" class="dropdown-item text-black">
+                                                                <button type="submit" class="text-black dropdown-item">
                                                                     Measurement Pending
                                                                 </button>
                                                             </form>
-                                                            <form action="/p-done/{{ $od->id }}" method="POST">
-                                                                @csrf
-                                                                <button type="submit" class="dropdown-item text-black">
-                                                                    Processing Done
-                                                                </button>
-                                                            </form>
-                                                            <form action="/d-pending/{{ $od->id }}" method="POST">
-                                                                @csrf
-                                                                <button type="submit" class="dropdown-item text-black">
-                                                                    Dispatching Pending
-                                                                </button>
-                                                            </form>
-                                                            {{-- <form action="/p-pending/{{ $od->id }}" method="POST">
-                                                                @csrf
-                                                                <button type="submit" class="dropdown-item text-black">
-                                                                    Ready for dispatch payment pending
-                                                                </button>
-                                                            </form> --}}
                                                             <form action="/ready-dispatch/{{ $od->id }}"
                                                                 method="POST">
                                                                 @csrf
-                                                                <button type="submit" class="dropdown-item text-black">
+                                                                <button type="submit" class="text-black dropdown-item">
                                                                     Ready for dispatch
-                                                                </button>
-                                                            </form>
-                                                            <form action="/dispatch/{{ $od->id }}" method="POST">
-                                                                @csrf
-                                                                <button type="submit" class="dropdown-item text-black">
-                                                                    Dispatched
                                                                 </button>
                                                             </form>
                                                         @elseif ($od->fabrics_status == 0)
