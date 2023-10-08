@@ -5,7 +5,7 @@
     <div class="content-body">
         <!-- row -->
         <div class="container-fluid">
-            <div class="mb-sm-4 d-flex flex-wrap align-items-center text-head ">
+            <div class="flex-wrap mb-sm-4 d-flex align-items-center text-head ">
                 <h2 class="mb-3 me-auto">Orders</h2>
                 <div>
                     <ol class="breadcrumb">
@@ -21,11 +21,11 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="order-user">
-                                    <i class="fas fa-reorder text-white bg-primary"></i>
+                                    <i class="text-white fas fa-reorder bg-primary"></i>
                                 </div>
 
                                 <div class="ms-4 customer">
-                                    <h2 class="mb-0  font-w600">{{ $aordersCount }}</h2>
+                                    <h2 class="mb-0 font-w600">{{ $aordersCount }}</h2>
                                     <p class="mb-0 font-w500">Total Orders</p>
                                 </div>
                             </div>
@@ -38,11 +38,11 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="order-user">
-                                    <i class="fas fa-clock text-white bg-primary"></i>
+                                    <i class="text-white fas fa-clock bg-primary"></i>
                                 </div>
 
                                 <div class="ms-4 customer">
-                                    <h2 class="mb-0  font-w600">{{ $pedingOrders }}</h2>
+                                    <h2 class="mb-0 font-w600">{{ $pedingOrders }}</h2>
                                     <p class="mb-0 font-w500">Pending Orders</p>
                                 </div>
                             </div>
@@ -55,11 +55,11 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="order-user">
-                                    <i class="fas fa-check text-white bg-primary"></i>
+                                    <i class="text-white fas fa-check bg-primary"></i>
                                 </div>
 
                                 <div class="ms-4 customer">
-                                    <h2 class="mb-0  font-w600">{{ $fabricStatus }}</h2>
+                                    <h2 class="mb-0 font-w600">{{ $fabricStatus }}</h2>
                                     <p class="mb-0 font-w500">Completed Orders</p>
                                 </div>
                             </div>
@@ -78,8 +78,8 @@
                 </div>
 
                 <div class="col-xl-12">
-                    <div class="d-flex flex-wrap">
-                        <div class="table-search mb-3 pe-3">
+                    <div class="flex-wrap d-flex">
+                        <div class="mb-3 table-search pe-3">
                             <form action="" method="get">
                                 <div class="input-group search-area">
                                     <input type="text" name="c" class="form-control"
@@ -92,7 +92,7 @@
                             </form>
                         </div>
 
-                        <a href="{{ route('orders') }}" class="btn btn-warning mb-3">
+                        <a href="{{ route('orders') }}" class="mb-3 btn btn-warning">
                             <i class="fas fa-redo-alt"></i>
                         </a>
                     </div>
@@ -100,14 +100,14 @@
 
                 <div class="col-xl-12">
                     <div class="table-responsive fs-14">
-                        <table class="table display mb-4 dataTablesCard order-table shadow-hover  card-table"
-                            id="example5">
+                        <table class="table mb-4 display dataTablesCard order-table shadow-hover card-table" id="example5">
                             <thead>
                                 <tr class="text-center">
                                     <th>Order ID</th>
                                     <th>Customer Name</th>
                                     <th>GSTIN No.</th>
                                     <th>Phone</th>
+                                    <th>Order Progress</th>
                                     <th>Order Status</th>
                                     <th class="">Edits</th>
                                 </tr>
@@ -121,10 +121,25 @@
                                                 #{{ $od->order_id }}
                                             </a>
                                         </td>
+
                                         <td><a href="/order-edit/{{ $od->id }}">{{ $od->cname }}</a></td>
+
                                         <td class="text-ov"><a
                                                 href="/order-edit/{{ $od->id }}">{{ $od->cgstin }}</a></td>
                                         <td><a href="/order-edit/{{ $od->id }}">{{ $od->phone }}</a></td>
+
+                                        <td>
+                                            <h6 class="mt-4">
+                                                <span class="pull-end">90%</span>
+                                            </h6>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-info progress-animated"
+                                                    style="width: 90%; height:6px;" role="progressbar">
+                                                    <span class="sr-only"></span>
+                                                </div>
+                                            </div>
+                                        </td>
+
                                         <td>
                                             @if ($od->fabrics_status == 1)
                                                 <span class="text-danger">Not Available</span>
@@ -136,6 +151,7 @@
                                                 <span class="text-warning">Pending</span>
                                             @endif
                                         </td>
+
                                         <td>
                                             <div class="dropdown ms-auto c-pointer">
                                                 <div class="btn-link" data-bs-toggle="dropdown">
@@ -163,19 +179,19 @@
                                                     <div class="dropdown-menu dropdown-menu-right">
                                                         <form action="/accept/{{ $od->id }}" method="POST">
                                                             @csrf
-                                                            <button type="submit" class="dropdown-item text-black">
+                                                            <button type="submit" class="text-black dropdown-item">
                                                                 Available
                                                             </button>
                                                         </form>
                                                         <form action="/reject/{{ $od->id }}" method="POST">
                                                             @csrf
-                                                            <button type="submit" class="dropdown-item text-black">
+                                                            <button type="submit" class="text-black dropdown-item">
                                                                 Not Available
                                                             </button>
                                                         </form>
                                                         <form action="/hold/{{ $od->id }}" method="POST">
                                                             @csrf
-                                                            <button type="submit" class="dropdown-item text-black">
+                                                            <button type="submit" class="text-black dropdown-item">
                                                                 Hold
                                                             </button>
                                                         </form>
@@ -188,7 +204,7 @@
                                                         @if ($od->fabrics_status == 2)
                                                             <form action="/send-mail/{{ $od->id }}" method="post">
                                                                 @csrf
-                                                                <button type="submit" class="dropdown-item text-black">
+                                                                <button type="submit" class="text-black dropdown-item">
                                                                     Send Mail
                                                                 </button>
                                                             </form>

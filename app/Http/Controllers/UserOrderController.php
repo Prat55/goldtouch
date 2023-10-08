@@ -138,12 +138,11 @@ class UserOrderController extends Controller
         $pedingOrders = Order::where('status', '1')->count();
         $notification = Notification::all();
         $notificationCount = Notification::where('status', '1')->count();
-
         $orders = Order::latest();
+
         if (!empty($request->get('c'))) {
             $orders = $orders->where('cname', 'like', '%' . $request->get('c') . '%');
         }
-
         $orders =  $orders->paginate(20);
         return view('frontend.orders', compact('orders', 'fabricStatus', 'aordersCount', 'pedingOrders', 'notification', 'notificationCount'));
     }
