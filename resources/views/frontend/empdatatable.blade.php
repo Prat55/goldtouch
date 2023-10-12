@@ -249,7 +249,7 @@
                                                                 <td>{{ $emp->fullName }}</td>
                                                                 <td> {{ $emp->category }} </td>
                                                                 <td> {{ $emp->setOrder }} </td>
-                                                                <td> {{ $emp->status }} </td>
+                                                                <td>Measurement Pending</td>
                                                                 <td></td>
                                                                 <td class="d-flex align-items-center">
                                                                     <button class="mb-2 edit btn"

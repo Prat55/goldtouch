@@ -32,7 +32,7 @@ class EmployeeImport implements ToModel, WithHeadingRow
             'setOrder' => $setOrder,
             'sname' => $key,
             'customer_id' => $this->customerId,
-            'status' => "MEASURMENT PENDING",
+            'status' => "MP",
         ]);
     }
 }
