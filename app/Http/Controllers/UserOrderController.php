@@ -19,14 +19,14 @@ class UserOrderController extends Controller
 {
     protected function order()
     {
-        $notification = Notification::all();
+        $notification = Notification::latest()->get();
         $notificationCount = Notification::where('status', '1')->count();
         return view('frontend.customerOrder', compact('notification', 'notificationCount'));
     }
 
     protected function makeUserOrder()
     {
-        $notification = Notification::all();
+        $notification = Notification::latest()->get();
         $notificationCount = Notification::where('status', '1')->count();
         return view('frontend.order', compact('notification', 'notificationCount'));
     }
@@ -42,53 +42,93 @@ class UserOrderController extends Controller
 
     protected function makeOrder(Request $request)
     {
-        $file = $request->file("poimg");
-        $imageName = time() . '_' . $file->getClientOriginalName();
-        $file->move(\public_path("poimg/"), $imageName);
-
         $random = $this->random();
         $user = Auth::user();
 
-        $order = new Order([
-            'order_id' => $random,
-            'cname' => $request->cname,
-            'mtaker1' => $request->mtaker1,
-            'mtakerDate1' => $request->mdatetime1,
-            'mtaker2' => $request->mtaker2,
-            'mtakerDate2' => $request->mdatetime2,
-            'ponumber' => $request->pono,
-            'poimg' => $imageName,
-            'u_id' => $random,
-            'cadd' => $request->cadd,
-            'cgstin' => $request->cgstin,
-            'fabrics_status' => 0,
-            'cstyle_ref' => $request->styleref,
-            'email' => $request->email1 . ' ' . $request->email2 . ' ' . $request->email2 . ' ' . $request->email3 . ' ' . $request->email4 . ' ' . $request->email5,
-            'phone' => $request->phone1 . ' ' . $request->phone2 . ' ' . $request->phone3 . ' ' . $request->phone4 . ' ' . $request->phone5,
+        if ($request->hasfile("poimg")) {
+            $file = $request->file("poimg");
+            $imageName = time() . '_' . $file->getClientOriginalName();
+            $file->move(\public_path("poimg/"), $imageName);
 
-        ]);
-        $order->save();
+            $order = new Order([
+                'order_id' => $random,
+                'cname' => $request->cname,
+                'mtaker1' => $request->mtaker1,
+                'mtakerDate1' => $request->mdatetime1,
+                'mtaker2' => $request->mtaker2,
+                'mtakerDate2' => $request->mdatetime2,
+                'ponumber' => $request->pono,
+                'poimg' => $imageName,
+                'u_id' => $random,
+                'cadd' => $request->cadd,
+                'cgstin' => $request->cgstin,
+                'fabrics_status' => 0,
+                'cstyle_ref' => $request->styleref,
+                'email' => $request->email1 . ' ' . $request->email2 . ' ' . $request->email2 . ' ' . $request->email3 . ' ' . $request->email4 . ' ' . $request->email5,
+                'phone' => $request->phone1 . ' ' . $request->phone2 . ' ' . $request->phone3 . ' ' . $request->phone4 . ' ' . $request->phone5,
+            ]);
+            $order->save();
 
-        $notification = new Notification([
-            'notification_title' => $random . " order is placed by user " . $user->name,
-            'notification_type' => "order",
-            'status' => '1',
-        ]);
-        $notification->save();
+            $notification = new Notification([
+                'notification_title' => $random . " order is placed by user " . $user->name,
+                'notification_type' => "order",
+                'status' => '1',
+            ]);
+            $notification->save();
 
-        $mailData = [
-            'orderId' => $random,
-            'title' => 'Order Placed Details',
-            'name' => "$request->cname",
-            'add' => "$request->cadd",
-            'gstin' => "$request->cgstin",
-            'remark' => "$request->styleref",
-            'email' => "$request->email1" . ' ' . "$request->email2" . ' ' . "$request->email3" . ' ' . "$request->email4" . ' ' . "$request->email5",
-            'phone' =>  "$request->phone1" . ' ' . "$request->phone2" . ' ' . "$request->phone3" . ' ' . "$request->phone4" . ' ' . "$request->phone5",
-        ];
+            $mailData = [
+                'orderId' => $random,
+                'title' => 'Order Placed Details',
+                'name' => "$request->cname",
+                'add' => "$request->cadd",
+                'gstin' => "$request->cgstin",
+                'remark' => "$request->styleref",
+                'email' => "$request->email1" . ' ' . "$request->email2" . ' ' . "$request->email3" . ' ' . "$request->email4" . ' ' . "$request->email5",
+                'phone' =>  "$request->phone1" . ' ' . "$request->phone2" . ' ' . "$request->phone3" . ' ' . "$request->phone4" . ' ' . "$request->phone5",
+            ];
 
-        Mail::to('pratikdesai9900@gmail.com')->cc("$request->email1", "$request->email2", "$request->email3", "$request->email4", "$request->email5")->send(new OrdersMail($mailData));
-        return redirect('/make-order')->with('success', 'Order placed successfully');
+            Mail::to('pratikdesai9900@gmail.com')->cc("$request->email1", "$request->email2", "$request->email3", "$request->email4", "$request->email5")->send(new OrdersMail($mailData));
+            return redirect('/make-order')->with('success', 'Order placed successfully');
+        } else {
+            $order = new Order([
+                'order_id' => $random,
+                'cname' => $request->cname,
+                'mtaker1' => $request->mtaker1,
+                'mtakerDate1' => $request->mdatetime1,
+                'mtaker2' => $request->mtaker2,
+                'mtakerDate2' => $request->mdatetime2,
+                'u_id' => $random,
+                'cadd' => $request->cadd,
+                'cgstin' => $request->cgstin,
+                'fabrics_status' => 0,
+                'cstyle_ref' => $request->styleref,
+                'email' => $request->email1 . ' ' . $request->email2 . ' ' . $request->email2 . ' ' . $request->email3 . ' ' . $request->email4 . ' ' . $request->email5,
+                'phone' => $request->phone1 . ' ' . $request->phone2 . ' ' . $request->phone3 . ' ' . $request->phone4 . ' ' . $request->phone5,
+
+            ]);
+            $order->save();
+
+            $notification = new Notification([
+                'notification_title' => $random . " order is placed by user " . $user->name,
+                'notification_type' => "order",
+                'status' => '1',
+            ]);
+            $notification->save();
+
+            $mailData = [
+                'orderId' => $random,
+                'title' => 'Order Placed Details',
+                'name' => "$request->cname",
+                'add' => "$request->cadd",
+                'gstin' => "$request->cgstin",
+                'remark' => "$request->styleref",
+                'email' => "$request->email1" . ' ' . "$request->email2" . ' ' . "$request->email3" . ' ' . "$request->email4" . ' ' . "$request->email5",
+                'phone' =>  "$request->phone1" . ' ' . "$request->phone2" . ' ' . "$request->phone3" . ' ' . "$request->phone4" . ' ' . "$request->phone5",
+            ];
+
+            Mail::to('pratikdesai9900@gmail.com')->cc("$request->email1", "$request->email2", "$request->email3", "$request->email4", "$request->email5")->send(new OrdersMail($mailData));
+            return redirect('/make-order')->with('success', 'Order placed successfully');
+        }
     }
 
     protected function customerOrder(Request $request)
@@ -136,7 +176,7 @@ class UserOrderController extends Controller
         $fabricStatus = Order::where('status', '9')->count();
         $aordersCount = Order::count();
         $pedingOrders = Order::where('status', '1')->count();
-        $notification = Notification::all();
+        $notification = Notification::latest()->get();
         $notificationCount = Notification::where('status', '1')->count();
         $orders = Order::latest();
 
@@ -182,13 +222,14 @@ class UserOrderController extends Controller
         }
     }
 
-    protected function measurement_done($id)
+    protected function measurement_done($id, $orderId)
     {
+        $order = Order::find($orderId);
         $emp = Empdetail::findOrFail($id);
 
         if ($emp) {
-            // $order->status = 4;
-            // $order->update();
+            $order->status = 4;
+            $order->update();
             $emp->status = "MD";
             $emp->update();
 
@@ -271,7 +312,7 @@ class UserOrderController extends Controller
     protected function orderEdit(Request $request, $order_id)
     {
         $order = Order::findOrFail($order_id);
-        $notification = Notification::all();
+        $notification = Notification::latest()->get();
         $notificationCount = Notification::where('status', '1')->count();
 
         $employees = Empdetail::latest();

@@ -56,7 +56,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/order-update/{id}', [UserOrderController::class, 'orderUpdate']);
 
     // ?Order Status updation routes
-    Route::post('/m-done/{id}', [UserOrderController::class, 'measurement_done']);
+    Route::post('/m-done/{id}/{orderId}', [UserOrderController::class, 'measurement_done']);
     Route::post('/m-pending/{id}', [UserOrderController::class, 'measurement_pending']);
     Route::post('/p-done/{id}', [UserOrderController::class, 'processing_done']);
     Route::post('/d-pending/{id}', [UserOrderController::class, 'dispatching_pending']);

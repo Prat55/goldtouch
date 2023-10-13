@@ -20,7 +20,7 @@ class ProfileController extends Controller
     {
         $uordersCount = Order::where('u_id', Auth::user()->id)->count();
         $aordersCount = Order::count();
-        $notification = Notification::all();
+        $notification = Notification::latest()->get();
         $notificationCount = Notification::where('status', '1')->count();
 
         return view('frontend.profile.profile', [

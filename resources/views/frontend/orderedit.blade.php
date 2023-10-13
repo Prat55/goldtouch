@@ -221,7 +221,9 @@
 
                                                     <div class="dropdown-menu dropdown-menu-right">
                                                         @if ($order->fabrics_status == 2)
-                                                            <form action="/m-done/{{ $od->id }}" method="POST">
+                                                            <form
+                                                                action="/m-done/{{ $od->id }}/{{ $order->id }}"
+                                                                method="POST">
                                                                 @csrf
                                                                 <button type="submit" class="text-black dropdown-item">
                                                                     Measurement Done

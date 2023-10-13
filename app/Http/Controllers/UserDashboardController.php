@@ -17,7 +17,7 @@ class UserDashboardController extends Controller
     {
         $users = User::latest()->where('role', '1');
         $admins = User::latest()->where('role', '2');
-        $notification = Notification::all();
+        $notification = Notification::latest()->get();
         $notificationCount = Notification::where('status', '1')->count();
 
 

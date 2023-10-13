@@ -129,15 +129,22 @@
                                         <td><a href="/order-edit/{{ $od->id }}">{{ $od->phone }}</a></td>
 
                                         <td>
-                                            <h6 class="mt-4">
-                                                <span class="pull-end">90%</span>
-                                            </h6>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-info progress-animated"
-                                                    style="width: 90%; height:6px;" role="progressbar">
-                                                    <span class="sr-only"></span>
+                                            @if ($od->fabrics_status == 2)
+                                                <h6 class="mt-4">
+                                                    <span class="pull-end">{{ progressbar($od->u_id, $od->id) }}%</span>
+                                                </h6>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-info progress-animated"
+                                                        style="width: {{ progressbar($od->u_id, $od->id) }}%; height:6px;"
+                                                        role="progressbar">
+                                                        <span class="sr-only"></span>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            @elseif ($od->fabrics_status == 1)
+                                                <span class="text-danger">Cancelled</span>
+                                            @elseif ($od->fabrics_status == 3)
+                                                <span class="text-warning">On Hold</span>
+                                            @endif
                                         </td>
 
                                         <td>
