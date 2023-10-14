@@ -26,7 +26,8 @@
     <link href="{{ 'user-assets/xhtml/vendor/fullcalendar/css/main.min.css' }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="{{ 'user-assets/xhtml/vendor/chartist/css/chartist.min.css' }}">
     <link href="{{ 'user-assets/xhtml/vendor/jquery-nice-select/css/nice-select.css' }}" rel="stylesheet">
@@ -91,9 +92,9 @@
                         <div class="header-left">
                             <div class="nav-item position-relative">
                                 <div class="search-btn">
-                                    <i class="flaticon-381-search-2"></i>
+                                    <i class="search-icon fa fa-search"></i>
                                 </div>
-                                <div class="input-group search-area d-none floating-search">
+                                <div class="input-group search-area d-none floating-search" id="search">
                                     <input type="text" class="form-control" placeholder="Search here" />
                                     <span class="input-group-text">
                                         <a href="javascript:void(0)">
@@ -328,7 +329,8 @@
 
     <script>
         $('.search-btn').click(function() {
-            $('.search-area').toggleClass("d-none");
+            $('#search').toggleClass("d-none");
+            $('.search-icon').toggleClass("fa-times");
         });
     </script>
 

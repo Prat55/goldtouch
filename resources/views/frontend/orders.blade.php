@@ -144,6 +144,8 @@
                                                 <span class="text-danger">Cancelled</span>
                                             @elseif ($od->fabrics_status == 3)
                                                 <span class="text-warning">On Hold</span>
+                                            @elseif ($od->fabrics_status == 0)
+                                                <span class="text-warning">pending</span>
                                             @endif
                                         </td>
 
