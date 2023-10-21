@@ -34,9 +34,9 @@
                                 <ul id="errstatus"></ul>
                                 <input type="text" name="title" id="titleData" class="form-control"
                                     placeholder="Enter Title of the event" required autofocus>
-                                <input type="text" name="assignName1" id="assignName1" class="form-control mt-2"
+                                <input type="text" name="assignName1" id="assignName1" class="mt-2 form-control"
                                     placeholder="Enter Name 1" required>
-                                <input type="text" name="assignName2" id="assignName2" class="form-control mt-2"
+                                <input type="text" name="assignName2" id="assignName2" class="mt-2 form-control"
                                     placeholder="Enter Name 2" required>
                             </div>
                             <div class="modal-footer">
@@ -118,6 +118,16 @@
                                     });
                                     $('#saveData').attr('disabled', false).html(
                                         'Try Again');
+                                } else if (response.status == 403) {
+
+                                    $('#errstatus').html("");
+                                    $('#errstatus').addClass('alert alert-danger');
+
+                                    $('#errstatus').append('<li>' + response.errors +
+                                        '</li>');
+
+                                    $('#saveData').attr('disabled', false).html(
+                                        'Not Allowed');
                                 } else {
                                     $('#errstatus').html("");
                                     $('#sStatus').addClass('alert alert-success');
@@ -133,18 +143,18 @@
                     });
                     calendar.unselect();
                 },
-                editable: true,
-                droppable: true, // this allows things to be dropped onto the calendar
-                drop: function(arg) {
-                    // is the "remove after drop" checkbox checked?
-                    if (document.getElementById("drop-remove").checked) {
-                        // if so, remove the element from the "Draggable Events" list
-                        arg.draggedEl.parentNode.removeChild(arg.draggedEl);
-                    }
-                },
+                // editable: true,
+                // droppable: true, // this allows things to be dropped onto the calendar
+                // drop: function(arg) {
+                //     // is the "remove after drop" checkbox checked?
+                //     if (document.getElementById("drop-remove").checked) {
+                //         // if so, remove the element from the "Draggable Events" list
+                //         arg.draggedEl.parentNode.removeChild(arg.draggedEl);
+                //     }
+                // },
                 weekNumbers: true,
                 navLinks: true, // can click day/week names to navigate views
-                editable: true,
+                // editable: true,
                 selectable: true,
                 nowIndicator: true,
 
@@ -158,8 +168,11 @@
             }, 1000);
         });
 
-        // $('.btn-modal-close').click(function() {
-        //     $('#title').modal('hide');
-        // });
+        $('.btn-modal-close').click(function() {
+            $('#title').modal('hide');
+            $('#title .modal-body').find('input').val("");
+            $('#errstatus').html("");
+            $('#errstatus').removeClass('alert alert-danger');  
+        });
     </script>
 @endsection

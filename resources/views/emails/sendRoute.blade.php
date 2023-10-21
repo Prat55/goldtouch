@@ -286,12 +286,12 @@
                                                     style="color: #ffffff; font-size: 14px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 22px; letter-spacing: 2px;">
                                                     <!-- main section button -->
 
-                                                    <div style="line-height: 22px;">
-                                                        <a href="{{ $mailData['link'] }}"
-                                                            style="color: #ffffff; text-decoration: none;">
+                                                    <a href="{{ $mailData['link'] }}"
+                                                        style="color: #ffffff; text-decoration: none;">
+                                                        <div style="line-height: 22px;">
                                                             Add Employee Link
-                                                        </a>
-                                                    </div>
+                                                        </div>
+                                                    </a>
                                                 </td>
                                             </tr>
 

@@ -251,7 +251,7 @@
 
                     <tr>
                         <td height="15" style="font-size: 15px; line-height: 15px;">
-                            {{ $mailData['name'] }},
+                            Hi {{ $mailData['name'] }},
                         </td>
                         <td height="10" style="font-size: 10px; line-height: 10px;">&nbsp;</td>
                     </tr>
@@ -284,7 +284,8 @@
                                             <li>GSTIN No.: {{ $mailData['gstin'] }}</li>
                                             <li>Remark: {{ $mailData['remark'] }}</li>
                                             <li>Email: {{ $mailData['email'] }}</li>
-                                            <a href="tel:{{ $mailData['phone'] }}">Phone: {{ $mailData['phone'] }}</a>
+                                            <li>Phone: <a href="tel:{{ $mailData['phone'] }}">
+                                                    {{ $mailData['phone'] }}</a></li>
                                         </ul>
                                     </td>
                                 </tr>

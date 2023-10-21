@@ -8,7 +8,7 @@
             <div class="flex-wrap mb-sm-4 d-flex align-items-center text-head">
                 <h2 class="mb-3 me-auto">Dashboard</h2>
                 <div>
-                    <ol class="breadcrumb">
+                    <ol class="breadc rumb">
                         <li class="breadcrumb-item">
                             <a href="{{ route('dashboard') }}">Dashboard</a>
                         </li>
@@ -86,6 +86,7 @@
                                     <th>Customer Name</th>
                                     <th>GSTIN No.</th>
                                     <th>Phone</th>
+                                    <th>Order Progress</th>
                                     <th>Order Status</th>
                                     <th class="">Edits</th>
                                 </tr>
@@ -103,6 +104,26 @@
                                         <td class="text-ov"><a
                                                 href="/order-edit/{{ $od->id }}">{{ $od->cgstin }}</a></td>
                                         <td><a href="/order-edit/{{ $od->id }}">{{ $od->phone }}</a></td>
+                                        <td>
+                                            @if ($od->fabrics_status == 2)
+                                                <h6 class="mt-4">
+                                                    <span class="pull-end">{{ progressbar($od->u_id, $od->id) }}%</span>
+                                                </h6>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-info progress-animated"
+                                                        style="width: {{ progressbar($od->u_id, $od->id) }}%; height:6px;"
+                                                        role="progressbar">
+                                                        <span class="sr-only"></span>
+                                                    </div>
+                                                </div>
+                                            @elseif ($od->fabrics_status == 1)
+                                                <span class="text-danger">Cancelled</span>
+                                            @elseif ($od->fabrics_status == 3)
+                                                <span class="text-danger">On Hold</span>
+                                            @elseif ($od->fabrics_status == 0)
+                                                <span class="text-warning">pending</span>
+                                            @endif
+                                        </td>
                                         <td>
                                             @if ($od->fabrics_status == 1)
                                                 <span class="text-danger">Not Available</span>
@@ -137,8 +158,8 @@
                                                     </svg>
                                                 </div>
 
-                                                @if (Auth::user()->role == 2)
-                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    @if (Auth::user()->role == 2)
                                                         <form action="/accept/{{ $od->id }}" method="POST">
                                                             @csrf
                                                             <button type="submit" class="text-black dropdown-item">
@@ -163,16 +184,21 @@
                                                             value="{{ $od->cname }}">
                                                         <input type="hidden" name="email" id="email"
                                                             value="{{ $od->email }}">
-                                                        @if ($od->fabrics_status == 2)
-                                                            <form action="/send-mail/{{ $od->id }}" method="post">
-                                                                @csrf
-                                                                <button type="submit" class="text-black dropdown-item">
-                                                                    Send Mail
-                                                                </button>
-                                                            </form>
-                                                        @endif
-                                                    </div>
-                                                @endif
+                                                    @endif
+                                                    @if ($od->fabrics_status == 2)
+                                                        <form action="/send-mail/{{ $od->id }}" method="post">
+                                                            @csrf
+                                                            <button type="submit" class="text-black dropdown-item">
+                                                                Send Mail
+                                                            </button>
+                                                        </form>
+                                                    @else
+                                                        <span class="tyext-warning">
+                                                            You can send mail when fabric is
+                                                            available
+                                                        </span>
+                                                    @endif
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>
@@ -243,8 +269,7 @@
                                 <input type="hidden" name="completedOrder" id="completedOrder"
                                     value="{{ $completedOrder->count() }}">
 
-                                <input type="hidden" name="completedOrder" id="completedOrder"
-                                    value="{{ $onhold->count() }}">
+                                <input type="hidden" name="onhold" id="onhold" value="{{ $onhold->count() }}">
                             </div>
                         </div>
                     </div>
@@ -330,7 +355,7 @@
         let donutChart = function() {
             let pending = $('#pendingorder').val();
             let completed = $('#completedOrder').val();
-            let onHold = $('#completedOrder').val();
+            let onHold = $('#onhold').val();
 
             Morris.Donut({
                 element: 'morris_donught',

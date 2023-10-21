@@ -4,7 +4,7 @@
 @section('content')
     <div class="content-body">
         <div class="container-fluid">
-            <div class="mb-sm-4 d-flex flex-wrap align-items-center text-head">
+            <div class="flex-wrap mb-sm-4 d-flex align-items-center text-head">
                 <h2 class="mb-3 me-auto">Profile</h2>
                 <div>
                     <ol class="breadcrumb">
@@ -20,10 +20,10 @@
             <!-- row -->
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="profile card card-body px-3 pt-3 pb-0">
+                    <div class="px-3 pt-3 pb-0 profile card card-body">
                         <div class="profile-head">
                             <div class="photo-content">
-                                <div class="cover-photo rounded"></div>
+                                <div class="rounded cover-photo"></div>
                             </div>
                             <div class="profile-info">
                                 <form action="" method="post" enctype="multipart/form-data">
@@ -43,12 +43,12 @@
                                     </div>
                                 </form>
                                 <div class="profile-details">
-                                    <div class="profile-name px-3 pt-2">
-                                        <h4 class="text-primary mb-0">{{ Auth::user()->name }}</h4>
+                                    <div class="px-3 pt-2 profile-name">
+                                        <h4 class="mb-0 text-primary">{{ Auth::user()->name }}</h4>
                                         <p></p>
                                     </div>
-                                    <div class="profile-email px-2 pt-2">
-                                        <h4 class="text-muted mb-0">{{ Auth::user()->email }}</h4>
+                                    <div class="px-2 pt-2 profile-email">
+                                        <h4 class="mb-0 text-muted">{{ Auth::user()->email }}</h4>
                                         <p>Email</p>
                                     </div>
 
@@ -65,7 +65,7 @@
                 <div class="col-xl-4">
                     <div class="row">
                         <div class="col-xl-12">
-                            <div class="card h-auto">
+                            <div class="h-auto card">
                                 <div class="card-body">
                                     <div class="profile-statistics">
                                         <div class="text-center">
@@ -102,7 +102,7 @@
                     </div>
                 </div>
                 <div class="col-xl-8">
-                    <div class="card h-auto">
+                    <div class="h-auto card">
                         <div class="card-body">
                             <div class="profile-tab">
                                 <div class="custom-tab-1">
@@ -119,7 +119,7 @@
                                     </ul>
                                     <div class="tab-content">
                                         <div id="delete-account" class="tab-pane fade">
-                                            <div class="my-post-content pt-3">
+                                            <div class="pt-3 my-post-content">
                                                 <section class="space-y-6">
                                                     {{-- <header>
                                                         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
@@ -151,18 +151,18 @@
                                                                 class="sr-only" />
 
                                                             <x-text-input id="password" name="password" type="password"
-                                                                class="form-control mt-1 block w-3/4"
+                                                                class="block w-3/4 mt-1 form-control"
                                                                 placeholder="{{ __('Password') }}" />
 
-                                                            <x-input-error :messages="$errors->userDeletion->get('password')" class="text-danger mt-2" />
+                                                            <x-input-error :messages="$errors->userDeletion->get('password')" class="mt-2 text-danger" />
                                                         </div>
 
-                                                        <div class="mt-6 flex justify-end">
+                                                        <div class="flex justify-end mt-6">
                                                             {{-- <x-secondary-button x-on:click="$dispatch('close')">
                                                                 {{ __('Cancel') }}
                                                             </x-secondary-button> --}}
 
-                                                            <x-danger-button class="btn btn-danger ml-3 mt-2">
+                                                            <x-danger-button class="mt-2 ml-3 btn btn-danger">
                                                                 {{ __('Delete Account') }}
                                                             </x-danger-button>
                                                         </div>
@@ -177,7 +177,7 @@
                                         </div>
                                         <div id="about-me" class="tab-pane fade active show">
                                             <div class="profile-personal-info">
-                                                <h4 class="text-primary mb-4"></h4>
+                                                <h4 class="mb-4 text-primary"></h4>
                                                 <form id="send-verification" method="post"
                                                     action="{{ route('verification.send') }}">
                                                     @csrf
@@ -191,7 +191,7 @@
                                                     <div>
                                                         <x-input-label for="name" :value="__('Name')" />
                                                         <x-text-input id="name" name="name" type="text"
-                                                            class="mt-1 block w-full form-control" :value="old('name', $user->name)"
+                                                            class="block w-full mt-1 form-control" :value="old('name', $user->name)"
                                                             required autofocus autocomplete="name" />
                                                         <x-input-error class="mt-2 form-control" :messages="$errors->get('name')" />
                                                     </div>
@@ -199,24 +199,24 @@
                                                     <div class="mt-3">
                                                         <x-input-label for="email" :value="__('Email')" />
                                                         <x-text-input id="email" name="email" type="email"
-                                                            class="form-control mt-1 block w-full" :value="old('email', $user->email)"
-                                                            required autocomplete="username" />
+                                                            class="block w-full mt-1 form-control" :value="old('email', $user->email)"
+                                                            required autocomplete="username" disabled />
                                                         <x-input-error class="mt-2" :messages="$errors->get('email')" />
 
                                                         @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !$user->hasVerifiedEmail())
                                                             <div>
-                                                                <p class="text-sm mt-2 text-gray-800 dark:text-gray-200">
+                                                                <p class="mt-2 text-sm text-gray-800 dark:text-gray-200">
                                                                     {{ __('Your email address is unverified.') }}
 
                                                                     <button form="send-verification"
-                                                                        class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
+                                                                        class="text-sm text-gray-600 underline rounded-md dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
                                                                         {{ __('Click here to re-send the verification email.') }}
                                                                     </button>
                                                                 </p>
 
                                                                 @if (session('status') === 'verification-link-sent')
                                                                     <p
-                                                                        class="mt-2 font-medium text-sm text-green-600 dark:text-green-400">
+                                                                        class="mt-2 text-sm font-medium text-green-600 dark:text-green-400">
                                                                         {{ __('A new verification link has been sent to your email address.') }}
                                                                     </p>
                                                                 @endif
@@ -250,7 +250,7 @@
                                                         <div>
                                                             <x-input-label for="current_password" :value="__('Current Password')" />
                                                             <x-text-input id="current_password" name="current_password"
-                                                                type="password" class="form-control mt-1 block w-full"
+                                                                type="password" class="block w-full mt-1 form-control"
                                                                 autocomplete="current-password" />
                                                             <x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
                                                         </div>
@@ -258,7 +258,7 @@
                                                         <div class="mt-3">
                                                             <x-input-label for="password" :value="__('New Password')" />
                                                             <x-text-input id="password" name="password" type="password"
-                                                                class="form-control mt-1 block w-full"
+                                                                class="block w-full mt-1 form-control"
                                                                 autocomplete="new-password" />
                                                             <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2" />
                                                         </div>
@@ -268,7 +268,7 @@
                                                                 :value="__('Confirm Password')" />
                                                             <x-text-input id="password_confirmation"
                                                                 name="password_confirmation" type="password"
-                                                                class="form-control mt-1 block w-full"
+                                                                class="block w-full mt-1 form-control"
                                                                 autocomplete="new-password" />
                                                             <x-input-error :messages="$errors->updatePassword->get(
                                                                 'password_confirmation',

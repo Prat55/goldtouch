@@ -44,7 +44,6 @@ class UserDashboardController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'tokenNo' => 'required|max:100',
-            'sname' => 'required|max:100',
             'fullName' => 'required|max:200',
             'category' => 'required|max:100',
             'setOrder' => 'required|max:100',

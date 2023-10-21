@@ -10,6 +10,7 @@ use App\Models\Notification;
 use App\Models\Order;
 use App\Models\Task;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -169,31 +170,41 @@ class AdminDashboardController extends Controller
                 'errors' => $validator->messages(),
             ]);
         } else {
-            $events = new Event([
-                'title' => $request->input('title'),
-                'assignName1' => $request->input('assign1'),
-                'assignName2' => $request->input('assign2'),
-                'start_date' => $request->input('start_date'),
-                'end_date' => $request->input('end_date'),
-            ]);
-            $events->save();
+            $today = Carbon::now()->format('Y-m-d');
+            $start_date = $request->input('start_date');
 
-            $notification = new Notification([
-                'notification_title' => "Event is created for " . $request->input('title'),
-                'notification_type' => "event",
-                'status' => '1',
-            ]);
-            $notification->save();
-
-            if ($events) {
-                return response()->json([
-                    'status' => 200,
-                    'message' => 'Added Successfully',
+            if ($start_date >= $today) {
+                $events = new Event([
+                    'title' => $request->input('title'),
+                    'assignName1' => $request->input('assign1'),
+                    'assignName2' => $request->input('assign2'),
+                    'start_date' => $request->input('start_date'),
+                    'end_date' => $request->input('end_date'),
                 ]);
+                $events->save();
+
+                $notification = new Notification([
+                    'notification_title' => "Event is created for " . $request->input('title'),
+                    'notification_type' => "event",
+                    'status' => '1',
+                ]);
+                $notification->save();
+
+                if ($events) {
+                    return response()->json([
+                        'status' => 200,
+                        'message' => 'Added Successfully',
+                    ]);
+                } else {
+                    return response()->json([
+                        'status' => 400,
+                        'errors' => 'Something went wrong!',
+                    ]);
+                }
             } else {
                 return response()->json([
-                    'status' => 400,
-                    'errors' => 'Something went wrong!',
+                    'status' => 403,
+                    'errors' => 'You can only add events above or equal to this date ' . $today,
                 ]);
             }
         }

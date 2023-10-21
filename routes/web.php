@@ -34,7 +34,7 @@ Route::get('/submit/{cid}', [UserDashboardController::class, 'empData'])->name('
 Route::post('/submited', [UserDashboardController::class, 'storeEmpData'])->name('submited');
 Route::delete('/delete-empdetails/{id}', [RouteSignedController::class, 'delete']);
 Route::get('/edit-emp/{id}', [RouteSignedController::class, 'edit']);
-Route::put('/update-emp/{id}', [RouteSignedController::class, 'update']);
+Route::post('/update-emp/{id}', [RouteSignedController::class, 'update']);
 Route::put('/import/excel', [CsvImportController::class, 'import']);
 
 //? Dashboard route

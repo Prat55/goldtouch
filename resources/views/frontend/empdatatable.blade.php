@@ -103,9 +103,9 @@
                                                     <label for="" class="mt-1">Token Number</label>
                                                     <input type="text" name="tokenNo" id="tokenNo"
                                                         class="form-control">
-                                                    <label for="" class="mt-1">Serial Name</label>
-                                                    <input type="text" name="sname" id="sname"
-                                                        class="form-control">
+                                                    {{-- <label for="" class="mt-1">Serial Name</label> --}}
+                                                    {{-- <input type="text" name="sname" id="sname"
+                                                        class="form-control"> --}}
                                                     <label for="" class="mt-1">Full Name</label>
 
                                                     <input type="text" name="fullName" id="fullName"
@@ -142,9 +142,9 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-sm btn-secondary"
-                                                        data-dismiss="modal">Close</button>
+                                                        data-dismiss="modal">Cancel</button>
                                                     <button type="button"
-                                                        class="btn btn-sm btn-primary saveData">Save</button>
+                                                        class="btn btn-sm btn-primary saveData">Add</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -174,9 +174,10 @@
                                                     <label for="" class="mt-1">Token Number</label>
                                                     <input type="text" name="tokenNo" id="etokenNo"
                                                         class="form-control">
-                                                    <label for="" class="mt-1">Serial Name</label>
-                                                    <input type="text" name="sname" id="esname"
-                                                        class="form-control">
+                                                    {{-- <label for="" class="mt-1">Serial Name</label> --}}
+                                                    {{-- <input type="text" name="sname" id="esname"
+                                                        class="form-control"> --}}
+
                                                     <label for="" class="mt-1">Full Name</label>
 
                                                     <input type="text" name="fullName" id="efullName"
@@ -211,7 +212,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="close btn btn-sm btn-secondary"
-                                                        data-dismiss="modal">Close</button>
+                                                        data-dismiss="modal">Cancel</button>
 
                                                     <button type="button"
                                                         class="btn btn-sm btn-primary updateData">Update</button>
@@ -243,9 +244,9 @@
                                                     @foreach ($empDetails as $key => $emp)
                                                         @if ($emp->customer_id == $segment)
                                                             <tr>
-                                                                <td>{{ $key += 1 }}</td>
+                                                                <td>{{ $key++ }}</td>
                                                                 <td>{{ $emp->tokenNo }}</td>
-                                                                <td>{{ $key += 1 }}</td>
+                                                                <td>{{ $emp->id }}</td>
                                                                 <td>{{ $emp->fullName }}</td>
                                                                 <td> {{ $emp->category }} </td>
                                                                 <td> {{ $emp->setOrder }} </td>
@@ -360,6 +361,7 @@
                                 $('#sStatus').addClass('alert alert-danger');
                                 $('#sStatus').text(response.message);
                             } else {
+                                $('#e_id').val(response.employee.id);
                                 $('#etokenNo').val(response.employee.tokenNo);
                                 $('#esname').val(response.employee.sname);
                                 $('#efullName').val(response.employee.fullName);
@@ -385,9 +387,11 @@
                         'status': $('#estatus').val(),
                     };
 
+                    $('.updateData').attr('disabled', true).html(
+                        'Updating...');
                     $.ajax({
-                        type: "PUT",
-                        url: "update-emp/" + id,
+                        type: "post",
+                        url: "/update-emp/" + id,
                         data: data,
                         dataType: "json",
                         success: function(response) {
@@ -398,16 +402,21 @@
                                     $('#updaterrstatus').append('<li>' + err_values +
                                         '</li>');
                                 });
+                                $('.updateData').attr('disabled', false).html(
+                                    'Try again');
                             } else if (response.status == 404) {
                                 $('#errstatus').html("");
                                 $('#sStatus').addClass('alert alert-danger');
                                 $('#sStatus').text(response.message);
+                                $('.updateData').attr('disabled', false).html(
+                                    'Try again');
                             } else {
                                 $('#errstatus').html("");
                                 $('#sStatus').html("");
+                                $('#editModal').modal('hide');
                                 $('#sStatus').addClass('alert alert-success');
                                 $('#sStatus').text(response.message);
-                                $('#editModal').modal('hide');
+                                location.reload();
                             }
                         }
                     });
@@ -434,6 +443,7 @@
                     };
 
                     // console.log(data);
+                    $('.saveData').attr('disabled', true).html('Adding...');
 
                     $.ajax({
                         type: "POST",
@@ -448,6 +458,7 @@
                                 $.each(response.errors, function(key, err_values) {
                                     $('#errstatus').append('<li>' + err_values + '</li>');
                                 });
+                                $('.saveData').attr('disabled', false).html('Try again');
                             } else {
                                 $('#errstatus').html("");
                                 $('#sStatus').addClass('alert alert-success');
