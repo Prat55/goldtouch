@@ -57,9 +57,18 @@
                                                 value="{{ $order->ponumber }}" required>
                                         </div>
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label">PO COPY UPLOAD</label>
-                                            <input type="file" class="form-control" name="poimg" id="poimg">
-                                            <input type="hidden" value="{{ $order->poimg }}" name="oldpoimg">
+                                            <label class="form-label">PO COPY UPLOAD</label><br>
+                                            <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" value="{{ $order->poimg }}"
+                                                        name="oldpoimg" disabled>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="file" class="form-control" name="poimg"
+                                                        id="poimg">
+                                                </div>
+
+                                            </div>
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">MEASURMENT TAKER 1</label>

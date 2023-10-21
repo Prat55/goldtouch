@@ -284,8 +284,11 @@
                                             <li>GSTIN No.: {{ $mailData['gstin'] }}</li>
                                             <li>Remark: {{ $mailData['remark'] }}</li>
                                             <li>Email: {{ $mailData['email'] }}</li>
-                                            <li>Phone: <a href="tel:{{ $mailData['phone'] }}">
-                                                    {{ $mailData['phone'] }}</a></li>
+                                            <li>Phone:
+                                                <a href="tel:{{ $mailData['phone'] }}">
+                                                    {{ $mailData['phone'] }}
+                                                </a>
+                                            </li>
                                         </ul>
                                     </td>
                                 </tr>
