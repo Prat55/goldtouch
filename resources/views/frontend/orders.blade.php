@@ -78,7 +78,7 @@
                 </div>
 
                 <div class="col-xl-12">
-                    <div class="flex-wrap d-flex">
+                    <div class="flex-wrap d-flex align-items-center">
                         <div class="mb-3 table-search pe-3">
                             <form action="" method="get">
                                 <div class="input-group search-area">
@@ -91,10 +91,16 @@
                                 </div>
                             </form>
                         </div>
-
                         <a href="{{ route('orders') }}" class="mb-3 btn btn-warning">
                             <i class="fas fa-redo-alt"></i>
                         </a>
+
+
+                        <div class="mb-3 pe-3 excelbtn">
+                            <a href="/orders/export/" class="btn btn-success">
+                                <i class="fa fa-file-excel"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
 

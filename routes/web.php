@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\AdminDashboardController;
 use App\Http\Controllers\CsvImportController;
+use App\Http\Controllers\ExportEventController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RouteSignedController;
 use App\Http\Controllers\UserDashboardController;
@@ -66,6 +67,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/dispatch/{id}', [UserOrderController::class, 'dispatch']);
     Route::get('/calender', [AdminDashboardController::class, 'calender'])->name('calender');
     Route::post('/calender/event', [AdminDashboardController::class, 'calender_event'])->name('calendar.event');
+
+    // ? Calender routes
+    Route::get('events/export/', [ExportEventController::class, 'export']);
+    Route::get('orders/export/', [UserOrderController::class, 'export']);
 });
 
 //? Admin Routes

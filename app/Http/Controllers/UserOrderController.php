@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\OrderExport;
 use App\Mail\AssignOrderMail;
 use App\Mail\OrdersMail;
 use App\Models\Empdetail;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 use PhpParser\JsonDecoder;
 
 class UserOrderController extends Controller
@@ -356,5 +358,10 @@ class UserOrderController extends Controller
         } else {
             return back()->with('error', 'Something went wrong!');
         }
+    }
+
+    public function export()
+    {
+        return Excel::download(new OrderExport, 'orders.csv');
     }
 }
