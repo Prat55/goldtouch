@@ -19,7 +19,7 @@
                                 @csrf
                                 <div class="col-md-12 d-flex justify-content-center align-items-center">
                                     <div class="col-md-4">
-                                        <div class="form-group m-1">
+                                        <div class="m-1 form-group">
                                             <label for="cusname">Name of user</label>
                                             {{-- <input class="form-control" type="text" name="cusname" id="cusname"
                                                 required> --}}
@@ -34,7 +34,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="form-group m-1">
+                                        <div class="m-1 form-group">
                                             <label for="description">Task Description</label>
                                             <input class="form-control" type="text" name="description" id="description"
                                                 required>
@@ -44,7 +44,7 @@
                                     <input type="hidden" value="1" name="status" id="status">
 
                                     <div class="col-md-4">
-                                        <div class="form-group m-1">
+                                        <div class="m-1 form-group">
                                             <label for="due_date">Task Due Date</label>
                                             <input class="form-control" type="date" name="due_date" id="due_date"
                                                 required>
@@ -60,14 +60,14 @@
 
                                 </div>
                                 <div class="col-md-6 d-flex">
-                                    <button type="submit" class="btn btn-sm btn-primary ms-2 mt-4 w-25">Add</button>
+                                    <button type="submit" class="mt-4 btn btn-sm btn-primary ms-2 w-25">Add</button>
                                 </div>
                             </form>
                         </div>
 
-                        <div class="col-xl-12 mt-5">
+                        <div class="mt-5 col-xl-12">
                             <div class="table-responsive fs-14">
-                                <table class="table display mb-4 dataTablesCard order-table shadow-hover  card-table"
+                                <table class="table mb-4 display dataTablesCard order-table shadow-hover card-table"
                                     id="example5">
                                     <thead>
                                         <tr class="text-center">
@@ -123,49 +123,48 @@
                                                             @if ($tk->status == 1)
                                                                 <form action="/finished/{{ $tk->id }}" method="POST">
                                                                     @csrf
-                                                                    <button type="submit" class="dropdown-item text-black">
+                                                                    <button type="submit" class="text-black dropdown-item">
                                                                         Finished
                                                                     </button>
                                                                 </form>
                                                                 <form action="/cancelled/{{ $tk->id }}"
                                                                     method="POST">
                                                                     @csrf
-                                                                    <button type="submit" class="dropdown-item text-black">
+                                                                    <button type="submit" class="text-black dropdown-item">
                                                                         Cancelled
                                                                     </button>
                                                                 </form>
                                                                 <form action="/onhold/{{ $tk->id }}" method="POST">
                                                                     @csrf
-                                                                    <button type="submit" class="dropdown-item text-black">
+                                                                    <button type="submit" class="text-black dropdown-item">
                                                                         Hold
                                                                     </button>
                                                                 </form>
                                                             @elseif ($tk->status == 2)
                                                                 <form action="/process/{{ $tk->id }}" method="POST">
                                                                     @csrf
-                                                                    <button type="submit" class="dropdown-item text-black">
+                                                                    <button type="submit" class="text-black dropdown-item">
                                                                         On Process
                                                                     </button>
                                                                 </form>
                                                                 <form action="/cancelled/{{ $tk->id }}"
                                                                     method="POST">
                                                                     @csrf
-                                                                    <button type="submit" class="dropdown-item text-black">
+                                                                    <button type="submit" class="text-black dropdown-item">
                                                                         Cancelled
                                                                     </button>
                                                                 </form>
                                                                 <form action="/onhold/{{ $tk->id }}" method="POST">
                                                                     @csrf
-                                                                    <button type="submit" class="dropdown-item text-black">
+                                                                    <button type="submit" class="text-black dropdown-item">
                                                                         Hold
                                                                     </button>
                                                                 </form>
                                                             @elseif ($tk->status == 3)
-                                                                <form action="/process/{{ $tk->id }}"
-                                                                    method="POST">
+                                                                <form action="/process/{{ $tk->id }}" method="POST">
                                                                     @csrf
                                                                     <button type="submit"
-                                                                        class="dropdown-item text-black">
+                                                                        class="text-black dropdown-item">
                                                                         On Process
                                                                     </button>
                                                                 </form>
@@ -173,7 +172,7 @@
                                                                     method="POST">
                                                                     @csrf
                                                                     <button type="submit"
-                                                                        class="dropdown-item text-black">
+                                                                        class="text-black dropdown-item">
                                                                         Hold
                                                                     </button>
                                                                 </form>
@@ -181,7 +180,7 @@
                                                                     method="POST">
                                                                     @csrf
                                                                     <button type="submit"
-                                                                        class="dropdown-item text-black">
+                                                                        class="text-black dropdown-item">
                                                                         Finished
                                                                     </button>
                                                                 </form>
@@ -190,7 +189,7 @@
                                                                     method="POST">
                                                                     @csrf
                                                                     <button type="submit"
-                                                                        class="dropdown-item text-black">
+                                                                        class="text-black dropdown-item">
                                                                         Finished
                                                                     </button>
                                                                 </form>
@@ -198,7 +197,7 @@
                                                                     method="POST">
                                                                     @csrf
                                                                     <button type="submit"
-                                                                        class="dropdown-item text-black">On
+                                                                        class="text-black dropdown-item">On
                                                                         Process
                                                                     </button>
                                                                 </form>
@@ -206,7 +205,7 @@
                                                                     method="POST">
                                                                     @csrf
                                                                     <button type="submit"
-                                                                        class="dropdown-item text-black">
+                                                                        class="text-black dropdown-item">
                                                                         Cancelled
                                                                     </button>
                                                                 </form>

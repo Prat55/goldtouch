@@ -55,9 +55,9 @@
                 <div class="col-xl-12 col-xxl-12">
                     <div class="card">
                         <div class="pt-5 pe-5 ps-5 card-head d-flex justify-content-between">
-                            <a class="btn btn-sm btn-success" href="events/export/">
-                                <i class="fa fa-file-excel"></i>
-                            </a>
+                            {{-- <a class="btn btn-sm btn-success" href="events/export/">
+                                 <i class="fa fa-file-excel"></i>
+                            </a> --}}
                             <a class="btn btn-sm btn-success" href="events/export/">
                                 <i class="fa fa-file-excel"></i>
                             </a>
