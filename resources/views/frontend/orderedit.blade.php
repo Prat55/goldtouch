@@ -49,7 +49,8 @@
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">STYLE REF</label>
                                             <input type="text" class="form-control" name="styleref"
-                                                value="{{ $order->cstyle_ref }}" required>
+                                                value="{{ $order->cstyle_ref }}"
+                                                {{ Auth::user()->role == 2 ? '' : 'disabled' }}>
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">PO NUMBER</label>
@@ -59,11 +60,13 @@
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">PO COPY UPLOAD</label><br>
                                             <div class="col-md-12 d-flex justify-content-center align-items-center">
-                                                <div class="col-md-6">
-                                                    <input type="text" class="form-control" value="{{ $order->poimg }}"
-                                                        name="oldpoimg" disabled>
-                                                </div>
-                                                <div class="col-md-6">
+                                                @if ($order->poimg)
+                                                    <div class="col-md-6">
+                                                        <input type="text" class="form-control"
+                                                            value="{{ $order->poimg }}" name="oldpoimg" disabled>
+                                                    </div>
+                                                @endif
+                                                <div class="col-md-{{ $order->poimg ? '6' : '12' }}">
                                                     <input type="file" class="form-control" name="poimg"
                                                         id="poimg">
                                                 </div>

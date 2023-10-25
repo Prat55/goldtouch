@@ -26,8 +26,7 @@
     <link href="{{ 'user-assets/xhtml/vendor/fullcalendar/css/main.min.css' }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer" />
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="{{ 'user-assets/xhtml/vendor/chartist/css/chartist.min.css' }}">
     <link href="{{ 'user-assets/xhtml/vendor/jquery-nice-select/css/nice-select.css' }}" rel="stylesheet">
@@ -102,6 +101,19 @@
                                         </a>
                                     </span>
                                 </div>
+                            </div>
+
+                            <div class="ms-5 nav-item position-relative">
+                                <a href="/make-order" class="btn btn-sm btn-primary">New Order</a>
+                            </div>
+                            <div class="ms-2 nav-item position-relative">
+                                <a href="/orders" class="btn btn-sm btn-primary">Process Order</a>
+                            </div>
+                            <div class="ms-2 nav-item position-relative">
+                                <a href="/tasks" class="btn btn-sm btn-primary">New Task</a>
+                            </div>
+                            <div class="ms-2 nav-item position-relative">
+                                <a href="/orders" class="btn btn-sm btn-primary">New Measurement</a>
                             </div>
                         </div>
 
