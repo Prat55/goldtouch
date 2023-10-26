@@ -89,7 +89,7 @@ class UserOrderController extends Controller
                 'phone' =>  "$request->phone1" . ' ' . "$request->phone2" . ' ' . "$request->phone3" . ' ' . "$request->phone4" . ' ' . "$request->phone5",
             ];
 
-            Mail::to('pratikdesai9900@gmail.com')->cc("$request->email1", "$request->email2", "$request->email3", "$request->email4", "$request->email5")->send(new OrdersMail($mailData));
+            Mail::to('2490rahuljadhav@gmail.com')->cc("$request->email1", "$request->email2", "$request->email3", "$request->email4", "$request->email5")->send(new OrdersMail($mailData));
             return redirect('/make-order')->with('success', 'Order placed successfully');
         } else {
             $order = new Order([
@@ -128,7 +128,7 @@ class UserOrderController extends Controller
                 'phone' =>  "$request->phone1" . ' ' . "$request->phone2" . ' ' . "$request->phone3" . ' ' . "$request->phone4" . ' ' . "$request->phone5",
             ];
 
-            Mail::to('pratikdesai9900@gmail.com')->cc("$request->email1", "$request->email2", "$request->email3", "$request->email4", "$request->email5")->send(new OrdersMail($mailData));
+            Mail::to('2490rahuljadhav@gmail.com')->cc("$request->email1", "$request->email2", "$request->email3", "$request->email4", "$request->email5")->send(new OrdersMail($mailData));
             return redirect('/make-order')->with('success', 'Order placed successfully');
         }
     }
@@ -168,7 +168,7 @@ class UserOrderController extends Controller
             'phone' =>  "$request->phone1" . ' ' . "$request->phone2" . ' ' . "$request->phone3" . ' ' . "$request->phone4" . ' ' . "$request->phone5",
         ];
 
-        Mail::to('pratikdesai9900@gmail.com')->cc("$request->email1", "$request->email2", "$request->email3", "$request->email4", "$request->email5")->send(new OrdersMail($mailData));
+        Mail::to('2490rahuljadhav@gmail.com')->cc("$request->email1", "$request->email2", "$request->email3", "$request->email4", "$request->email5")->send(new OrdersMail($mailData));
 
         return redirect('/order')->with('success', 'Order placed successfully');
     }
