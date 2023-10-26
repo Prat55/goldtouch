@@ -97,6 +97,7 @@
                                     <input type="text" class="form-control" placeholder="Search here" />
                                     <span class="input-group-text">
                                         <a href="javascript:void(0)">
+
                                             <i class="flaticon-381-search-2"></i>
                                         </a>
                                     </span>

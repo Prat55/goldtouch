@@ -96,7 +96,7 @@
                                             <div class="col-md-12 d-flex justify-content-between">
                                                 <div class="col-8">
                                                     <!-- Text input with 70% width -->
-                                                    <input type="text" name="mtakerDate2" class="form-control"
+                                                    <input type="text" name="mtaker2" class="form-control"
                                                         style="width: 100%" value="{{ $order->mtaker2 }}"
                                                         placeholder="Enter measurement taker name (optional)" />
                                                 </div>

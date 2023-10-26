@@ -15,54 +15,156 @@
                                     @include('frontend.message')
                                 </div>
                             </div>
-                            <form action="add-task" method="POST">
-                                @csrf
-                                <div class="col-md-12 d-flex justify-content-center align-items-center">
-                                    <div class="col-md-4">
-                                        <div class="m-1 form-group">
-                                            <label for="cusname">Name of user</label>
-                                            {{-- <input class="form-control" type="text" name="cusname" id="cusname"
-                                                required> --}}
-                                            <select class="form-control" name="cusname" id="cusname" required>
-                                                <option>select user</option>
-                                                @foreach ($users as $user)
-                                                    <option value="{{ $user->id }}">
-                                                        {{ $user->name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
+
+                            <div class="col-xl-12">
+                                <div class="h-auto card">
+                                    <div class="card-body">
+                                        <div class="profile-tab">
+                                            <div class="custom-tab-1">
+                                                <ul class="nav nav-tabs">
+                                                    <li class="nav-item"><a href="#about-me" data-bs-toggle="tab"
+                                                            class="nav-link active show">Non Order Based</a>
+                                                    </li>
+                                                    <li class="nav-item"><a href="#reset-password" data-bs-toggle="tab"
+                                                            class="nav-link">Order Based</a>
+                                                    </li>
+                                                    {{-- <li class="nav-item"><a href="#delete-account" data-bs-toggle="tab"
+                                                            class="nav-link ">Delete Account</a>
+                                                    </li> --}}
+                                                </ul>
+                                                <div class="tab-content">
+                                                    {{-- <div id="delete-account" class="tab-pane fade">
+                                                        <div class="pt-3 my-post-content">
+
+                                                        </div>
+                                                    </div> --}}
+                                                    <div id="about-me" class="tab-pane fade active show">
+                                                        <div class="profile-personal-info">
+                                                            <h4 class="mb-4 text-primary"></h4>
+                                                            <form action="add-task" method="POST">
+                                                                @csrf
+                                                                <div
+                                                                    class="col-md-12 d-flex justify-content-center align-items-center">
+                                                                    <div class="col-md-4">
+                                                                        <div class="m-1 form-group">
+                                                                            <label for="cusname">Name of user</label>
+                                                                            <select class="form-control" name="cusname"
+                                                                                id="cusname" required>
+                                                                                <option>select user</option>
+                                                                                @foreach ($users as $user)
+                                                                                    <option value="{{ $user->id }}">
+                                                                                        {{ $user->name }}
+                                                                                    </option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="m-1 form-group">
+                                                                            <label for="description">Task
+                                                                                Description</label>
+                                                                            <input class="form-control" type="text"
+                                                                                name="description" id="description"
+                                                                                required>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <input type="hidden" value="1" name="status"
+                                                                        id="status">
+
+                                                                    <div class="col-md-4">
+                                                                        <div class="m-1 form-group">
+                                                                            <label for="due_date">Task Due Date</label>
+                                                                            <input class="form-control" type="date"
+                                                                                name="due_date" id="due_date" required>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div
+                                                                    class="col-md-12 d-flex justify-content-center align-items-center">
+
+
+
+                                                                </div>
+                                                                <div class="col-md-12 d-flex align-items-center">
+
+                                                                </div>
+                                                                <div class="col-md-6 d-flex">
+                                                                    <button type="submit"
+                                                                        class="mt-4 btn btn-sm btn-primary ms-2 w-25">Add</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div id="reset-password" class="tab-pane fade">
+                                                        <div class="pt-3">
+                                                            <div class="settings-form">
+                                                                <form action="add-task" method="POST">
+                                                                    @csrf
+                                                                    <div
+                                                                        class="col-md-12 d-flex justify-content-center align-items-center">
+                                                                        <div class="col-md-4">
+                                                                            <div class="m-1 form-group">
+                                                                                <label for="cusname">Name of user</label>
+                                                                                <select class="form-control" name="cusname"
+                                                                                    id="cusname" required>
+                                                                                    <option>select user</option>
+                                                                                    @foreach ($users as $user)
+                                                                                        <option value="{{ $user->id }}">
+                                                                                            {{ $user->name }}
+                                                                                        </option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="m-1 form-group">
+                                                                                <label for="description">
+                                                                                    Assign Order
+                                                                                </label>
+                                                                                <select name="orderName" id="orderName">
+                                                                                    <option>Select Order</option>
+                                                                                    
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <input type="hidden" value="1" name="status"
+                                                                            id="status">
+
+                                                                        <div class="col-md-4">
+                                                                            <div class="m-1 form-group">
+                                                                                <label for="due_date">Task Due Date</label>
+                                                                                <input class="form-control" type="date"
+                                                                                    name="due_date" id="due_date" required>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div
+                                                                        class="col-md-12 d-flex justify-content-center align-items-center">
+
+
+
+                                                                    </div>
+                                                                    <div class="col-md-12 d-flex align-items-center">
+
+                                                                    </div>
+                                                                    <div class="col-md-6 d-flex">
+                                                                        <button type="submit"
+                                                                            class="mt-4 btn btn-sm btn-primary ms-2 w-25">Add</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="m-1 form-group">
-                                            <label for="description">Task Description</label>
-                                            <input class="form-control" type="text" name="description" id="description"
-                                                required>
-                                        </div>
-                                    </div>
-
-                                    <input type="hidden" value="1" name="status" id="status">
-
-                                    <div class="col-md-4">
-                                        <div class="m-1 form-group">
-                                            <label for="due_date">Task Due Date</label>
-                                            <input class="form-control" type="date" name="due_date" id="due_date"
-                                                required>
-                                        </div>
-                                    </div>
                                 </div>
-                                <div class="col-md-12 d-flex justify-content-center align-items-center">
+                            </div>
 
 
-
-                                </div>
-                                <div class="col-md-12 d-flex align-items-center">
-
-                                </div>
-                                <div class="col-md-6 d-flex">
-                                    <button type="submit" class="mt-4 btn btn-sm btn-primary ms-2 w-25">Add</button>
-                                </div>
-                            </form>
                         </div>
 
                         <div class="mt-5 col-xl-12">
@@ -103,65 +205,75 @@
                                                                 fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <path
                                                                     d="M11.0005 12C11.0005 12.5523 11.4482 13 12.0005 13C12.5528 13 13.0005 12.5523 13.0005 12C13.0005 11.4477 12.5528 11 12.0005 11C11.4482 11 11.0005 11.4477 11.0005 12Z"
-                                                                    stroke="#3E4954" stroke-width="2" stroke-linecap="round"
-                                                                    stroke-linejoin="round">
+                                                                    stroke="#3E4954" stroke-width="2"
+                                                                    stroke-linecap="round" stroke-linejoin="round">
                                                                 </path>
                                                                 <path
                                                                     d="M18.0005 12C18.0005 12.5523 18.4482 13 19.0005 13C19.5528 13 20.0005 12.5523 20.0005 12C20.0005 11.4477 19.5528 11 19.0005 11C18.4482 11 18.0005 11.4477 18.0005 12Z"
-                                                                    stroke="#3E4954" stroke-width="2" stroke-linecap="round"
-                                                                    stroke-linejoin="round">
+                                                                    stroke="#3E4954" stroke-width="2"
+                                                                    stroke-linecap="round" stroke-linejoin="round">
                                                                 </path>
                                                                 <path
                                                                     d="M4.00049 12C4.00049 12.5523 4.4482 13 5.00049 13C5.55277 13 6.00049 12.5523 6.00049 12C6.00049 11.4477 5.55277 11 5.00049 11C4.4482 11 4.00049 11.4477 4.00049 12Z"
-                                                                    stroke="#3E4954" stroke-width="2" stroke-linecap="round"
-                                                                    stroke-linejoin="round">
+                                                                    stroke="#3E4954" stroke-width="2"
+                                                                    stroke-linecap="round" stroke-linejoin="round">
                                                                 </path>
                                                             </svg>
                                                         </div>
 
                                                         <div class="dropdown-menu dropdown-menu-right">
                                                             @if ($tk->status == 1)
-                                                                <form action="/finished/{{ $tk->id }}" method="POST">
+                                                                <form action="/finished/{{ $tk->id }}"
+                                                                    method="POST">
                                                                     @csrf
-                                                                    <button type="submit" class="text-black dropdown-item">
+                                                                    <button type="submit"
+                                                                        class="text-black dropdown-item">
                                                                         Finished
                                                                     </button>
                                                                 </form>
                                                                 <form action="/cancelled/{{ $tk->id }}"
                                                                     method="POST">
                                                                     @csrf
-                                                                    <button type="submit" class="text-black dropdown-item">
+                                                                    <button type="submit"
+                                                                        class="text-black dropdown-item">
                                                                         Cancelled
                                                                     </button>
                                                                 </form>
                                                                 <form action="/onhold/{{ $tk->id }}" method="POST">
                                                                     @csrf
-                                                                    <button type="submit" class="text-black dropdown-item">
+                                                                    <button type="submit"
+                                                                        class="text-black dropdown-item">
                                                                         Hold
                                                                     </button>
                                                                 </form>
                                                             @elseif ($tk->status == 2)
-                                                                <form action="/process/{{ $tk->id }}" method="POST">
+                                                                <form action="/process/{{ $tk->id }}"
+                                                                    method="POST">
                                                                     @csrf
-                                                                    <button type="submit" class="text-black dropdown-item">
+                                                                    <button type="submit"
+                                                                        class="text-black dropdown-item">
                                                                         On Process
                                                                     </button>
                                                                 </form>
                                                                 <form action="/cancelled/{{ $tk->id }}"
                                                                     method="POST">
                                                                     @csrf
-                                                                    <button type="submit" class="text-black dropdown-item">
+                                                                    <button type="submit"
+                                                                        class="text-black dropdown-item">
                                                                         Cancelled
                                                                     </button>
                                                                 </form>
-                                                                <form action="/onhold/{{ $tk->id }}" method="POST">
+                                                                <form action="/onhold/{{ $tk->id }}"
+                                                                    method="POST">
                                                                     @csrf
-                                                                    <button type="submit" class="text-black dropdown-item">
+                                                                    <button type="submit"
+                                                                        class="text-black dropdown-item">
                                                                         Hold
                                                                     </button>
                                                                 </form>
                                                             @elseif ($tk->status == 3)
-                                                                <form action="/process/{{ $tk->id }}" method="POST">
+                                                                <form action="/process/{{ $tk->id }}"
+                                                                    method="POST">
                                                                     @csrf
                                                                     <button type="submit"
                                                                         class="text-black dropdown-item">

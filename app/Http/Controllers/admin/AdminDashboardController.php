@@ -41,9 +41,11 @@ class AdminDashboardController extends Controller
     {
         $tasks = Task::latest()->paginate(10);
         $users = User::all();
+        $orders = Order::all();
         $notification = Notification::latest()->get();
         $notificationCount = Notification::where('status', '1')->count();
-        return view('frontend.sendTask', compact('tasks', 'users', 'notification', 'notificationCount'));
+
+        return view('frontend.sendTask', compact('tasks', 'users', 'orders', 'notification', 'notificationCount'));
     }
 
     protected function addTask(Request $request)
