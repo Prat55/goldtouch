@@ -86,6 +86,45 @@ class AdminDashboardController extends Controller
         }
     }
 
+    protected function addOrderTask(Request $request)
+    {
+        $userTask = User::findOrFail($request->cusname);
+        $orderId = Order::findOrFail($request->orderName);
+
+
+        $tasks = new Task([
+            'userId' => $request->cusname,
+            'email' => $userTask->email,
+            'description' => $orderId->order_id . ', ' . $orderId->cname,
+            'status' => $request->status,
+            'due_date' => $request->due_date,
+        ]);
+        $tasks->save();
+
+        $notification = new Notification([
+            'notification_title' => "task assigned for " . $userTask->email,
+            'notification_type' => "task",
+            'status' => '1',
+        ]);
+        $notification->save();
+
+        $mailData = [
+            'customer_name' =>  'Hello ' . $userTask->name,
+            'email' => $userTask->email,
+            'description' => 'You have assigned for the order by GoldTouch Order Id:' . $request->description . ', Custome Name: ' . $request->customer,
+            'due_date' => $request->due_date,
+            'message' => 'Your task has been assigned',
+        ];
+
+        Mail::to($userTask->email)->send(new TaskAssignMail($mailData));
+
+        if ($tasks) {
+            return back()->with('success', 'Task created successfully');
+        } else {
+            return back()->with('error', 'Task creation failed!');
+        }
+    }
+
     protected function accept($id)
     {
         $order = Order::findOrFail($id);
@@ -176,13 +215,6 @@ class AdminDashboardController extends Controller
     //     };
     //     return response()->stream($callback, 200, $headers);
     // }
-
-
-
-
-
-
-
 
 
     protected function calender()
@@ -323,5 +355,33 @@ class AdminDashboardController extends Controller
         }
 
         return back();
+    }
+
+    protected function fetch_customer(Request $request, $id)
+    {
+        $validator =  Validator::make($request->all(), [
+            'id' => 'required|max:198',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 404,
+                'errors' => $validator->messages(),
+            ]);
+        } else {
+            $order = Order::find($id);
+
+            if ($order) {
+                return response()->json([
+                    'status' => 200,
+                    'order' => $order,
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 403,
+                    'errors' => 'Not Found!',
+                ]);
+            }
+        }
     }
 }
