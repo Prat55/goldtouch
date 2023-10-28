@@ -86,10 +86,13 @@ Route::middleware('admin.auth')->group(function () {
     // ? Tasks Routes
     Route::get('/tasks', [AdminDashboardController::class, 'addTasks'])->name('sendUserTask');
     Route::post('/add-task', [AdminDashboardController::class, 'addTask'])->name('sendTask');
+    Route::post('/add-order-task', [AdminDashboardController::class, 'addOrderTask']);
+
     Route::post('/finished/{id}', [AdminDashboardController::class, 'finished']);
     Route::post('/cancelled/{id}', [AdminDashboardController::class, 'cancelled']);
     Route::post('/onhold/{id}', [AdminDashboardController::class, 'onhold']);
     Route::post('/process/{id}', [AdminDashboardController::class, 'process']);
+    Route::post('/orders/customer/{id}', [AdminDashboardController::class, 'fetch_customer']);
 });
 
 require __DIR__ . '/auth.php';

@@ -22,11 +22,11 @@
                                         <div class="profile-tab">
                                             <div class="custom-tab-1">
                                                 <ul class="nav nav-tabs">
-                                                    <li class="nav-item"><a href="#about-me" data-bs-toggle="tab"
-                                                            class="nav-link active show">Non Order Based</a>
+                                                    <li class="nav-item"><a href="#order-based" data-bs-toggle="tab"
+                                                            class="nav-link active show">Order Based</a>
                                                     </li>
-                                                    <li class="nav-item"><a href="#reset-password" data-bs-toggle="tab"
-                                                            class="nav-link">Order Based</a>
+                                                    <li class="nav-item"><a href="#nonorder-based" data-bs-toggle="tab"
+                                                            class="nav-link">Non Order Based</a>
                                                     </li>
                                                     {{-- <li class="nav-item"><a href="#delete-account" data-bs-toggle="tab"
                                                             class="nav-link ">Delete Account</a>
@@ -38,7 +38,7 @@
 
                                                         </div>
                                                     </div> --}}
-                                                    <div id="about-me" class="tab-pane fade active show">
+                                                    <div id="nonorder-based" class="tab-pane fade">
                                                         <div class="profile-personal-info">
                                                             <h4 class="mb-4 text-primary"></h4>
                                                             <form action="add-task" method="POST">
@@ -96,47 +96,68 @@
                                                             </form>
                                                         </div>
                                                     </div>
-                                                    <div id="reset-password" class="tab-pane fade">
+                                                    <div id="order-based" class="tab-pane fade active show">
                                                         <div class="pt-3">
                                                             <div class="settings-form">
-                                                                <form action="add-task" method="POST">
+                                                                <form action="add-order-task" method="POST">
                                                                     @csrf
                                                                     <div
                                                                         class="col-md-12 d-flex justify-content-center align-items-center">
-                                                                        <div class="col-md-4">
+                                                                        <div class="col-md-3">
                                                                             <div class="m-1 form-group">
                                                                                 <label for="cusname">Name of user</label>
                                                                                 <select class="form-control" name="cusname"
                                                                                     id="cusname" required>
                                                                                     <option>select user</option>
-                                                                                    @foreach ($users as $user)
+                                                                                    @forelse ($users as $user)
                                                                                         <option value="{{ $user->id }}">
                                                                                             {{ $user->name }}
                                                                                         </option>
-                                                                                    @endforeach
+                                                                                    @empty
+                                                                                        <option value="No users found!">
+                                                                                        </option>
+                                                                                    @endforelse
                                                                                 </select>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-md-4">
+                                                                        <div class="col-md-3">
                                                                             <div class="m-1 form-group">
                                                                                 <label for="description">
                                                                                     Assign Order
                                                                                 </label>
-                                                                                <select name="orderName" id="orderName">
+                                                                                <select name="orderName" id="orderName"
+                                                                                    class="form-control">
                                                                                     <option>Select Order</option>
-                                                                                    
+                                                                                    @forelse ($orders as $item)
+                                                                                        <option value="{{ $item->id }}">
+                                                                                            {{ $item->order_id }}
+                                                                                        </option>
+                                                                                    @empty
+                                                                                        <option value="No Pending Orders">
+                                                                                        </option>
+                                                                                    @endforelse
                                                                                 </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <div class="m-1 form-group">
+                                                                                <label for="description">
+                                                                                    Customer Name
+                                                                                </label>
+                                                                                <input type="text" id="customer"
+                                                                                    class="form-control" disabled>
                                                                             </div>
                                                                         </div>
 
                                                                         <input type="hidden" value="1" name="status"
                                                                             id="status">
 
-                                                                        <div class="col-md-4">
+                                                                        <div class="col-md-3">
                                                                             <div class="m-1 form-group">
                                                                                 <label for="due_date">Task Due Date</label>
                                                                                 <input class="form-control" type="date"
-                                                                                    name="due_date" id="due_date" required>
+                                                                                    name="due_date" id="due_date"
+                                                                                    required>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -239,7 +260,8 @@
                                                                         Cancelled
                                                                     </button>
                                                                 </form>
-                                                                <form action="/onhold/{{ $tk->id }}" method="POST">
+                                                                <form action="/onhold/{{ $tk->id }}"
+                                                                    method="POST">
                                                                     @csrf
                                                                     <button type="submit"
                                                                         class="text-black dropdown-item">
@@ -342,5 +364,27 @@
 @endsection
 
 @section('customJs')
+    <script>
+        $('#orderName').change(function() {
 
+            let id = $('#orderName').val();
+
+            $.ajax({
+                type: "post",
+                url: "/orders/customer/" + id,
+                data: {
+                    id
+                },
+                dataType: "json",
+                success: function(response) {
+                    if (response.status == 400) {
+                        $('#customer').attr('placeholder', response.message);
+                    } else {
+                        $('#customer').val(response.order.cname);
+                        // console.log(response.order.cname);
+                    }
+                }
+            });
+        });
+    </script>
 @endsection
