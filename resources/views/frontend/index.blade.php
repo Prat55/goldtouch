@@ -193,10 +193,12 @@
                                                             </button>
                                                         </form>
                                                     @else
-                                                        <span class="tyext-warning">
-                                                            You can send mail when fabric is
-                                                            available
-                                                        </span>
+                                                        @if (Auth::user()->role == 1)
+                                                            <span class="tyext-warning">
+                                                                You can send mail when fabric is
+                                                                available
+                                                            </span>
+                                                        @endif
                                                     @endif
                                                 </div>
                                             </div>
