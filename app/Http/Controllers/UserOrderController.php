@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\OrderExport;
 use App\Mail\AssignOrderMail;
 use App\Mail\OrdersMail;
+use App\Models\Customer;
 use App\Models\Empdetail;
 use App\Models\Notification;
 use App\Models\Order;
@@ -30,7 +31,9 @@ class UserOrderController extends Controller
     {
         $notification = Notification::latest()->get();
         $notificationCount = Notification::where('status', '1')->count();
-        return view('frontend.order', compact('notification', 'notificationCount'));
+        $customers = Customer::all();
+
+        return view('frontend.order', compact('notification', 'notificationCount', 'customers'));
     }
 
     protected function random()
@@ -66,8 +69,16 @@ class UserOrderController extends Controller
                 'cgstin' => $request->cgstin,
                 'fabrics_status' => 0,
                 'cstyle_ref' => $request->styleref,
-                'email' => $request->email1 . ' ' . $request->email2 . ' ' . $request->email2 . ' ' . $request->email3 . ' ' . $request->email4 . ' ' . $request->email5,
-                'phone' => $request->phone1 . ' ' . $request->phone2 . ' ' . $request->phone3 . ' ' . $request->phone4 . ' ' . $request->phone5,
+                'email' => $request->email1,
+                'email2' => $request->email2,
+                'email3' => $request->email3,
+                'email4' => $request->email4,
+                'email5' => $request->email5,
+                'phone' => $request->phone1,
+                'phone2' => $request->phone2,
+                'phone3' => $request->phone3,
+                'phone4' => $request->phone4,
+                'phone5' => $request->phone5,
             ]);
             $order->save();
 
@@ -90,6 +101,20 @@ class UserOrderController extends Controller
             ];
 
             Mail::to('2490rahuljadhav@gmail.com')->cc("$request->email1", "$request->email2", "$request->email3", "$request->email4", "$request->email5")->send(new OrdersMail($mailData));
+
+            $customer = Customer::where('cname', $request->cname)->where('cgstin', $request->cgstin)->where('email', $request->email)->first();
+
+            if (!$customer) {
+                $cusDetails = new Customer([
+                    'cname' => $request->cname,
+                    'cadd' => $request->cadd,
+                    'cgstin' => $request->cgstin,
+                    'email' => $request->email1,
+                    'phone' => $request->phone1,
+                ]);
+                $cusDetails->save();
+            }
+
             return redirect('/make-order')->with('success', 'Order placed successfully');
         } else {
             $order = new Order([
@@ -104,8 +129,16 @@ class UserOrderController extends Controller
                 'cgstin' => $request->cgstin,
                 'fabrics_status' => 0,
                 'cstyle_ref' => $request->styleref,
-                'email' => $request->email1 . ' ' . $request->email2 . ' ' . $request->email2 . ' ' . $request->email3 . ' ' . $request->email4 . ' ' . $request->email5,
-                'phone' => $request->phone1 . ' ' . $request->phone2 . ' ' . $request->phone3 . ' ' . $request->phone4 . ' ' . $request->phone5,
+                'email' => $request->email1,
+                'email2' => $request->email2,
+                'email3' => $request->email3,
+                'email4' => $request->email4,
+                'email5' => $request->email5,
+                'phone' => $request->phone1,
+                'phone2' => $request->phone2,
+                'phone3' => $request->phone3,
+                'phone4' => $request->phone4,
+                'phone5' => $request->phone5,
 
             ]);
             $order->save();
@@ -129,6 +162,19 @@ class UserOrderController extends Controller
             ];
 
             Mail::to('2490rahuljadhav@gmail.com')->cc("$request->email1", "$request->email2", "$request->email3", "$request->email4", "$request->email5")->send(new OrdersMail($mailData));
+
+            $customer = Customer::where('cname', $request->cname)->where('phone', $request->phone1)->where('email', $request->email1)->first();
+
+            if (!$customer) {
+                $cusDetails = new Customer;
+                $cusDetails->cname = $request->cname;
+                $cusDetails->cadd = $request->cadd;
+                $cusDetails->cgstin = $request->cgstin;
+                $cusDetails->email = $request->email1;
+                $cusDetails->phone = $request->phone1;
+                $cusDetails->save();
+            }
+
             return redirect('/make-order')->with('success', 'Order placed successfully');
         }
     }
@@ -145,10 +191,29 @@ class UserOrderController extends Controller
             'cgstin' => $request->cgstin,
             'fabrics_status' => 0,
             'remark' => $request->remark,
-            'email' => $request->email1 . ' ' . $request->email2 . ' ' . $request->email2 . ' ' . $request->email3 . ' ' . $request->email4 . ' ' . $request->email5,
-            'phone' => $request->phone1 . ' ' . $request->phone2 . ' ' . $request->phone2 . ' ' . $request->phone3 . ' ' . $request->phone4 . ' ' . $request->phone5,
+            'email' => $request->email1,
+            'email2' => $request->email2,
+            'email3' => $request->email3,
+            'email4' => $request->email4,
+            'email5' => $request->email5,
+            'phone' => $request->phone1,
+            'phone2' => $request->phone2,
+            'phone3' => $request->phone3,
+            'phone4' => $request->phone4,
+            'phone5' => $request->phone5,
         ]);
         $order->save();
+
+
+        $cusDetails = new Customer([
+            'cname' => $request->cname,
+            'cadd' => $request->cadd,
+            'cgstin' => $request->cgstin,
+            'email' => $request->email1,
+            'phone' => $request->phone1,
+        ]);
+        $cusDetails->save();
+
 
         $notification = new Notification([
             'notification_title' => $random . " order is placed by customer",
@@ -363,5 +428,33 @@ class UserOrderController extends Controller
     public function export()
     {
         return Excel::download(new OrderExport, 'orders.csv');
+    }
+
+    protected function fetchcustomer(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|max:198',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->messages(),
+            ]);
+        } else {
+            $order = Order::find($id);
+
+            if ($order) {
+                return response()->json([
+                    'status' => 200,
+                    'order' => $order
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 403,
+                    'errors' => 'Not Found!',
+                ]);
+            }
+        }
     }
 }

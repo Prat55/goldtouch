@@ -68,6 +68,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/calender', [AdminDashboardController::class, 'calender'])->name('calender');
     Route::post('/calender/event', [AdminDashboardController::class, 'calender_event'])->name('calendar.event');
 
+    // ? Old order customer details fetching route
+    Route::post('fetchcustomer/{id}', [UserOrderController::class, 'fetchcustomer']);
+
     // ? Calender routes
     Route::get('events/export/', [ExportEventController::class, 'export']);
     Route::get('orders/export/', [UserOrderController::class, 'export']);
@@ -88,6 +91,7 @@ Route::middleware('admin.auth')->group(function () {
     Route::post('/add-task', [AdminDashboardController::class, 'addTask'])->name('sendTask');
     Route::post('/add-order-task', [AdminDashboardController::class, 'addOrderTask']);
 
+    // ? Order Status Routes
     Route::post('/finished/{id}', [AdminDashboardController::class, 'finished']);
     Route::post('/cancelled/{id}', [AdminDashboardController::class, 'cancelled']);
     Route::post('/onhold/{id}', [AdminDashboardController::class, 'onhold']);

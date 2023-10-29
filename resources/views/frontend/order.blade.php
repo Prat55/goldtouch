@@ -4,7 +4,7 @@
 @section('content')
     <div class="content-body">
         <div class="container-fluid">
-            <div class="mb-sm-4 d-flex flex-wrap align-items-center text-head">
+            <div class="flex-wrap mb-sm-4 d-flex align-items-center text-head">
                 <h2 class="mb-3 me-auto">Order</h2>
                 <div>
                     <ol class="breadcrumb">
@@ -27,21 +27,31 @@
                                     @csrf
                                     @method('put')
                                     <div class="row">
-                                        <div class="mb-3 col-md-6">
+                                        <div class="mb-3 col-md-6 input-container">
                                             <label class="form-label">CUSTOMER NAME</label>
-                                            <input type="text" class="form-control" name="cname" required>
+                                            <input type="text" class="form-control" name="cname" id="textbox"
+                                                required>
+                                            <ul class="text-center options-popup">
+                                                @forelse ($customers as $cust)
+                                                    <li value="{{ $cust->id }}">{{ $cust->cname }}</li>
+                                                @empty
+                                                    <li>Not found!</li>
+                                                @endforelse
+                                            </ul>
                                         </div>
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label">CUSTOMER ADD</label>
-                                            <input type="text" class="form-control" name="cadd" required>
+                                            <label class="form-label">CUSTOMER ADDRESS</label>
+                                            <input type="text" class="form-control" name="cadd" id="cadd"
+                                                required>
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">CUSTOMER GSTIN</label>
-                                            <input type="text" class="form-control" name="cgstin" required>
+                                            <input type="text" class="form-control" name="cgstin" id="cgstin"
+                                                required>
                                         </div>
 
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label">STYLE REF</label>
+                                            <label class="form-label">STYLE REFERENCE</label>
                                             <input type="text" class="form-control" name="styleref" required>
                                         </div>
                                         <div class="mb-3 col-md-6">
@@ -88,8 +98,9 @@
                                             <label class="form-label">Email</label>
                                             <div class="d-flex align-items-center">
                                                 <div class="col-md-9">
-                                                    <input type="email" class="form-control mt-1"
-                                                        placeholder="Enter Email Id 1" name="email1" required>
+                                                    <input type="email" class="mt-1 form-control"
+                                                        placeholder="Enter Email Id 1" name="email1" id="email1"
+                                                        required>
                                                 </div>
                                                 <div class="col-md-2 ms-5">
                                                     <button id="addInput" class="btn btn-sm btn-primary">Add</button>
@@ -109,7 +120,8 @@
                                             <div class="d-flex align-items-center">
                                                 <div class="col-md-9">
                                                     <input type="text" class="form-control"
-                                                        placeholder="Enter Phone Number 1" name="phone1" required>
+                                                        placeholder="Enter Phone Number 1" name="phone1" id="phone1"
+                                                        required>
                                                 </div>
                                                 <div class="col-md-2 ms-5">
                                                     <button id="addInput1" class="btn btn-sm btn-primary">Add</button>
@@ -237,6 +249,50 @@
 
             $("#addInput1").click(function() {
                 addInputBox();
+            });
+        });
+
+        $(document).ready(function() {
+            // When the textbox is clicked, show the options popup
+            $("#textbox").click(function() {
+                $(".options-popup").show();
+            });
+
+            // When an option is clicked, fill the textbox with its text and hide the options popup
+            $(".options-popup li").click(function() {
+                var selectedOption = $(this).text();
+                $("#textbox").val(selectedOption);
+                $(".options-popup").hide();
+            });
+
+            // Hide the options popup when clicking outside of it
+            $(document).click(function(e) {
+                if (!$(e.target).closest(".input-container").length) {
+                    $(".options-popup").hide();
+                }
+            });
+        });
+
+        $('.options-popup li').click(function() {
+            let id = $(this).val();
+
+            $.ajax({
+                type: "post",
+                url: "/fetchcustomer/" + id,
+                data: {
+                    id
+                },
+                dataType: "json",
+                success: function(response) {
+                    if (response.staus == 400) {
+                        $("#textbox").val(response.errors);
+                    } else {
+                        $('#cadd').val(response.order.cadd)
+                        $('#cgstin').val(response.order.cgstin)
+                        $('#email1').val(response.order.email)
+                        $('#phone1').val(response.order.phone)
+                    }
+                }
             });
         });
     </script>

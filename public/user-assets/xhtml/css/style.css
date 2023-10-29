@@ -47349,3 +47349,59 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
 .excelbtn {
     margin-left: 20px;
 }
+
+/*
+.custnames {
+    width: 96%;
+    max-height: 150px;
+    min-height: auto;
+    background-color: #fff;
+    border-radius: 20px;
+    position: absolute;
+    overflow-x: hidden;
+} */
+
+.customer {
+    width: 100%;
+    height: auto;
+}
+
+.customer li {
+    text-align: center;
+    color: #323131;
+    border: 1px solid #8c8b8b;
+    font-size: 1.2rem;
+}
+
+/** Order Code **/
+
+.input-container {
+    position: relative;
+}
+
+.options-popup {
+    display: none;
+    position: absolute;
+    list-style: none;
+    border: 1px solid #ccc;
+    background-color: var(--bs-white);
+    z-index: 1;
+    width: 250px;
+    min-height: auto;
+    max-height: 130px;
+    border-radius: 5px;
+    overflow: scroll;
+}
+
+[data-bs-theme="dark"] .options-popup {
+    background-color: #212130;
+}
+
+.options-popup li {
+    padding: 10px 10px;
+    cursor: pointer;
+}
+
+.options-popup li:hover {
+    background-color: #f0f0f0;
+}
