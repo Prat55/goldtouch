@@ -189,8 +189,8 @@
                                                     </svg>
                                                 </div>
 
-                                                @if (Auth::user()->role == 2)
-                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    @if (Auth::user()->role == 2)
                                                         <form action="/accept/{{ $od->id }}" method="POST">
                                                             @csrf
                                                             <button type="submit" class="text-black dropdown-item">
@@ -215,16 +215,23 @@
                                                             value="{{ $od->cname }}">
                                                         <input type="hidden" name="email" id="email"
                                                             value="{{ $od->email }}">
-                                                        @if ($od->fabrics_status == 2)
-                                                            <form action="/send-mail/{{ $od->id }}" method="post">
-                                                                @csrf
-                                                                <button type="submit" class="text-black dropdown-item">
-                                                                    Send Mail
-                                                                </button>
-                                                            </form>
+                                                    @endif
+                                                    @if ($od->fabrics_status == 2)
+                                                        <form action="/send-mail/{{ $od->id }}" method="post">
+                                                            @csrf
+                                                            <button type="submit" class="text-black dropdown-item">
+                                                                Send Mail
+                                                            </button>
+                                                        </form>
+                                                    @else
+                                                        @if (Auth::user()->role == 1)
+                                                            <span class="tyext-warning">
+                                                                You can send mail when fabric is
+                                                                available
+                                                            </span>
                                                         @endif
-                                                    </div>
-                                                @endif
+                                                    @endif
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>

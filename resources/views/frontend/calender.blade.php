@@ -14,9 +14,16 @@
             <!-- row -->
 
             <div class="row">
+                <div class="col-md-12 position-relative">
+                    <div class="col-md-4 warningBox2">
+                        @include('frontend.message')
+                    </div>
+                </div>
+
                 <div id="sStatus" class="mt-2 mb-2">
 
                 </div>
+
                 <!-- Modal -->
                 <div class="modal fade" id="title" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -40,7 +47,8 @@
                                     placeholder="Enter Name 2" required>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default waves-effect" data-bs-dismiss="modal">
+                                <button type="button" class="btn btn-default waves-effect btn-modal-close"
+                                    data-bs-dismiss="modal">
                                     Close
                                 </button>
 
@@ -52,13 +60,23 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-12 col-xxl-12">
-                    <div class="card">
-                        <div class=" mt-5">
-                            <form action=" " method="post">
-                                <div class="row">
-                                    @csrf
-                                    <div class="col-sm-3 ">
+
+                <div class="modal fade" id="export" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <form action="events/export/" method="get">
+                                @csrf
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Add Event</h5>
+                                    <span class="close closebtn btn-modal-close" data-dismiss="modal" aria-label="Close"
+                                        aria-hidden="true">
+                                        &times;
+                                    </span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="col-md-12">
                                         <input class=" form-control" type="date" name="start_date" id="">
                                         @error('start_date')
                                             <span class="text-danger">
@@ -66,7 +84,7 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    <div class="col-sm-3 ">
+                                    <div class="mt-2 col-md-12">
                                         <input class=" form-control" type="date" name="end_date" id="">
                                         @error('end_date')
                                             <span class="text-danger">
@@ -74,13 +92,28 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    <div class="col-sm-3 ">
-                                        <a class="btn btn-sm btn-success" href="events/export/">
-                                            <i class="fa fa-file-excel"></i>
-                                        </a>
-                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success save-event waves-effect waves-light">
+                                        Export
+                                    </button>
                                 </div>
                             </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-xxl-12">
+                    <div class="card">
+                        <div class="mt-5 ">
+                            <div class="col-sm-3">
+                                {{-- <a class="btn btn-sm btn-success" href="events/export/">
+                                            <i class="fa fa-file-excel"></i>
+                                        </a> --}}
+                                <button type="button" class="btn btn-sm btn-success ms-5" data-toggle="modal"
+                                    data-target="#export">
+                                    <i class="fa fa-file-excel"></i>
+                                </button>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div id="calendar" class="">
@@ -201,6 +234,10 @@
             $('#title .modal-body').find('input').val("");
             $('#errstatus').html("");
             $('#errstatus').removeClass('alert alert-danger');
+        });
+
+        $('.btn-close-modal').click(function() {
+            $('#export').modal('hide');
         });
     </script>
 @endsection

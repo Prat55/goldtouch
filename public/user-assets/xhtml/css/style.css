@@ -47297,7 +47297,7 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
 .avatar2 {
     height: 50px;
     width: 50px;
-    border-radius: 40px;
+    border-radius: 60%;
     /* background-color: #008abd; */
     display: flex;
     align-items: center;

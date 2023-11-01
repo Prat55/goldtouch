@@ -7,8 +7,10 @@ use App\Mail\AssignOrderMail;
 use App\Mail\OrdersMail;
 use App\Models\Customer;
 use App\Models\Empdetail;
+use App\Models\Event;
 use App\Models\Notification;
 use App\Models\Order;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -49,6 +51,8 @@ class UserOrderController extends Controller
     {
         $random = $this->random();
         $user = Auth::user();
+        $today = Carbon::now()->format('Y-m-d');
+        $tomorrow = Carbon::tomorrow()->format('Y-m-d');
 
         if ($request->hasfile("poimg")) {
             $file = $request->file("poimg");
@@ -88,6 +92,14 @@ class UserOrderController extends Controller
                 'status' => '1',
             ]);
             $notification->save();
+
+            $event = new Event([
+                'title' => $random . ' is placed by user ',
+                'assignName1' => $user->name,
+                'start_date' => $today,
+                'end_date' => $tomorrow,
+            ]);
+            $event->save();
 
             $mailData = [
                 'orderId' => $random,
@@ -144,11 +156,19 @@ class UserOrderController extends Controller
             $order->save();
 
             $notification = new Notification([
-                'notification_title' => $random . " order is placed by user " . $user->name,
+                'notification_title' => $random . " order is placed by customer " . $request->cname,
                 'notification_type' => "order",
                 'status' => '1',
             ]);
             $notification->save();
+
+            $event = new Event([
+                'title' => $random . ' is placed by customer ',
+                'assignName1' => $request->cname,
+                'start_date' => $today,
+                'end_date' => $tomorrow,
+            ]);
+            $event->save();
 
             $mailData = [
                 'orderId' => $random,
@@ -204,17 +224,6 @@ class UserOrderController extends Controller
         ]);
         $order->save();
 
-
-        $cusDetails = new Customer([
-            'cname' => $request->cname,
-            'cadd' => $request->cadd,
-            'cgstin' => $request->cgstin,
-            'email' => $request->email1,
-            'phone' => $request->phone1,
-        ]);
-        $cusDetails->save();
-
-
         $notification = new Notification([
             'notification_title' => $random . " order is placed by customer",
             'notification_type' => "order",
@@ -234,6 +243,19 @@ class UserOrderController extends Controller
         ];
 
         Mail::to('2490rahuljadhav@gmail.com')->cc("$request->email1", "$request->email2", "$request->email3", "$request->email4", "$request->email5")->send(new OrdersMail($mailData));
+
+
+        $customer = Customer::where('cname', $request->cname)->where('phone', $request->phone1)->where('email', $request->email1)->first();
+
+        if (!$customer) {
+            $cusDetails = new Customer;
+            $cusDetails->cname = $request->cname;
+            $cusDetails->cadd = $request->cadd;
+            $cusDetails->cgstin = $request->cgstin;
+            $cusDetails->email = $request->email1;
+            $cusDetails->phone = $request->phone1;
+            $cusDetails->save();
+        }
 
         return redirect('/order')->with('success', 'Order placed successfully');
     }

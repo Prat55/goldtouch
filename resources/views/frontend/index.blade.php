@@ -17,6 +17,11 @@
             </div>
 
             <div class="row">
+                <div class="col-md-12 position-relative">
+                    <div class="col-md-4 warningBox2">
+                        @include('frontend.message')
+                    </div>
+                </div>
                 <div class="col-xl-3 col-sm-6">
                     <div class="card">
                         <div class="card-body d-flex align-items-center justify-content-between">
