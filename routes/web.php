@@ -67,6 +67,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/dispatch/{id}', [UserOrderController::class, 'dispatch']);
     Route::get('/calender', [AdminDashboardController::class, 'calender'])->name('calender');
     Route::post('/calender/event', [AdminDashboardController::class, 'calender_event'])->name('calendar.event');
+    Route::put('import/update-employee', [CsvImportController::class, 'import_employee']);
+
 
     // ? Old order customer details fetching route
     Route::post('fetchcustomer/{id}', [UserOrderController::class, 'fetchcustomer']);
@@ -74,6 +76,9 @@ Route::middleware('auth')->group(function () {
     // ? Calender routes
     Route::get('events/export/', [ExportEventController::class, 'export']);
     Route::get('orders/export/', [UserOrderController::class, 'export']);
+
+    // ?Task Routes
+    Route::post('/finished/{id}', [AdminDashboardController::class, 'finished']);
 });
 
 //? Admin Routes
@@ -91,11 +96,12 @@ Route::middleware('admin.auth')->group(function () {
     Route::post('/add-task', [AdminDashboardController::class, 'addTask'])->name('sendTask');
     Route::post('/add-order-task', [AdminDashboardController::class, 'addOrderTask']);
 
-    // ? Order Status Routes
-    Route::post('/finished/{id}', [AdminDashboardController::class, 'finished']);
+    // ? Tasks Status Routes
     Route::post('/cancelled/{id}', [AdminDashboardController::class, 'cancelled']);
     Route::post('/onhold/{id}', [AdminDashboardController::class, 'onhold']);
     Route::post('/process/{id}', [AdminDashboardController::class, 'process']);
+
+    // ?Order based task routes
     Route::post('/orders/customer/{id}', [AdminDashboardController::class, 'fetch_customer']);
 });
 

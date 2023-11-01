@@ -170,6 +170,34 @@
                         <a onclick="history.back()" class="mb-3 btn btn-warning">
                             <i class="fas fa-redo-alt"></i>
                         </a>
+
+                        {{-- <div class="excelbtn">
+                            <form action="/import/update-employee" method="post">
+                                @csrf
+                                @method('put')
+
+                                <button type="button" class="btn btn-primary me-4 exceluploadbtn">
+                                    <i class="bi bi-file-earmark-excel-fill"></i>
+                                </button>
+
+                                <button type="submit" class="btn btn-primary me-4 d-none addButton">
+                                    <i class="fa fa-upload"></i>
+                                </button>
+
+                                @error('employee_file')
+                                    <span class="text-danger">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+
+                                <input type="file" name="employee_file" class="form-control d-none import_file">
+                            </form>
+                        </div> --}}
+
+                        <div class="excelerror">
+                            <span class="text-danger me-3" id="result"></span>
+                        </div>
+
                     </div>
                 </div>
 
@@ -288,7 +316,37 @@
             e.preventDefault();
             $('#poimg').click();
         });
+
+        $('.exceluploadbtn').click(function() {
+            $('.import_file').click();
+        });
+
+        $(document).ready(function() {
+            const fileInput = $(".import_file");
+            const resultDiv = $("#result");
+
+            fileInput.on("change", function() {
+                const selectedFile = fileInput[0].files[0];
+
+                if (selectedFile) {
+                    const allowedExtensions = [
+                        "xlsx", "xlx", "xls", "csv"
+                    ]; // Define your allowed extensions here.
+                    const fileExtension = selectedFile.name.split(".").pop().toLowerCase();
+
+                    if (allowedExtensions.includes(fileExtension)) {
+                        $('.exceluploadbtn').addClass('d-none');
+                        $('.addButton').removeClass('d-none');
+                    } else {
+                        resultDiv.text("Only excel file is allowed.");
+                    }
+                } else {
+                    resultDiv.text("No file selected.");
+                }
+            });
+        });
     </script>
+
 @endsection
 
 

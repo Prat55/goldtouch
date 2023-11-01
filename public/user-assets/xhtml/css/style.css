@@ -47347,7 +47347,19 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
 }
 
 .excelbtn {
-    margin-left: 20px;
+    height: 55px;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.excelerror {
+    height: 55px;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /*

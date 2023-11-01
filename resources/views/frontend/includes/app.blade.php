@@ -108,13 +108,13 @@
                                 <a href="/make-order" class="btn btn-sm btn-primary">New Order</a>
                             </div>
                             <div class="ms-2 nav-item position-relative">
-                                <a href="/orders" class="btn btn-sm btn-primary">Process Order</a>
+                                <a href="/orders" class="btn btn-sm btn-warning">Process Order</a>
                             </div>
                             <div class="ms-2 nav-item position-relative">
-                                <a href="/tasks" class="btn btn-sm btn-primary">New Task</a>
+                                <a href="/tasks" class="btn btn-sm btn-secondary">New Task</a>
                             </div>
                             <div class="ms-2 nav-item position-relative">
-                                <a href="/orders" class="btn btn-sm btn-primary">New Measurement</a>
+                                <a href="/orders" class="btn btn-sm btn-success">New Measurement</a>
                             </div>
                         </div>
 
