@@ -8,6 +8,7 @@ use App\Http\Controllers\RouteSignedController;
 use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\UserOrderController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,8 @@ Route::delete('/delete-empdetails/{id}', [RouteSignedController::class, 'delete'
 Route::get('/edit-emp/{id}', [RouteSignedController::class, 'edit']);
 Route::post('/update-emp/{id}', [RouteSignedController::class, 'update']);
 Route::put('/import/excel', [CsvImportController::class, 'import']);
+Route::post('empdetails/import', [CsvImportController::class, 'import'])->name('empdetails.import');
+
 
 //? Dashboard route
 Route::get('/dashboard', [AdminDashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
@@ -52,6 +55,8 @@ Route::middleware('auth')->group(function () {
     // ?Order routes
     Route::get('/make-order', [UserOrderController::class, 'makeUserOrder'])->name('userorder');
     Route::put('/ordered', [UserOrderController::class, 'makeOrder'])->name('usermakeOrder');
+    // Route::put('/order-pdf-download', [UserOrderController::class, 'downloadPDF'])->name('downloadPDF');
+    Route::get('/order/download/{orderId}', [UserOrderController::class, 'downloadPDF'])->name('order.downloadPdf');
     Route::get('/orders', [UserOrderController::class, 'orders'])->name('orders');
     Route::get('/order-edit/{id}', [UserOrderController::class, 'orderEdit']);
     Route::post('/order-update/{id}', [UserOrderController::class, 'orderUpdate']);
@@ -67,7 +72,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/dispatch/{id}', [UserOrderController::class, 'dispatch']);
     Route::get('/calender', [AdminDashboardController::class, 'calender'])->name('calender');
     Route::post('/calender/event', [AdminDashboardController::class, 'calender_event'])->name('calendar.event');
-    Route::put('import/update-employee', [CsvImportController::class, 'import_employee']);
+    Route::get('empdetails/export/{customerId}', [CsvImportController::class, 'export'])->name('empdetails.export');
 
 
     // ? Old order customer details fetching route
@@ -75,16 +80,21 @@ Route::middleware('auth')->group(function () {
 
     // ? Calender routes
     Route::get('events/export/', [ExportEventController::class, 'export']);
+    Route::post('orders/import/', [UserOrderController::class, 'import']);
     Route::get('orders/export/', [UserOrderController::class, 'export']);
 
     // ?Task Routes
     Route::post('/finished/{id}', [AdminDashboardController::class, 'finished']);
+
+    // ?Mail sending routes
+    Route::post('/send-mail-by-order-id/{id}', [RouteSignedController::class, 'sendMailRouteByOrderId']);
+    Route::post('/send-mail/{id}', [RouteSignedController::class, 'sendMailRoute']);
 });
 
 //? Admin Routes
 Route::middleware('admin.auth')->group(function () {
     Route::get('/users', [UserDashboardController::class, 'userinfo'])->name('userinfo');
-    Route::post('/send-mail/{id}', [RouteSignedController::class, 'sendMailRoute']);
+
     // Route::get('/orders', [UserOrderController::class, 'orders'])->name('orders');
     Route::delete('delete/{id}', [AdminDashboardController::class, 'destroy']);
     Route::post('/accept/{id}', [AdminDashboardController::class, 'accept']);
@@ -103,6 +113,9 @@ Route::middleware('admin.auth')->group(function () {
 
     // ?Order based task routes
     Route::post('/orders/customer/{id}', [AdminDashboardController::class, 'fetch_customer']);
+    Route::get('/search', [SearchController::class, 'search']);
+
+    Route::get('/send-whatsapp-message', [UserOrderController::class, 'sendMessage']);
 });
 
 require __DIR__ . '/auth.php';

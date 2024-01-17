@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\OrdersImport;
 use App\Exports\OrderExport;
 use App\Mail\AssignOrderMail;
 use App\Mail\OrdersMail;
@@ -19,6 +20,9 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpParser\JsonDecoder;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Twilio\Rest\Client;
+use Illuminate\Support\Facades\URL;
 
 class UserOrderController extends Controller
 {
@@ -47,6 +51,13 @@ class UserOrderController extends Controller
         return $orderid;
     }
 
+    public function downloadPdf($orderId)
+    {
+        $order = Order::find($orderId);
+        $pdf = PDF::loadView('pdf_view', compact('order'));
+        return $pdf->download('order_' . $order->order_id . '.pdf');
+    }
+
     protected function makeOrder(Request $request)
     {
         $random = $this->random();
@@ -54,18 +65,32 @@ class UserOrderController extends Controller
         $today = Carbon::now()->format('Y-m-d');
         $tomorrow = Carbon::tomorrow()->format('Y-m-d');
 
+        $mtakers = $request->input('mtaker');
+        $mtakerDates = $request->input('mdatetime');
+        $mtakerObjects = [];
+        for ($i = 0; $i < count($mtakers); $i++) {
+            $mtakerObject = [
+                'mtaker' => $mtakers[$i],
+                'mtaker_date' => $mtakerDates[$i]
+            ];
+            $mtakerObjects[] = $mtakerObject;
+        }
+
         if ($request->hasfile("poimg")) {
             $file = $request->file("poimg");
             $imageName = time() . '_' . $file->getClientOriginalName();
             $file->move(\public_path("poimg/"), $imageName);
 
+
+
             $order = new Order([
                 'order_id' => $random,
                 'cname' => $request->cname,
-                'mtaker1' => $request->mtaker1,
-                'mtakerDate1' => $request->mdatetime1,
-                'mtaker2' => $request->mtaker2,
-                'mtakerDate2' => $request->mdatetime2,
+                'mtaker' => json_encode($mtakerObjects),
+                // 'mtaker1' => $request->mtaker1,
+                // 'mtakerDate1' => $request->mdatetime1,
+                // 'mtaker2' => $request->mtaker2,
+                // 'mtakerDate2' => $request->mdatetime2,
                 'ponumber' => $request->pono,
                 'poimg' => $imageName,
                 'u_id' => $random,
@@ -112,7 +137,7 @@ class UserOrderController extends Controller
                 'phone' =>  "$request->phone1" . ' ' . "$request->phone2" . ' ' . "$request->phone3" . ' ' . "$request->phone4" . ' ' . "$request->phone5",
             ];
 
-            Mail::to('2490rahuljadhav@gmail.com')->cc("$request->email1", "$request->email2", "$request->email3", "$request->email4", "$request->email5")->send(new OrdersMail($mailData));
+            // Mail::to('2490rahuljadhav@gmail.com')->cc("$request->email1", "$request->email2", "$request->email3", "$request->email4", "$request->email5")->send(new OrdersMail($mailData));
 
             $customer = Customer::where('cname', $request->cname)->where('cgstin', $request->cgstin)->where('email', $request->email)->first();
 
@@ -127,15 +152,22 @@ class UserOrderController extends Controller
                 $cusDetails->save();
             }
 
-            return redirect('/make-order')->with('success', 'Order placed successfully');
+
+
+            $url = URL::temporarySignedRoute('share-entry', now()->addHours(24), [
+                'cid' => $random,
+            ]);
+
+            return redirect($url)->with('success', 'Order placed successfully');
         } else {
             $order = new Order([
                 'order_id' => $random,
                 'cname' => $request->cname,
-                'mtaker1' => $request->mtaker1,
-                'mtakerDate1' => $request->mdatetime1,
-                'mtaker2' => $request->mtaker2,
-                'mtakerDate2' => $request->mdatetime2,
+                'mtaker' => json_encode($mtakerObjects),
+                // 'mtaker1' => $request->mtaker1,
+                // 'mtakerDate1' => $request->mdatetime1,
+                // 'mtaker2' => $request->mtaker2,
+                // 'mtakerDate2' => $request->mdatetime2,
                 'u_id' => $random,
                 'cadd' => $request->cadd,
                 'cgstin' => $request->cgstin,
@@ -181,7 +213,7 @@ class UserOrderController extends Controller
                 'phone' =>  "$request->phone1" . ' ' . "$request->phone2" . ' ' . "$request->phone3" . ' ' . "$request->phone4" . ' ' . "$request->phone5",
             ];
 
-            Mail::to('2490rahuljadhav@gmail.com')->cc("$request->email1", "$request->email2", "$request->email3", "$request->email4", "$request->email5")->send(new OrdersMail($mailData));
+            // Mail::to('2490rahuljadhav@gmail.com')->cc("$request->email1", "$request->email2", "$request->email3", "$request->email4", "$request->email5")->send(new OrdersMail($mailData));
 
             $customer = Customer::where('cname', $request->cname)->where('phone', $request->phone1)->where('email', $request->email1)->first();
 
@@ -190,12 +222,38 @@ class UserOrderController extends Controller
                 $cusDetails->cname = $request->cname;
                 $cusDetails->cadd = $request->cadd;
                 $cusDetails->cgstin = $request->cgstin;
+                $cusDetails->styleref = $request->styleref;
                 $cusDetails->email = $request->email1;
                 $cusDetails->phone = $request->phone1;
                 $cusDetails->save();
             }
 
-            return redirect('/make-order')->with('success', 'Order placed successfully');
+            $url = URL::temporarySignedRoute('share-entry', now()->addHours(24), [
+                'cid' => $random,
+            ]);
+
+            return redirect($url)->with('success', 'Order placed successfully');
+        }
+    }
+
+    public function sendMessage() // TODO
+    {
+        $account_sid = env('TWILIO_SID');
+        $auth_token = env('TWILIO_AUTH_TOKEN');
+        $twilio_number = env('TWILIO_NUMBER');
+        $to_number = "+919720864702"; //$phone_number;
+
+        $client = new Client($account_sid, $auth_token);
+        $message = $client->messages->create(
+            "whatsapp:+919720864702",
+            array(
+                'from' => 'whatsapp:' . $twilio_number,
+                'body' => 'Your order has been placed successfully.'
+            )
+        );
+
+        if ($message->sid) {
+            return response()->json(['status' => 'success', 'message' => 'Message sent successfully.']);
         }
     }
 
@@ -430,6 +488,18 @@ class UserOrderController extends Controller
             $imageName = $request->oldpoimg;
         }
 
+        // Prepare mtaker data
+        $mtakerNames = $request->input('mtaker');
+        $mtakerDates = $request->input('mdatetime');
+        $mtakers = [];
+
+        foreach ($mtakerNames as $index => $name) {
+            $mtakers[] = [
+                'mtaker' => $name,
+                'mtaker_date' => $mtakerDates[$index]
+            ];
+        }
+
         $orders->update([
             "poimg" => $imageName,
             "cstyle_ref" => $request->styleref,
@@ -438,6 +508,7 @@ class UserOrderController extends Controller
             "mtakerDate1" => $request->mtakerDate1,
             "mtaker2" => $request->mtaker2,
             "mtakerDate2" => $request->mtakerDate2,
+            "mtaker" => json_encode($mtakers),
         ]);
 
         if ($orders) {
@@ -445,6 +516,13 @@ class UserOrderController extends Controller
         } else {
             return back()->with('error', 'Something went wrong!');
         }
+    }
+
+
+    public function import()
+    {
+        Excel::import(new OrdersImport, request()->file('file'));
+        return back();
     }
 
     public function export()

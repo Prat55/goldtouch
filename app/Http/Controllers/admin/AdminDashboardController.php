@@ -40,7 +40,7 @@ class AdminDashboardController extends Controller
     protected function addTasks()
     {
         $tasks = Task::latest()->paginate(10);
-        $users = User::all();
+        $users = User::where('role', 1)->latest()->get();
         $orders = Order::all();
         $notification = Notification::latest()->get();
         $notificationCount = Notification::where('status', '1')->count();

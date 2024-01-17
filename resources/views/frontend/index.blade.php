@@ -284,7 +284,7 @@
                     <div class="col-md-8 col-lg-8">
                         <div class="card">
                             <div class="card-header">
-                                <h3>Recent Alloted Tasks</h3>
+                                <h3>{{ auth()->user()->role === 'user' ? 'Your' : 'Recent' }} Alloted Tasks</h3>
                             </div>
                             <div class="table-responsive fs-14">
                                 <table class="table mb-4 display dataTablesCard order-table shadow-hover card-table"

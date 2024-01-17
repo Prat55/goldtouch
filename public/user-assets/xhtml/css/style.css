@@ -47348,7 +47348,7 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
 
 .excelbtn {
     height: 55px;
-    width: 150px;
+    width: 80px;
     display: flex;
     justify-content: center;
     align-items: center;

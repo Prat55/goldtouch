@@ -5,14 +5,14 @@
     <div class="content-body">
         <div class="container-fluid">
             <div class="flex-wrap mb-sm-4 d-flex align-items-center text-head">
-                <h2 class="mb-3 me-auto">Order</h2>
+                <h2 class="mb-3 me-auto">Order&nbsp;#{{ $order->order_id }}</h2>
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
                             <a href="{{ route('dashboard') }}">Dashboard</a>
                         </li>
                         <li class="breadcrumb-item active">
-                            <a href="javascript: void();">Order</a>
+                            <a href="javascript: void();">Order&nbsp;#{{ $order->order_id }}</a>
                         </li>
                     </ol>
                 </div>
@@ -73,40 +73,7 @@
 
                                             </div>
                                         </div>
-                                        <div class="mb-3 col-md-6">
-                                            <label class="form-label">MEASURMENT TAKER 1</label>
-                                            <div class="col-md-12 d-flex justify-content-between">
-                                                <div class="col-8">
-                                                    <!-- Text input with 70% width -->
-                                                    <input type="text" name="mtaker1" class="form-control"
-                                                        style="width: 100%" placeholder="Enter measurement taker name"
-                                                        value="{{ $order->mtaker1 }}" required />
-                                                </div>
-                                                <div class="col-3">
-                                                    <!-- Date-time input with 30% width -->
-                                                    <input type="date" name="mtakerDate1"
-                                                        value="{{ $order->mtakerDate1 }}" class="form-control"
-                                                        style="width: 100%" required />
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="mb-3 col-md-6">
-                                            <label class="form-label">MEASURMENT TAKER 2</label>
-                                            <div class="col-md-12 d-flex justify-content-between">
-                                                <div class="col-8">
-                                                    <!-- Text input with 70% width -->
-                                                    <input type="text" name="mtaker2" class="form-control"
-                                                        style="width: 100%" value="{{ $order->mtaker2 }}"
-                                                        placeholder="Enter measurement taker name (optional)" />
-                                                </div>
-                                                <div class="col-3">
-                                                    <!-- Date-time input with 30% width -->
-                                                    <input type="date" name="mdatetime2" class="form-control"
-                                                        style="width: 100%" value="{{ $order->mtakerDate2 }}" />
-                                                </div>
-                                            </div>
-                                        </div>
 
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">Email</label>
@@ -130,7 +97,45 @@
                                             </div>
                                         </div>
 
-                                        <div class="mb-3 col-md-6">
+
+
+                                        <div class="mt-4 mb-3 col-md-6">
+                                            <label class="form-label">MEASURMENT TAKER</label>
+                                            <div id="inputContainer2">
+                                                @php
+                                                    $mtakers = json_decode($order->mtaker, true);
+                                                    if (!is_array($mtakers)) {
+                                                        $mtakers = [];
+                                                    }
+                                                @endphp
+                                                @foreach ($mtakers as $index => $mtaker)
+                                                    <div class="mb-3 d-flex align-items-center input-container2">
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Enter Measurement Taker Name 1" name="mtaker[]"
+                                                                id="mtaker{{ $index }}"
+                                                                value="{{ $mtaker['mtaker'] }}" required>
+                                                        </div>
+                                                        <div class="col-md-3 ms-3">
+                                                            <input type="date" class="form-control" name="mdatetime[]"
+                                                                id="mdatetime{{ $index }}"
+                                                                value="{{ $mtaker['mtaker_date'] }}" required>
+                                                        </div>
+                                                        <div class="col-md-1 ms-5">
+                                                            <button
+                                                                class="btn btn-sm btn-danger remove-button2">Remove</button>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                                <div class="col-md-3 ms-5">
+                                                    <button id="addInput2" class="btn btn-primary"
+                                                        style="width: 200px; padding: 5px 10px; font-size: 12px;">Add
+                                                        Measurement</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 col-md-12">
                                             <button type="submit" class="btn btn-sm btn-primary">Update</button>
                                         </div>
                                     </div>
@@ -167,33 +172,34 @@
                             </form>
                         </div>
 
-                        <a onclick="history.back()" class="mb-3 btn btn-warning">
+                        <a onclick="history.back()" class="mx-3 mb-3 btn btn-warning">
                             <i class="fas fa-redo-alt"></i>
                         </a>
 
                         {{-- <div class="excelbtn">
-                            <form action="/import/update-employee" method="post">
-                                @csrf
-                                @method('put')
+                        <form action="/import/update-employee" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <button type="button" class="btn btn-success me-4 exceluploadbtn">
+                                <i class="bi bi-upload"></i>
+                            </button>
+                            @error('employee_file')
+                            <span class="text-danger">
+                                {{ $message }}
+                    </span>
+                    @enderror
+                    <input type="file" name="employee_file" class="form-control d-none import_file">
+                    </form>
+                </div> --}}
 
-                                <button type="button" class="btn btn-primary me-4 exceluploadbtn">
+                        {{-- ? Exporting employeee details in xl and csv --}}
+                        @if ($employees->count() > 0)
+                            <div class="excelbtn">
+                                <a href="{{ route('empdetails.export', ['customerId' => $order->u_id]) }}"
+                                    class="btn btn-primary me-4">
                                     <i class="bi bi-file-earmark-excel-fill"></i>
-                                </button>
-
-                                <button type="submit" class="btn btn-primary me-4 d-none addButton">
-                                    <i class="fa fa-upload"></i>
-                                </button>
-
-                                @error('employee_file')
-                                    <span class="text-danger">
-                                        {{ $message }}
-                                    </span>
-                                @enderror
-
-                                <input type="file" name="employee_file" class="form-control d-none import_file">
-                            </form>
-                        </div> --}}
-
+                                </a>
+                            </div>
+                        @endif
                         <div class="excelerror">
                             <span class="text-danger me-3" id="result"></span>
                         </div>
@@ -223,7 +229,7 @@
                                         <tr>
                                             <td class="text-ov">{{ $od->tokenNo }}</td>
                                             <td>{{ $od->fullName }}</td>
-                                            <td>{{ $od->sname }}</td>
+                                            <td>{{ $od->id }}</td>
                                             <td>{{ $od->category }}</td>
                                             <td>{{ $od->setOrder }}</td>
                                             <td>
@@ -324,8 +330,12 @@
         $(document).ready(function() {
             const fileInput = $(".import_file");
             const resultDiv = $("#result");
+            const form = $("form");
+
+
 
             fileInput.on("change", function() {
+                console.log('File input changed');
                 const selectedFile = fileInput[0].files[0];
 
                 if (selectedFile) {
@@ -335,14 +345,83 @@
                     const fileExtension = selectedFile.name.split(".").pop().toLowerCase();
 
                     if (allowedExtensions.includes(fileExtension)) {
+                        console.log('File extension is allowed');
                         $('.exceluploadbtn').addClass('d-none');
                         $('.addButton').removeClass('d-none');
                     } else {
+                        console.log('File extension is not allowed');
                         resultDiv.text("Only excel file is allowed.");
                     }
                 } else {
+                    console.log('No file selected');
                     resultDiv.text("No file selected.");
                 }
+            });
+
+            $(".addButton").on("click", function() {
+                console.log('addButton clicked');
+                form.submit();
+            });
+        });
+
+        $(document).ready(function() {
+            var maxInputBoxes = 10; // Maximum number of input boxes allowed
+            var inputCount = 1; // Current input box count
+            var num = 2;
+
+            function addInputBox() {
+                if (inputCount < maxInputBoxes) {
+                    // Create a new input element
+                    var inputElement = $("<div>")
+                        .addClass("d-flex align-items-center input-container2 mt-2")
+                        .append(
+                            $("<div>").addClass("col-md-8").append(
+                                $("<input>").attr({
+                                    type: "text",
+                                    name: "mtaker[]", // Changed name to array
+                                    class: "input-box form-control mt-2",
+                                    placeholder: "Enter Measurement Taker Name " + num + " (optional)"
+                                })
+                            )
+                        )
+                        .append(
+                            $("<div>").addClass("col-md-3 ms-3").append(
+                                $("<input>").attr({
+                                    type: "date",
+                                    name: "mdatetime[]", // Changed name to array
+                                    class: "input-box form-control mt-2"
+                                })
+                            )
+                        )
+                        .append(
+                            $("<div>").addClass("col-md-1 ms-5").append(
+                                $("<button>").text("Remove").attr({
+                                    class: "btn btn-sm btn-danger remove-button2 mt-2"
+                                })
+                            )
+                        )
+
+                    // Append the input element to the container
+                    $("#inputContainer2").append(inputElement);
+
+                    // Increment the input count
+                    inputCount++;
+                    num++;
+                } else {
+                    alert("You can add only 10 measurement takers at once");
+                }
+            }
+
+            $("#addInput2").click(function(e) {
+                e.preventDefault();
+                addInputBox();
+            });
+
+            // Attach a click event handler to the Remove button using event delegation
+            $("#inputContainer2").on("click", ".remove-button2", function() {
+                $(this).closest(".input-container2").remove();
+                inputCount--;
+                num--;
             });
         });
     </script>

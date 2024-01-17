@@ -50,24 +50,38 @@
                                             </div>
 
                                             <div class="col-md-6 d-flex justify-content-end">
-                                                <form action="/import/excel" method="post"
+                                                @auth
+                                                    <a href="/orders"
+                                                        class="py-0 mb-2 justify-content-center d-flex btn btn-sm btn-primary ms-4 align-items-center">
+                                                        Orders
+                                                    </a>
+                                                    <form id="send-mail-form"
+                                                        action="/send-mail-by-order-id/{{ $segment }}" method="post">
+                                                        @csrf
+                                                        <button type="button" id="send-mail-button"
+                                                            class="py-0 mb-2 btn btn-sm btn-primary ms-4">
+                                                            Send Mail
+                                                        </button>
+                                                    </form>
+                                                @endauth
+
+                                                <form action="/empdetails/import" method="post"
                                                     enctype="multipart/form-data">
                                                     @csrf
-                                                    @method('PUT')
+                                                    @method('POST')
                                                     <span class="text-danger me-3" id="result"></span>
 
                                                     <button type="button"
-                                                        class="mb-2 btn btn-sm btn-primary me-4 exceluploadbtn">
-                                                        <i class="bi bi-file-earmark-excel-fill"></i>
+                                                        class="mb-2 btn btn-sm btn-success me-4 exceluploadbtn">
+                                                        <i class="bi bi-upload"></i>
                                                     </button>
 
                                                     <input type="hidden" name="cusid" id="cusid"
                                                         value="{{ $segment }}">
 
-                                                    <button type="submit"
-                                                        class="mb-2 btn btn-sm btn-primary me-4 d-none addButton">
+                                                    {{-- <button type="submit" class="mb-2 btn btn-sm btn-primary me-4 d-none addButton">
                                                         <i class="fa fa-upload"></i>
-                                                    </button>
+                                                    </button> --}}
 
                                                     <div class="d-none">
                                                         <input type="file" name="excel" id="excel">
@@ -123,7 +137,7 @@
                                                     <input type="number" name="setOrder" id="setOrder"
                                                         class="form-control ">
                                                     <input type="text" value="MP" id="status"
-                                                        name="status" class="mt-2 form-control">
+                                                        name="status" class="mt-2 form-control" readonly>
                                                     {{-- <select name="status" id="status" class="mt-2 form-control">
                                                         <option value="MEASURMENT DONE">MEASURMENT DONE</option>
                                                         <option value="MEASURMENT PENDING">MEASURMENT PENDING
@@ -236,7 +250,6 @@
                                                         <th scope="col">Set Order</th>
                                                         <th scope="col">Status</th>
                                                         <th scope="col">Remarks</th>
-                                                        <th scope="col"></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -251,7 +264,6 @@
                                                                 <td> {{ $emp->category }} </td>
                                                                 <td> {{ $emp->setOrder }} </td>
                                                                 <td>Measurement Pending</td>
-                                                                <td></td>
                                                                 <td class="d-flex align-items-center">
                                                                     <button class="mb-2 edit btn"
                                                                         value="{{ $emp->id }}">
@@ -480,25 +492,46 @@
             $(document).ready(function() {
                 const fileInput = $("#excel");
                 const resultDiv = $("#result");
+                const form = fileInput.closest('form');
 
                 fileInput.on("change", function() {
                     const selectedFile = fileInput[0].files[0];
-
                     if (selectedFile) {
-                        const allowedExtensions = ["xlsx", "xlx", "xls",
-                            "csv"
-                        ]; // Define your allowed extensions here.
+                        const allowedExtensions = ["csv"];
                         const fileExtension = selectedFile.name.split(".").pop().toLowerCase();
-
                         if (allowedExtensions.includes(fileExtension)) {
-                            $('.exceluploadbtn').addClass('d-none');
-                            $('.addButton').removeClass('d-none');
+                            form.submit();
                         } else {
                             resultDiv.text("Only excel file is allowed.");
                         }
                     } else {
                         resultDiv.text("No file selected.");
                     }
+                });
+            });
+
+
+            $(document).ready(function() {
+                $('#send-mail-button').click(function(e) {
+                    e.preventDefault();
+
+                    $.ajax({
+                        type: "POST",
+                        url: $('#send-mail-form').attr('action'),
+                        data: $('#send-mail-form').serialize(),
+                        success: function(response) {
+                            $('#errstatus').html("");
+                            $('#sStatus').html("");
+                            $('#editModal').modal('hide');
+                            $('#sStatus').addClass('alert alert-success');
+                            $('#sStatus').text("Successfully send mail");
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            $('#errstatus').html("");
+                            $('#errstatus').addClass('alert alert-danger');
+                            $('#errstatus').text("Failed to send mail");
+                        }
+                    });
                 });
             });
         </script>

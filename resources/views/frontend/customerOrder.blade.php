@@ -43,47 +43,38 @@
                                             <div class="card">
                                                 <div class="card-body">
                                                     <div class="basic-form">
-                                                        <form action="{{ route('makeOrder') }}" method="POST"
-                                                            enctype="multipart/form-data">
+                                                        <form action="{{ route('makeOrder') }}" method="POST" enctype="multipart/form-data">
                                                             @csrf
                                                             @method('put')
                                                             <div class="row">
                                                                 <div class="mb-3 col-md-6">
                                                                     <label class="form-label">CUSTOMER NAME</label>
-                                                                    <input type="text" class="form-control"
-                                                                        name="cname" required>
+                                                                    <input type="text" class="form-control" name="cname" required>
                                                                 </div>
 
                                                                 <div class="mb-3 col-md-6">
                                                                     <label class="form-label">CUSTOMER ADD</label>
-                                                                    <input type="text" class="form-control"
-                                                                        name="cadd" required>
+                                                                    <input type="text" class="form-control" name="cadd" required>
                                                                 </div>
 
                                                                 <div class="mb-3 col-md-6">
                                                                     <label class="form-label">CUSTOMER GSTIN</label>
-                                                                    <input type="text" class="form-control"
-                                                                        name="cgstin" required>
+                                                                    <input type="text" class="form-control" name="cgstin" required>
                                                                 </div>
 
                                                                 <div class="mb-3 col-md-6">
                                                                     <label class="form-label">Remark</label>
-                                                                    <input type="text" class="form-control"
-                                                                        name="remark" required>
+                                                                    <input type="text" class="form-control" name="remark" required>
                                                                 </div>
 
                                                                 <div class="mb-3 col-md-6">
                                                                     <label class="form-label">Email</label>
                                                                     <div class="d-flex align-items-center">
                                                                         <div class="col-md-9">
-                                                                            <input type="email"
-                                                                                class="form-control mt-1"
-                                                                                placeholder="Enter Email Id 1"
-                                                                                name="email1" required>
+                                                                            <input type="email" class="form-control mt-1" placeholder="Enter Email Id 1" name="email1" required>
                                                                         </div>
                                                                         <div class="col-md-2 ms-5">
-                                                                            <button id="addInput"
-                                                                                class="btn btn-sm btn-primary">Add</button>
+                                                                            <button id="addInput" class="btn btn-sm btn-primary">Add</button>
                                                                         </div>
                                                                     </div>
                                                                     <div class="d-flex align-items-center">
@@ -98,13 +89,10 @@
                                                                     <label class="form-label">Phone</label>
                                                                     <div class="d-flex align-items-center">
                                                                         <div class="col-md-9">
-                                                                            <input type="text" class="form-control"
-                                                                                placeholder="Enter Phone Number 1"
-                                                                                name="phone1" required>
+                                                                            <input type="text" class="form-control" placeholder="Enter Phone Number 1" name="phone1" required>
                                                                         </div>
                                                                         <div class="col-md-2 ms-5">
-                                                                            <button id="addInput1"
-                                                                                class="btn btn-sm btn-primary">Add</button>
+                                                                            <button id="addInput1" class="btn btn-sm btn-primary">Add</button>
                                                                         </div>
                                                                     </div>
                                                                     <div class="d-flex align-items-center">
@@ -114,8 +102,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="mb-3 col-md-6">
-                                                                    <button type="submit"
-                                                                        class="btn btn-sm btn-primary">Order
+                                                                    <button type="submit" class="btn btn-sm btn-primary">Order
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -146,12 +133,10 @@
     <script src="{{ asset('user-assets/xhtml/js/demo.js') }}"></script>
     <script src="{{ asset('user-assets/xhtml/js/styleSwitcher.js') }}"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
 
     <script>
@@ -160,6 +145,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
     </script>
 
     <script>
@@ -175,17 +161,17 @@
                         .addClass("input-container")
                         .append(
                             $("<input>").attr({
-                                type: "email",
-                                name: "email" + num, // Incrementing name
-                                class: "input-box form-control mt-2",
-                                placeholder: "Enter Email Id " + num + " (optional)",
-                            })
+                                type: "email"
+                                , name: "email" + num, // Incrementing name
+                                class: "input-box form-control mt-2"
+                                , placeholder: "Enter Email Id " + num + " (optional)"
+                            , })
                         )
                         .append(
 
                             $("<button>").text("Remove").attr({
-                                class: "btn btn-sm btn-danger remove-button mt-2",
-                            })
+                                class: "btn btn-sm btn-danger remove-button mt-2"
+                            , })
                         )
 
                     // Append the input element to the container
@@ -225,17 +211,17 @@
                         .addClass("input-container1")
                         .append(
                             $("<input>").attr({
-                                type: "number",
-                                name: "phone" + num, // Incrementing name
-                                class: "input-box form-control mt-2",
-                                placeholder: "Enter Phone Number " + num + " (optional)",
-                            })
+                                type: "number"
+                                , name: "phone" + num, // Incrementing name
+                                class: "input-box form-control mt-2"
+                                , placeholder: "Enter Phone Number " + num + " (optional)"
+                            , })
                         )
                         .append(
 
                             $("<button>").text("Remove").attr({
-                                class: "btn btn-sm btn-danger remove-button1 mt-2",
-                            })
+                                class: "btn btn-sm btn-danger remove-button1 mt-2"
+                            , })
                         )
 
                     // Append the input element to the container
@@ -263,6 +249,7 @@
                 addInputBox();
             });
         });
+
     </script>
 </body>
 

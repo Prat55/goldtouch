@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
+
 class EmployeeImport implements ToModel, WithHeadingRow
 {
     protected $customerId;
@@ -18,18 +19,18 @@ class EmployeeImport implements ToModel, WithHeadingRow
 
     public function model(array $row)
     {
-        $token = isset($row['tokeno']) ? $row['tokeno'] : null;
+        $token = isset($row['token_no']) ? $row['token_no'] : null;
         $fullname = isset($row['fullname']) ? $row['fullname'] : null;
         $category = isset($row['category']) ? $row['category'] : null;
-        $setOrder = isset($row['setorder']) ? $row['setorder'] : null;
+        $setOrder = isset($row['set_order']) ? $row['set_order'] : null;
 
         return new Empdetail([
             'tokenNo' => $token,
             'fullName' => $fullname,
             'category' => $category,
             'setOrder' => $setOrder,
+            'status' => 'MP',
             'customer_id' => $this->customerId,
-            'status' => "MP",
         ]);
     }
 }

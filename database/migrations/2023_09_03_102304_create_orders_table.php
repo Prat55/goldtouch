@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('cadd');
             $table->string('cgstin', 50);
             $table->text('cstyle_ref');
+            $table->json('mtaker')->nullable();
             $table->string('email');
             $table->string('email2')->nullable();
             $table->string('email3')->nullable();

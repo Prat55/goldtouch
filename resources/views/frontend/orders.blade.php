@@ -91,11 +91,26 @@
                                 </div>
                             </form>
                         </div>
-                        <a href="{{ route('orders') }}" class="mb-3 btn btn-warning">
+                        <a href="{{ route('orders') }}" class="mx-3 mb-3 btn btn-warning">
                             <i class="fas fa-redo-alt"></i>
                         </a>
 
-                        <div class="mb-3 pe-3 excelbtn">
+
+
+                        <div class="mb-3 excelbtn">
+                            <form action="/orders/import" method="POST" enctype="multipart/form-data" id="myForm">
+                                @csrf
+                                <input type="file" name="file" style="display: none;" id="fileInput"
+                                    onchange="document.getElementById('myForm').submit();">
+                                <button class="btn btn-primary"
+                                    onclick="document.getElementById('fileInput').click(); return false;">
+                                    <i class="fa fa-upload"></i>
+                                </button>
+                            </form>
+                        </div>
+
+
+                        <div class="mb-3 excelbtn">
                             <a href="/orders/export/" class="btn btn-success">
                                 <i class="fa fa-file-excel"></i>
                             </a>
@@ -115,6 +130,7 @@
                                     <th>Order Progress</th>
                                     <th>Order Status</th>
                                     <th class="">Edits</th>
+                                    <th>PDF</th>
                                 </tr>
                             </thead>
 
@@ -169,8 +185,8 @@
                                         <td>
                                             <div class="dropdown ms-auto c-pointer">
                                                 <div class="btn-link" data-bs-toggle="dropdown">
-                                                    <svg width="24" height="24" viewbox="0 0 24 24" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
+                                                    <svg width="24" height="24" viewbox="0 0 24 24"
+                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path
                                                             d="M11.0005 12C11.0005 12.5523 11.4482 13 12.0005 13C12.5528 13 13.0005 12.5523 13.0005 12C13.0005 11.4477 12.5528 11 12.0005 11C11.4482 11 11.0005 11.4477 11.0005 12Z"
                                                             stroke="#3E4954" stroke-width="2" stroke-linecap="round"
@@ -234,7 +250,14 @@
                                                 </div>
                                             </div>
                                         </td>
+                                        <td>
+                                            <a href="{{ route('order.downloadPdf', ['orderId' => $od->id]) }}"
+                                                class="btn btn-sm btn-primary">
+                                                Download PDF
+                                            </a>
+                                        </td>
                                     </tr>
+
                                 @empty
                                     <tr>
                                         <td colspan="10" class="text-center">No records found!</td>

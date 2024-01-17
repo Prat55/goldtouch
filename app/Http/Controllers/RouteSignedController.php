@@ -30,7 +30,29 @@ class RouteSignedController extends Controller
             ];
 
             Mail::to($order->email)->send(new SendRoute($mailData));
+            return back()->with('success', 'Email Sended Successfully');
+        } else {
+            return back()->with('error', 'Email not sended try again later');
+        }
+    }
 
+    protected function sendMailRouteByOrderId($id)
+    {
+        $order = Order::where('order_id', $id)->firstOrFail();
+    
+        if ($order) {
+            $url = URL::temporarySignedRoute('share-entry', now()->addHours(24), [
+                'cid' => $order->u_id,
+            ]);
+    
+            $mailData = [
+                'cname' => $order->cname,
+                'title' => 'Employee Details Fillup Form',
+                'body' => "Make sure this link is only valid for 24 hours",
+                'link' => $url,
+            ];
+    
+            Mail::to($order->email)->send(new SendRoute($mailData));
             return back()->with('success', 'Email Sended Successfully');
         } else {
             return back()->with('error', 'Email not sended try again later');

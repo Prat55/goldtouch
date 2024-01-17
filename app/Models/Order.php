@@ -27,6 +27,8 @@ class Order extends Model
         'status',
         'mtakerDate1',
         'mtakerDate2',
+        'mtaker',
+        
     ];
 
     protected function uid()
